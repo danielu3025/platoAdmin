@@ -1,0 +1,20 @@
+<div class= container>
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <div class="form-group">
+        <br><br>
+        <label for="empId">Employ ID</label><br>
+        <input type="text" id="empId" class="form-control" ngModel name="empId"><br>
+
+        <label for="empFirst">Employ first name</label><br>
+        <input type="text" id="empFirst" class="form-control" ngModel name="empFirst"><br>
+
+        <label for="empLast">Employ last name</label><br>
+        <input type="text" id="empLast" class="form-control" ngModel name="empLast"><br>
+
+        <label for="empRoll">Employ last name</label><br>
+        <input type="text" id="empRoll" class="form-control" ngModel name="empRoll"><br>
+
+        <button class="btn btn-primary" id="submit" type="submit" name="submit" >Add</button>
+      </div>
+    </form>
+</div>

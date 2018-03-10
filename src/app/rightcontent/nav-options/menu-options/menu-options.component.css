@@ -1,0 +1,22 @@
+.menuItem{
+    padding: 5px;
+    width: 70px;
+    background-color: #009688;
+    text-align: center;
+    float: left;
+    margin-top: 60px;
+    margin-left: 20px;
+    color: #B2DFDB;
+    font-family: Arial, serif;
+    text-decoration: none;
+    border-radius: 3px;
+}
+.title{
+    color: #B2DFDB;
+    width: 100%;
+    height: 30px;
+    padding-top:10px ;
+    font-size: 30px;
+    text-align: left;
+    margin-left: 230px;
+}
