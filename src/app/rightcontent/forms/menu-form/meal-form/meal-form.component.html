@@ -1,0 +1,21 @@
+<app-topbar><app-menu-options></app-menu-options></app-topbar>
+<div class= container id="formContainer">
+  <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div class="form-group">
+      <br><br>
+
+      <label for="mealDescription">Meal Name</label><br>
+      <input type="text" id="mealDescription" class="form-group-sm" ngModel name="mealDescription"><br>
+
+      <label for="DishForMeal1">Dish Name</label><br>
+      <input type="checkbox" id="DishForMeal1" class="form-group-sm" ngModel name="DishForMeal1"> ggg<br>
+      <input type="checkbox" id="DishForMeal2" class="form-group-sm" ngModel name="DishForMeal2"> hhh<br>
+      <input type="checkbox" id="DishForMeal3" class="form-group-sm" ngModel name="DishForMeal3"> yyy<br>
+
+      <label for="mealImange">Meal Img</label><br>
+      <input type="image" id="mealImange" class="form-group-sm" ngModel name="mealImange"><br><br>
+
+      <button class="btn btn-primary" id="submit" type="submit" name="submit">Upload</button>
+    </div>
+  </form>
+</div>

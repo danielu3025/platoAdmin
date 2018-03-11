@@ -1,0 +1,18 @@
+<app-topbar><app-menu-options></app-menu-options></app-topbar>
+<div class= container id="formContainer">
+  <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div class="form-group">
+      <br><br>
+      <label for="groceryName">Grocery Name</label><br>
+      <input type="text" id="groceryName" class="form-group-sm" ngModel name="groceryName"><br>
+
+      <label for="groceryAmount">Grocery Amount</label><br>
+      <input type="text" id="groceryAmount" class="form-group-sm" ngModel name="groceryAmount"><br>
+
+      <label for="groceryCookingTime">Grocery Cooking Time</label><br>
+        <input type="text" id="groceryCookingTime" class="form-group-sm" ngModel name="groceryCookingTime"><br><br>
+
+      <button class="btn btn-primary" id="submit" type="submit" name="submit" >Add</button>
+    </div>
+  </form>
+</div>

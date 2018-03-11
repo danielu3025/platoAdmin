@@ -2,3 +2,6 @@
 html, body{
     height:100%;
 }
+#formContainer{
+    margin-left: 200px;
+}

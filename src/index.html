@@ -4,11 +4,35 @@
   <meta charset="utf-8">
   <title>PlatoAdmin</title>
   <base href="/">
+  <!-- AngularJS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+
+  <!-- Firebase -->
+
+  <!-- AngularFire -->
+  <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"></script>
+
 </head>
 <body>
   <app-root></app-root>
+
+  <script>
+      // Initialize Firebase
+      var config = {
+          apiKey: "AIzaSyA3WJ9OM4djaPCTRGvF2qaeh_hE4qXQ8DU",
+          authDomain: "plato-7fb01.firebaseapp.com",
+          databaseURL: "https://plato-7fb01.firebaseio.com",
+          projectId: "plato-7fb01",
+          storageBucket: "plato-7fb01.appspot.com",
+          messagingSenderId: "1064887107825"
+      };
+      firebase.initializeApp(config);
+  </script>
 </body>
 </html>

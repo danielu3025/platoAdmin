@@ -1,0 +1,15 @@
+<app-topbar><app-menu-options></app-menu-options></app-topbar>
+<div class= container id="formContainer">
+  <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div class="form-group">
+      <br><br>
+
+      <label for="img1">Choose meals images for menu</label><br>
+      <input type="checkbox" id="img1" class="form-group-sm" ngModel name="img1"> ggg<br>
+      <input type="checkbox" id="img2" class="form-group-sm" ngModel name="img2"> hhh<br>
+      <input type="checkbox" id="img3" class="form-group-sm" ngModel name="img3"> yyy<br>
+
+      <button class="btn btn-primary" id="submit" type="submit" name="submit">ADD</button>
+    </div>
+  </form>
+</div>
