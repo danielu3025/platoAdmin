@@ -1,7 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
+
+
+import { environment } from '../environments/environment';
+
+
+
+import { AngularFireModule } from 'angularfire2';
 
 
 import { AppComponent } from './app.component';
@@ -25,6 +33,11 @@ import { ProductFromComponent } from './rightcontent/forms/menu-form/product-fro
 import { DishFormComponent } from './rightcontent/forms/menu-form/dish-form/dish-form.component';
 import { MealFormComponent } from './rightcontent/forms/menu-form/meal-form/meal-form.component';
 import { FinalMenuFormComponent } from './rightcontent/forms/menu-form/final-menu-form/final-menu-form.component';
+import {ShowAllStaffFormComponent} from  './rightcontent/staff/show-all-staff-form/show-all-staff-form.component';
+import {AngularFireDatabaseModule} from "angularfire2/database";
+import { CreateStaffFormComponent } from './rightcontent/staff/create-staff-form/create-staff-form.component';
+
+
 
 
 
@@ -38,7 +51,9 @@ const appRouts: Routes = [
     { path : 'product', component: ProductFromComponent },
     { path : 'dish', component: DishFormComponent },
     { path : 'meal', component: MealFormComponent },
-    { path : 'finalMenu', component: FinalMenuFormComponent }
+    { path : 'finalMenu', component: FinalMenuFormComponent },
+    { path : 'ShowAllStaff', component: ShowAllStaffFormComponent },
+
 ] ;
 
 
@@ -63,12 +78,18 @@ const appRouts: Routes = [
     ProductFromComponent,
     DishFormComponent,
     MealFormComponent,
-    FinalMenuFormComponent
+    FinalMenuFormComponent,
+    ShowAllStaffFormComponent,
+    CreateStaffFormComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(appRouts)
+
+    RouterModule.forRoot(appRouts),
+    AngularFireModule.initializeApp(environment.config),
+      AngularFireDatabaseModule,
+      AngularFirestoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
