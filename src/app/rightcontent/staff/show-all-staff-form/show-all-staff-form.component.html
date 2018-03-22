@@ -1,0 +1,27 @@
+import * as firebase from 'firebase;
+
+<app-topbar><app-staff-options></app-staff-options></app-topbar>
+<div class= container id="formContainer">
+  <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div class="form-group">
+      <table style="border:solid 1px gray;">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let item of restID$ | async">
+            <td>{{item.firstName}}</td>
+            <td>{{item.lastName}}</td>
+            <td>{{item.role}}</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </form>
+</div>
