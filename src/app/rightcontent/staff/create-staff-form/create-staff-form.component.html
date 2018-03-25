@@ -1,14 +1,25 @@
 
-
-
-<!--this.afs.collection("Rests/RestID/Workers").doc("barman").set({-->
-<!--firstName: "Los Angeles",-->
-<!--lastName: "CA",-->
-<!--role: "USA"-->
-<!--})-->
-<!--.then(function() {-->
-<!--console.log("Document successfully written!");-->
-<!--})-->
-<!--.catch(function(error) {-->
-<!--console.error("Error writing document: ", error);-->
-<!--});-->
+<div style="text-align:center">
+  <form [formGroup]="newWorkerForm">
+    <br> ID:
+    <input #txtWorkerid type="text" formControlName="txtWorkerid">
+    <br> Name:
+    <input #txtWorkerFirstName type="text">
+    <br> Price:
+    <input #txtWorkerLastName type="text">
+    <br> Role:
+    <input #txtWorkerRole type="text">
+    <br>
+    (firstName: String, lastName: String, role: String)
+    <button type="submit" (click)="addWorker()">Add worker</button>
+    <br>
+  </form>
+  <div style="text-align:center; display:unset;">
+    List of worker:
+    <!--<ul>-->
+      <!--<li *ngFor="let worker of workers | async">-->
+        <!--{{ worker.firstName }} is ${{ worker.lastName }}-->
+      <!--</li>-->
+    <!--</ul>-->
+  </div>
+</div>
