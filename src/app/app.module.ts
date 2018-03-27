@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from 'angularfire2';
@@ -29,6 +29,7 @@ import { ShowAllStaffFormComponent } from  './rightcontent/staff/show-all-staff-
 import { AngularFireDatabaseModule } from "angularfire2/database";
 import { CreateStaffFormComponent } from './rightcontent/staff/create-staff-form/create-staff-form.component';
 
+
 const appRouts: Routes = [
     { path : 'staff', component: StaffComponent },
     { path : 'stock', component: StockComponent },
@@ -46,39 +47,40 @@ const appRouts: Routes = [
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SideMenuComponent,
-    RightcontentComponent,
-    TopbarComponent,
-    StaffComponent,
-    EmployFormComponent,
-    StaffOptionsComponent,
-    StockComponent,
-    LayoutComponent,
-    KitchenComponent,
-    ManuComponent,
-    LayoutOptionsComponent,
-    MenuOptionsComponent,
-    StockOptionsComponent,
-    KitchenOptionsComponent,
-    GroceryFormComponent,
-    ProductFromComponent,
-    DishFormComponent,
-    MealFormComponent,
-    FinalMenuFormComponent,
-    ShowAllStaffFormComponent,
-    CreateStaffFormComponent,
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    RouterModule.forRoot(appRouts),
-    AngularFireModule.initializeApp(environment.config),
-      AngularFireDatabaseModule,
-      AngularFirestoreModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        SideMenuComponent,
+        RightcontentComponent,
+        TopbarComponent,
+        StaffComponent,
+        EmployFormComponent,
+        StaffOptionsComponent,
+        StockComponent,
+        LayoutComponent,
+        KitchenComponent,
+        ManuComponent,
+        LayoutOptionsComponent,
+        MenuOptionsComponent,
+        StockOptionsComponent,
+        KitchenOptionsComponent,
+        GroceryFormComponent,
+        ProductFromComponent,
+        DishFormComponent,
+        MealFormComponent,
+        FinalMenuFormComponent,
+        ShowAllStaffFormComponent,
+        CreateStaffFormComponent,
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule.forRoot(appRouts),
+        AngularFireModule.initializeApp(environment.config),
+        AngularFireDatabaseModule,
+        AngularFirestoreModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

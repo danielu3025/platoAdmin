@@ -1,18 +1,26 @@
+<app-topbar>
+  <app-staff-options></app-staff-options>
+</app-topbar>
+<app-employ-form></app-employ-form>
+
 
 <div style="text-align:center">
-  <form [FormGroup]='newWorkerForm'>
-    <br> ID:
-    <input #txtWorkerid type="text" formControlName="txtWorkerid">
-    <br> Name:
-    <input #txtWorkerFirstName type="text">
-    <br> Price:
-    <input #txtWorkerLastName type="text">
-    <br> Role:
-    <input #txtWorkerRole type="text">
-    <br>
+  <form [formGroup]='newWorkerForm' (ngSubmit)="addWorker(newWorkerForm)">
+    <label>ID:</label>
+    {{newWorkerForm.controls.txtWorkerid.valid}}
+    <input type="text" name="txtWorkerid" [ngClass]="txtWorkeridErrorClass"  formControlName="txtWorkerid" class="form-group-sm">
+    <label>Name:</label>
+    <input #txtWorkerFirstName class="form-group-sm" type="text">
+    <label>Price:</label>
+    <input #txtWorkerLastName class="form-group-sm" type="text">
+    <label>Role:</label>
+    <input #txtWorkerRole class="form-group-sm" type="text">
+
+    <div class="panel-footer">
     (firstName: String, lastName: String, role: String)
-    <button type="submit" (click)="addWorker()">Add worker</button>
-    <br>
+    <button type="submit" class="btn btn-primary" >Add worker</button>
+    </div>
+
   </form>
   <div style="text-align:center; display:unset;">
     List of worker:
