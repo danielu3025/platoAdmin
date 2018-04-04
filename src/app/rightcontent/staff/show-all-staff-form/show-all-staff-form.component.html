@@ -7,6 +7,7 @@ import * as firebase from 'firebase;
       <table style="border:solid 1px gray;">
         <thead>
           <tr>
+            <th>Id</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Role</th>
@@ -14,6 +15,7 @@ import * as firebase from 'firebase;
         </thead>
         <tbody>
           <tr  *ngFor="let item of restID$ | async">
+            <td>{{item.id}}</td>
             <td>{{item.firstName}}</td>
             <td>{{item.lastName}}</td>
             <td>{{item.role}}</td>

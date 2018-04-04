@@ -25,9 +25,12 @@ import { ProductFromComponent } from './rightcontent/forms/menu-form/product-fro
 import { DishFormComponent } from './rightcontent/forms/menu-form/dish-form/dish-form.component';
 import { MealFormComponent } from './rightcontent/forms/menu-form/meal-form/meal-form.component';
 import { FinalMenuFormComponent } from './rightcontent/forms/menu-form/final-menu-form/final-menu-form.component';
-import { ShowAllStaffFormComponent } from  './rightcontent/staff/show-all-staff-form/show-all-staff-form.component';
+//import { ShowAllStaffFormComponent } from  './rightcontent/staff/show-all-staff-form/show-all-staff-form.component';
 import { AngularFireDatabaseModule } from "angularfire2/database";
 import { CreateStaffFormComponent } from './rightcontent/staff/create-staff-form/create-staff-form.component';
+import { ManageWorkerComponent } from './rightcontent/staff/manage-worker/manage-worker.component';
+import { ManageRestComponent } from './rightcontent/rest/manage-rest/manage-rest.component';
+//import { ManageStockComponent } from './rightcontent/stock/manage-stock/manage-stock.component';
 
 
 const appRouts: Routes = [
@@ -41,46 +44,52 @@ const appRouts: Routes = [
     { path : 'dish', component: DishFormComponent },
     { path : 'meal', component: MealFormComponent },
     { path : 'finalMenu', component: FinalMenuFormComponent },
-    { path : 'ShowAllStaff', component: ShowAllStaffFormComponent },
-    { path : 'creatstaffform', component: CreateStaffFormComponent }
+    //{ path : 'ShowAllStaff', component: ShowAllStaffFormComponent },
+    { path : 'creatstaffform', component: CreateStaffFormComponent },
+    { path : 'manageWorkers', component: ManageWorkerComponent },
+    { path : 'manageRests', component: ManageRestComponent }
+
 ] ;
 
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        SideMenuComponent,
-        RightcontentComponent,
-        TopbarComponent,
-        StaffComponent,
-        EmployFormComponent,
-        StaffOptionsComponent,
-        StockComponent,
-        LayoutComponent,
-        KitchenComponent,
-        ManuComponent,
-        LayoutOptionsComponent,
-        MenuOptionsComponent,
-        StockOptionsComponent,
-        KitchenOptionsComponent,
-        GroceryFormComponent,
-        ProductFromComponent,
-        DishFormComponent,
-        MealFormComponent,
-        FinalMenuFormComponent,
-        ShowAllStaffFormComponent,
-        CreateStaffFormComponent,
-    ],
-    imports: [
-        BrowserModule,
-        FormsModule,
-        ReactiveFormsModule,
-        RouterModule.forRoot(appRouts),
-        AngularFireModule.initializeApp(environment.config),
-        AngularFireDatabaseModule,
-        AngularFirestoreModule
-    ],
-    providers: [],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    SideMenuComponent,
+    RightcontentComponent,
+    TopbarComponent,
+    StaffComponent,
+    EmployFormComponent,
+    StaffOptionsComponent,
+    StockComponent,
+    LayoutComponent,
+    KitchenComponent,
+    ManuComponent,
+    LayoutOptionsComponent,
+    MenuOptionsComponent,
+    StockOptionsComponent,
+    KitchenOptionsComponent,
+    GroceryFormComponent,
+    ProductFromComponent,
+    DishFormComponent,
+    MealFormComponent,
+    FinalMenuFormComponent,
+    //ShowAllStaffFormComponent,
+    CreateStaffFormComponent,
+    ManageWorkerComponent,
+    ManageRestComponent,
+    //ManageStockComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot(appRouts),
+    AngularFireModule.initializeApp(environment.config),
+      AngularFireDatabaseModule,
+      AngularFirestoreModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

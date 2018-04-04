@@ -14,22 +14,25 @@ export class ShowAllStaffFormComponent implements OnInit {
 
   restID$: Observable<any[]>;
   workersRef: AngularFireList<Worker> = null;
-  private path  = "/Rests/RestID/Workers";
+  private path = "/Rests/RestID/Workers";
 
   constructor(private afs: AngularFirestore, private db: AngularFireDatabase) {
     this.workersRef = db.list(this.path);
   }
 
-  ngOnInit(){
+  ngOnInit() {
 
     console.log("start");
     //let w = new Worker();
     //this.workersRef.push(w);
     //this.db.database;
-    this.restID$ =  this.afs.collection('Rests').doc("RestID").collection("Workers").valueChanges();
+    this.restID$ = this.afs.collection('Rests').doc("RestID").collection("Workers")
+        .snapshotChanges()
+        .map(data => {
+          return data.map(data => ({id: data.payload.doc.id, ...data.payload.doc.data()}));
+        });
 
   }
-
 }
 
 // export class Worker{

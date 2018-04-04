@@ -1,26 +1,20 @@
-<app-topbar>
-  <app-staff-options></app-staff-options>
-</app-topbar>
-<app-employ-form></app-employ-form>
-
 
 <div style="text-align:center">
   <form [formGroup]='newWorkerForm' (ngSubmit)="addWorker(newWorkerForm)">
-    <label>ID:</label>
+    <br> ID:
     {{newWorkerForm.controls.txtWorkerid.valid}}
-    <input type="text" name="txtWorkerid" [ngClass]="txtWorkeridErrorClass"  formControlName="txtWorkerid" class="form-group-sm">
-    <label>Name:</label>
-    <input #txtWorkerFirstName class="form-group-sm" type="text">
-    <label>Price:</label>
-    <input #txtWorkerLastName class="form-group-sm" type="text">
-    <label>Role:</label>
-    <input #txtWorkerRole class="form-group-sm" type="text">
-
-    <div class="panel-footer">
+    <input type="text" name="txtWorkerid" [ngClass]="txtWorkeridErrorClass" formControlName="txtWorkerid">
+      <!-- {'error': newWorkerForm.controls.txtWorkerid.invalid}"> -->
+    <br> First Name:
+    <input type="text" formControlName="txtWorkerFirstName" >
+    <br> Last Name:
+    <input type="text" formControlName="txtWorkerLastName">
+    <br> Role:
+    <input type="text" formControlName="txtWorkerRole">
+    <br>
     (firstName: String, lastName: String, role: String)
-    <button type="submit" class="btn btn-primary" >Add worker</button>
-    </div>
-
+    <button type="submit">Add worker</button>
+    <br>
   </form>
   <div style="text-align:center; display:unset;">
     List of worker:
