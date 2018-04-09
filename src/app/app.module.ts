@@ -30,7 +30,7 @@ import { AngularFireDatabaseModule } from "angularfire2/database";
 import { CreateStaffFormComponent } from './rightcontent/staff/create-staff-form/create-staff-form.component';
 import { ManageWorkerComponent } from './rightcontent/staff/manage-worker/manage-worker.component';
 import { ManageRestComponent } from './rightcontent/rest/manage-rest/manage-rest.component';
-//import { ManageStockComponent } from './rightcontent/stock/manage-stock/manage-stock.component';
+import { ManageStockComponent } from './rightcontent/stock/manage-stock/manage-stock.component';
 
 
 const appRouts: Routes = [
@@ -47,7 +47,8 @@ const appRouts: Routes = [
     //{ path : 'ShowAllStaff', component: ShowAllStaffFormComponent },
     { path : 'creatstaffform', component: CreateStaffFormComponent },
     { path : 'manageWorkers', component: ManageWorkerComponent },
-    { path : 'manageRests', component: ManageRestComponent }
+    { path : 'manageRests', component: ManageRestComponent },
+    { path : 'manageStock', component: ManageStockComponent }
 
 ] ;
 
@@ -78,7 +79,7 @@ const appRouts: Routes = [
     CreateStaffFormComponent,
     ManageWorkerComponent,
     ManageRestComponent,
-    //ManageStockComponent
+    ManageStockComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,8 +87,8 @@ const appRouts: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(appRouts),
     AngularFireModule.initializeApp(environment.config),
-      AngularFireDatabaseModule,
-      AngularFirestoreModule
+    AngularFireDatabaseModule,
+    AngularFirestoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
