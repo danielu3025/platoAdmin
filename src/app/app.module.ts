@@ -31,9 +31,11 @@ import { CreateStaffFormComponent } from './rightcontent/staff/create-staff-form
 import { ManageWorkerComponent } from './rightcontent/staff/manage-worker/manage-worker.component';
 import { ManageRestComponent } from './rightcontent/rest/manage-rest/manage-rest.component';
 import { ManageStockComponent } from './rightcontent/stock/manage-stock/manage-stock.component';
+import { RestsOptionsComponent } from './rightcontent/nav-options/rests-options/rests-options.component';
 
 
 const appRouts: Routes = [
+    { path : 'rests', component: RestsOptionsComponent },
     { path : 'staff', component: StaffComponent },
     { path : 'stock', component: StockComponent },
     { path : 'kitchen', component: KitchenComponent },
@@ -80,6 +82,7 @@ const appRouts: Routes = [
     ManageWorkerComponent,
     ManageRestComponent,
     ManageStockComponent,
+    RestsOptionsComponent,
   ],
   imports: [
     BrowserModule,
