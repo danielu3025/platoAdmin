@@ -32,6 +32,9 @@ import { ManageWorkerComponent } from './rightcontent/staff/manage-worker/manage
 import { ManageRestComponent } from './rightcontent/rest/manage-rest/manage-rest.component';
 import { ManageStockComponent } from './rightcontent/stock/manage-stock/manage-stock.component';
 import { RestsOptionsComponent } from './rightcontent/nav-options/rests-options/rests-options.component';
+import { ManageTablesComponent } from './rightcontent/tables/manage-tables/manage-tables.component';
+import { CreateMealComponent } from './rightcontent/menu/create-meal/create-meal.component';
+
 
 
 const appRouts: Routes = [
@@ -50,7 +53,9 @@ const appRouts: Routes = [
     { path : 'creatstaffform', component: CreateStaffFormComponent },
     { path : 'manageWorkers', component: ManageWorkerComponent },
     { path : 'manageRests', component: ManageRestComponent },
-    { path : 'manageStock', component: ManageStockComponent }
+    { path : 'manageStock', component: ManageStockComponent },
+    { path : 'manageTables', component: ManageTablesComponent },
+    { path : 'createMeal', component: CreateMealComponent }
 
 ] ;
 
@@ -83,6 +88,8 @@ const appRouts: Routes = [
     ManageRestComponent,
     ManageStockComponent,
     RestsOptionsComponent,
+    ManageTablesComponent,
+    CreateMealComponent,
   ],
   imports: [
     BrowserModule,
