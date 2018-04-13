@@ -1,0 +1,48 @@
+<app-topbar><app-staff-options></app-staff-options></app-topbar>
+
+<div id="worker-form-container" class="container">
+  <form  #fRawMaterial="ngForm" >
+    <div class="form-group">
+      <div>
+        <label for="txtName">Name:</label>
+        <input id="txtName" name="txtName" [(ngModel)]="gro.name" type="text" required/>
+        <label for="txtCookingTime">Cooking Time:</label>
+        <input id="txtCookingTime" name="txtCookingTime" [(ngModel)]="gro.cookingTime" type="text" required/>
+        <label for="txtCookingType">Cooking Type</label>
+        <input id="txtCookingType" name="txtCookingType" [(ngModel)]="gro.cookingType" type="text" required/>
+
+
+        <td><button type="button" (click)="addGrocery(fRawMaterial)" class="btn btn-success">add</button></td>
+        <!--<td><button type="button" (click)="updateRawMaterial(fRawMaterial)" class="btn btn-success">update</button></td>-->
+        <!--<td><button type="button" (click)="deleteRawMaterial(rawMaterial.id)" class="btn btn-success">delete</button></td>-->
+
+      </div>
+
+      <table id="RawMaterialList">
+        <thead>
+        <tr>
+          <th>Id:</th>
+          <th>Name:</th>
+          <th>Amount:</th>
+          <th>Red Line:</th>
+          <th>Type:</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr *ngFor="let item of rawMaterial">
+          <td> <input id="{{item?.id}}" type="checkbox" (click)="addToGrocery(item?.id)"/> </td>
+          <td>{{item?.id}}</td>
+          <td>{{item?.value.name}}</td>
+          <td>{{item?.value.amount}}</td>
+          <td>{{item?.value.redLine}}</td>
+          <td>{{item?.value.type}}</td>
+
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </form>
+</div>

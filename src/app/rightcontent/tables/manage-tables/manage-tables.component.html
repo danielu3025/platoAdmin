@@ -1,0 +1,60 @@
+<app-topbar><app-rests-options></app-rests-options></app-topbar>
+
+<div id="worker-form-container" class="container">
+  <form  #fTable="ngForm" >
+    <div class="form-group">
+      <table id="workerList">
+        <thead>
+        <tr>
+          <th>Id:</th>
+          <th>Acceabilty</th>
+          <th>name:</th>
+          <th>pLeft:</th>
+          <th>pRight:</th>
+          <th>pTop:</th>
+          <th>size:</th>
+          <th>smoking:</th>
+          <th>status:</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr  *ngFor="let item of tableID$ | async">
+          <td>{{item.id}}</td>
+          <td>{{item.acceabilty}}</td>
+          <td>{{item.pBottom}}</td>
+          <td>{{item.pLeft}}</td>
+          <td>{{item.pRight}}</td>
+          <td>{{item.pTop}}</td>
+          <td>{{item.size}}</td>
+          <td>{{item.smoking}}</td>
+          <td>{{item.status}}</td>
+        </tr>
+
+        <label for="txtId">Id:</label>
+        <input id="txtId" name="txtId" type="text" required validateUserId [(ngModel)]="table.id"/>
+        <label for="txtAcceabilty">Acceabilty:</label>
+        <input id="txtAcceabilty" name="txtAcceabilty" type="text" required validateUserId [(ngModel)]="table.acceabilty"/>
+        <label for="txtpBottom">pBottom:</label>
+        <input id="txtpBottom" name="txtpBottom" type="text" required validateUserId [(ngModel)]="table.pBottom"/>
+        <label for="txtpLeft">pLeft:</label>
+        <input id="txtpLeft" name="txtpLeft" type="text" required validateUserId [(ngModel)]="table.pLeft"/>
+        <label for="txtpRight">pRight:</label>
+        <input id="txtpRight" name="txtpRight" type="text" required validateUserId [(ngModel)]="table.pRight"/>
+        <label for="txtpTop">pTop:</label>
+        <input id="txtpTop" name="txtpTop" type="text" required validateUserId [(ngModel)]="table.pTop"/>
+        <label for="txtSize">size:</label>
+        <input id="txtSize" name="txtSize" type="text" required validateUserId [(ngModel)]="table.size"/>
+        <label for="txtSmoking">smoking:</label>
+        <input id="txtSmoking" name="txtSmoking" type="text" required validateUserId [(ngModel)]="table.smoking"/>
+        <label for="txtStatus">status:</label>
+        <input id="txtStatus" name="txtStatus" type="text" required validateUserId [(ngModel)]="table.status"/>
+        </tbody>
+      </table>
+    </div>
+    <button type="submit" (click)="addTable(fTable)">add</button>
+    <!--<button type="submit" (click)="updateWorker(f)">update</button>-->
+    <!--<button type="submit" (click)="deleteWorker(worker.id)" >delete</button>-->
+  </form>
+</div>
+
+
