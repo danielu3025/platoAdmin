@@ -24,14 +24,13 @@
 
                 <td><button type="button" (click)="addRawMaterial(fRawMaterial)" class="btn btn-success">add</button></td>
                 <td><button type="button" (click)="updateRawMaterial(fRawMaterial)" class="btn btn-success">update</button></td>
-                <td><button type="button" (click)="deleteRawMaterial(rawMaterial.id)" class="btn btn-success">delete</button></td>
+                <td><button type="button" (click)="deleteRawMaterial(rawMaterial.name)" class="btn btn-success">delete</button></td>
 
             </div>
 
             <table id="RawMaterialList">
                 <thead>
                 <tr>
-                    <th>Id:</th>
                     <th>Name:</th>
                     <th>Amount:</th>
                     <th>Red Line:</th>
@@ -41,13 +40,11 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let item of rawMaterial$ | async">
-                    <td>{{item.id}}</td>
-                    <td>{{item.name}}</td>
-                    <td>{{item.amount}}</td>
-                    <td>{{item.redLine}}</td>
-                    <td>{{item.type}}</td>
-                    <td>{{item.units}}</td>
-
+                    <td>{{item.value.name}}</td>
+                    <td>{{item.value.amount}}</td>
+                    <td>{{item.value.redLine}}</td>
+                    <td>{{item.value.type}}</td>
+                    <td>{{item.value.units}}</td>
                 </tr>
                 </tbody>
             </table>

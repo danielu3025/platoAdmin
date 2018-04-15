@@ -21,14 +21,22 @@
           <td>{{item.role}}</td>
         </tr>
 
-        <label for="txtId">Id:</label>
-        <input id="txtId" name="txtId" type="text" required validateUserId [(ngModel)]="worker.id" [ngClass]="{'errorTest' : txtWorkerIdErrorClass === true}"/>
-        <label for="txtFirstName">First Name:</label>
-        <input id="txtFirstName" name="txtFirstName" type="text" required [(ngModel)]="worker.firstName" [ngClass]="{'errorTest' : txtWorkerFirstNameErrorClass === true}"/>
-        <label for="txtLastName">Last Name:</label>
-        <input id="txtLastName" name="txtLastName" type="text" required [(ngModel)]="worker.lastName" [ngClass]="{'errorTest' : txtWorkerLastNameErrorClass === true}"/>
-        <label for="txtRole">Role:</label>
+        <div>
+          <label for="txtId">Id:</label>
+          <input id="txtId" name="txtId" type="text" required validateUserId [(ngModel)]="worker.id" [ngClass]="{'errorTest' : txtWorkerIdErrorClass === true}"/>
+        </div>
+        <div>
+          <label for="txtFirstName">First Name:</label>
+          <input id="txtFirstName" name="txtFirstName" type="text" required [(ngModel)]="worker.firstName" [ngClass]="{'errorTest' : txtWorkerFirstNameErrorClass === true}"/>
+        </div>
+        <div>
+          <label for="txtLastName">Last Name:</label>
+          <input id="txtLastName" name="txtLastName" type="text" required [(ngModel)]="worker.lastName" [ngClass]="{'errorTest' : txtWorkerLastNameErrorClass === true}"/>
+        </div>
+        <div>
+          <label for="txtRole">Role:</label>
         <input id="txtRole" name="txtRole" type="text" required [(ngModel)]="worker.role" [ngClass]="{'errorTest' : txtWorkerRoleErrorClass === true}"/>
+        </div>
 
         </tbody>
       </table>

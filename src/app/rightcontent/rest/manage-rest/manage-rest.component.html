@@ -3,51 +3,7 @@
 <div id="worker-form-container" class="container">
   <form  #f="ngForm" >
     <div class="form-group">
-
-      <table id="RestList" border="1">
-        <thead>
-        <tr>
-          <th>Rest id</th>
-          <th>Accesability</th>
-          <th>Address</th>
-          <th>Latitude</th>
-          <th>Longtitude</th>
-          <th>Name</th>
-          <th>Phone</th>
-          <th>Picture</th>
-          <th>Rank sum</th>
-          <th>Rank total</th>
-          <th>Smoking</th>
-          <th>Rest Type</th>
-          <th>444</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let item of restList">
-          <td>{{item.id}}</td>
-          <td>{{item.accesability}}</td>
-          <td>{{item.address}}</td>
-          <td>{{item.location.latitude}}</td>
-          <td>{{item.location.longtitude}}</td>
-          <td>{{item.name}}</td>
-          <td>{{item.restType}}</td>
-          <td><img src="{{item.picture}}" width="100px" height="100px" /> </td>
-          <td>{{item.rank.rankSum}}</td>
-          <td>{{item.rank.totalRanks}}</td>
-          <td>{{item.smoking}}</td>
-          <td>{{item.phone}}</td>
-          <!--<td>-->
-            <!--{{item.workingDay | json}}-->
-          <!--</td>-->
-          <!--<td>{{item.workingDay[0].startingHour}} - {{item.workingDay[0].endHour}}</td>-->
-          <!--<td>{{item.workingDay[1].startingHour}} - {{item.workingDay[1].endHour}}</td>-->
-          <!--<td>{{item.workingDay[2].startingHour}} - {{item.workingDay[2].endHour}}</td>-->
-          <!--<td>{{item.workingDay[3].startingHour}} - {{item.workingDay[3].endHour}}</td>-->
-          <!--<td>{{item.workingDay[4].startingHour}} - {{item.workingDay[4].endHour}}</td>-->
-          <!--<td>{{item.workingDay[5].startingHour}} - {{item.workingDay[5].endHour}}</td>-->
-          <!--<td>{{item.workingDay[6].startingHour}} - {{item.workingDay[6].endHour}}</td>-->
-        </tr>
-
+      <div>
           <label for="txtRestId">Id:</label>
           <input id="txtRestId" name="txtRestId" type="text" required validateUserId [(ngModel)]="rest.id"/>
           <label for="txtAccesability">Accesability:</label>
@@ -55,31 +11,55 @@
             <option value="false">false</option>
             <option value="true">true</option>
           </select>
+      </div>
+      <div>
           <label for="txtAddress">Address:</label>
           <input id="txtAddress" name="txtAddress" type="text" required [(ngModel)]="rest.address"/>
           <label for="txtLocationR">LocationR:</label>
           <input id="txtLocationR" name="txtLocationR" type="text" required [(ngModel)]="rest.location.latitude"/>
+      </div>
+      <div>
           <label for="txtLocationL">LocationL:</label>
-          <input id="txtLocationL" name="txtLocationL" type="text" required [(ngModel)]="rest.location.longtitude" [ngClass]="{'errorTest' : txtWorkerRoleErrorClass === true}"/>
+          <input id="txtLocationL" name="txtLocationL" type="text" required [(ngModel)]="rest.location.longitude" [ngClass]="{'errorTest' : txtWorkerRoleErrorClass === true}"/>
           <label for="txtName">Name:</label>
           <input id="txtName" name="txtName" type="text" [(ngModel)]="rest.name">
-          <label for="txtPhone">Phone:</label>
+      </div>
+      <div>
+        <label for="txtPhone">Phone:</label>
           <input id="txtPhone" name="txtPhone" type="text" [(ngModel)]="rest.phone">
           <label for="txtPicture">Picture:</label>
           <input id="txtPicture" name="txtPicture" type="text" [(ngModel)]="rest.picture">
-          <label for="txtRank">Rank:</label>
+      </div>
+      <div>
+        <label for="txtRank">Rank:</label>
           <input id="txtRank" name="txtRank" type="text" [(ngModel)]="rest.rank.rankSum">
           <label for="txtTotalRank">Rank:</label>
           <input id="txtTotalRank" name="txtTotalRank" type="text" [(ngModel)]="rest.rank.totalRanks">
-          <label for="txtSmoking">Smoking:</label>
+      </div>
+      <div>
+        <label for="txtSmoking">Smoking:</label>
           <select id="txtSmoking" name="txtSmoking" [(ngModel)]="rest.smoking">
               <option value="false">false</option>
               <option value="true">true</option>
           </select>
           <label for="txtType">Type:</label>
-          <input id="txtType" name="txtType" type="text" [(ngModel)]="rest.restType">
-          <label>Working Days::</label>
-            <label>sunday:</label>
+          <input id="txtType" name="txtType" type="text" [(ngModel)]="rest.type">
+      </div>
+
+      <table>
+        <thead>
+          <tr></tr>
+          <tr>sub menu:</tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of subMenuG?.list">
+            <td> <input id="{item}" type="checkbox" (click)="addSubMenus(item)"/> </td>
+            <td>{{item}}</td>
+          </tr>
+        </tbody>
+      </table>
+              <label>Working Days::</label>
+              <label>sunday:</label>
               <label for="txtSundayS">sunday start:</label>
               <input id="txtSundayS" name="txtSundayS" type="text" [(ngModel)]="workingDay[0].startingHour">
               <label for="txtSundayE">sunday end:</label>
@@ -118,9 +98,59 @@
               <label for="txtSaturdayE">saturday end:</label>
               <input id="txtSaturdayE" name="txtSaturdayE" type="text" [(ngModel)]="workingDay[6].endHour">
               </span>
-        </tbody>
-      </table>
     </div>
+
+    <table id="RestList" border="1">
+      <thead>
+      <tr>
+        <th>Rest id</th>
+        <th>Accesability</th>
+        <th>Address</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Picture</th>
+        <th>Rank sum</th>
+        <th>Rank total</th>
+        <th>Smoking</th>
+        <th>Rest Type</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of restList">
+        <td>{{item.id}}</td>
+        <td>{{item.accesability}}</td>
+        <td>{{item.address}}</td>
+        <td>{{item?.location?.latitude}}</td>
+        <td>{{item?.location?.longitude}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.type}}</td>
+        <td><img src="{{item.picture}}" width="100px" height="100px" /> </td>
+        <td>{{item?.rank?.rankSum}}</td>
+        <td>{{item?.rank?.totalRanks}}</td>
+        <td>{{item.smoking}}</td>
+        <td>{{item.phone}}</td>
+        <!--<td>-->
+        <!--<div *ngFor="let restWorkingDayAndHourItem of workingDays">-->
+        <!--1-->
+        <!--<div *ngFor="let itemOpening of restWorkingDayAndHourItem">-->
+        <!--{{itemOpening[item.name]}}-->
+        <!--{{itemOpening[item.name]?.Sunday?.startingHour}}-->
+        <!--</div>-->
+        <!--</div> -->
+        <!--</td>-->
+        <!--<td>{{item.workingDay[0].startingHour}} - {{item.workingDay[0].endHour}}</td>-->
+        <!--<td>{{item.workingDay[1].startingHour}} - {{item.workingDay[1].endHour}}</td>-->
+        <!--<td>{{item.workingDay[2].startingHour}} - {{item.workingDay[2].endHour}}</td>-->
+        <!--<td>{{item.workingDay[3].startingHour}} - {{item.workingDay[3].endHour}}</td>-->
+        <!--<td>{{item.workingDay[4].startingHour}} - {{item.workingDay[4].endHour}}</td>-->
+        <!--<td>{{item.workingDay[5].startingHour}} - {{item.workingDay[5].endHour}}</td>-->
+        <!--<td>{{item.workingDay[6].startingHour}} - {{item.workingDay[6].endHour}}</td>-->
+      </tr>
+      </tbody>
+    </table>
     <button type="submit" (click)="addRest(f)">add</button>
     <button type="submit" (click)="updateRest(f)">update</button>
     <button type="submit" (click)="deleteRest(rest.id)" >delete</button>

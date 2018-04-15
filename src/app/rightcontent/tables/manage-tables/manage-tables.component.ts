@@ -9,8 +9,12 @@ import {AngularFirestore} from "angularfire2/firestore";
   templateUrl: './manage-tables.component.html',
   styleUrls: ['./manage-tables.component.css']
 })
+
 export class ManageTablesComponent implements OnInit {
-  private path  = "/Restaurants/Mozes-333";
+
+  private path  = "/RestAlfa/kibutz-222/KitchenStation";
+  restRoot  = "RestAlfa";
+  resturantID = "kibutz-222";
 
   table: Table;
   tableID$: Observable<any[]>;
@@ -22,22 +26,26 @@ export class ManageTablesComponent implements OnInit {
   }
 
   addTable(tableForm) {
-    console.log("formUpdate-> ", tableForm.valid);
-    console.log("bind--> ",this.table);
-
     if(tableForm.valid){
-      this.afs.collection("Restaurants/Mozes-333/Tables").doc(this.table.id).set({
-        acceabilty: this.table.acceabilty,
-        pBottom: this.table.pBottom,
-        pLeft: this.table.pLeft,
-        pRight: this.table.pRight,
-        pTop: this.table.pTop,
-        size: this.table.size,
-        smoking: this.table.smoking,
-        status: this.table.status,
-        //amount: this.table.amount
+
+      let pb = document.getElementById("txtpBottom") as HTMLInputElement;
+      let pl = document.getElementById("txtpLeft") as HTMLInputElement;
+      let pr = document.getElementById("txtpRight") as HTMLInputElement;
+      let pt = document.getElementById("txtpTop") as HTMLInputElement;
+      let ps = document.getElementById("txtSize") as HTMLInputElement;
+
+      this.afs.collection(this.restRoot + "/" + this.resturantID + "/Tables").doc(this.table.id).set({
+        id: this.table.id,
+        acceabilty: Boolean(this.table.acceabilty),
+        pBottom: parseInt(pb.value),
+        pLeft: parseInt(pl.value),
+        pRight: parseInt(pr.value),
+        pTop: parseInt(pt.value),
+        size: parseInt(ps.value),
+        smoking: Boolean(this.table.smoking),
+        status: String(this.table.status),
       });
-      this.afs.collection("Restaurants/Mozes-333/TablesOrders").doc(this.table.id).set({})
+      this.afs.collection(this.restRoot + "/" + this.resturantID + "/TablesOrders").doc(this.table.id).set({})
           .then(function () {
             console.log("Document successfully written!");
           })
@@ -47,6 +55,7 @@ export class ManageTablesComponent implements OnInit {
     } //else{
       //this.checkValidFields(tableForm);
     //}
+    //this.table = new Table();
   }
 
   ngOnInit() {
@@ -55,12 +64,12 @@ export class ManageTablesComponent implements OnInit {
 
     console.log("start");
 
-    this.tableID$ =  this.afs.collection('Restaurants').doc("Mozes-333").collection("Tables")
+    this.tableID$ =  this.afs.collection(this.restRoot).doc(this.resturantID).collection("Tables")
         .snapshotChanges()
         .map(data => {
           return data.map(data => ({id:data.payload.doc.id, ...data.payload.doc.data()}));
         });
-    this.tableOrdersID$ =  this.afs.collection('Restaurants').doc("Mozes-333").collection("TablesOrders")
+    this.tableOrdersID$ =  this.afs.collection('RestAlfa').doc("kibutz-222").collection("TablesOrders")
         .snapshotChanges()
         .map(data => {
           return data.map(data => ({id:data.payload.doc.id, ...data.payload.doc.data()}));

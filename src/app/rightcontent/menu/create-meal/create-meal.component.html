@@ -1,48 +1,194 @@
 <app-topbar><app-staff-options></app-staff-options></app-topbar>
 
-<div id="worker-form-container" class="container">
-  <form  #fRawMaterial="ngForm" >
-    <div class="form-group">
-      <div>
-        <label for="txtName">Name:</label>
-        <input id="txtName" name="txtName" [(ngModel)]="gro.name" type="text" required/>
-        <label for="txtCookingTime">Cooking Time:</label>
-        <input id="txtCookingTime" name="txtCookingTime" [(ngModel)]="gro.cookingTime" type="text" required/>
-        <label for="txtCookingType">Cooking Type</label>
-        <input id="txtCookingType" name="txtCookingType" [(ngModel)]="gro.cookingType" type="text" required/>
 
+<div id="pageContainer">
+  <div id="leftSide" style="float:left;border-right:solid 1px red;width:300px;min-height:200px">
+    <div style="margin:15px;">
+      <!-- //------------------------------ left --------------------------// -->
 
-        <td><button type="button" (click)="addGrocery(fRawMaterial)" class="btn btn-success">add</button></td>
-        <!--<td><button type="button" (click)="updateRawMaterial(fRawMaterial)" class="btn btn-success">update</button></td>-->
-        <!--<td><button type="button" (click)="deleteRawMaterial(rawMaterial.id)" class="btn btn-success">delete</button></td>-->
+      <div id="meal-form-container">
+        <form #fMeal="ngForm">
+          <div class="form-group">
+            <div id="dishToMeal">
+              <label> Meal </label>
+              <div>
+                <label for="txtMName">Name:</label>
+                <input id="txtMName" name="txtMName" [(ngModel)]="meal.name" type="text" required/>
+              </div>
+              <div>
+                <label for="txtMDescription">Description::</label>
+                <input id="txtMDescription" name="txtMDescription" [(ngModel)]="meal.description" type="txt" required/>
+              </div>
+              <div>
+                <label for="txtPrice">Price:</label>
+                <input id="txtPrice" name="txtPrice" [(ngModel)]="meal.price" type="txt" required/>
+              </div>
+              <div>
+                <label>vegetarian:</label>
+                <select id="drpIsVegi" name="drpIsVegi" [(ngModel)]="meal.vegan">
+                  <option>true</option>
+                  <option>false</option>
+                </select>
+              </div>
+              <div>
+                <label>dairy:</label>
+                <select id="drpIsDairy" name="drpIsDairy" [(ngModel)]="meal.dairy">
+                  <option>true</option>
+                  <option>false</option>
+                </select>
+              </div>
+              <div>
+                <label>gloten Free:</label>
+                <select id="drpIsGlotenFree" name="drpIsGlotenFree" [(ngModel)]="meal.glotenFree">
+                  <option>true</option>
+                  <option>false</option>
+                </select>
+              </div>
+            </div>
 
+            <table id="dishesList">
+              <thead>
+              <th>Id:</th>
+              <th>Name:</th>
+              </thead>
+
+              <tbody>
+              <tr *ngFor="let item of dishes">
+                <td> <input id="{{item?.name}}" type="checkbox" (click)="addToMeal(item?.name)" /> </td>
+                <td for="txtName">
+                  <input id="{{item?.name +'inpM1'}}" name="txtName" value="{{item.name}}" type="text" disabled required/>
+                </td>
+              </tr>
+              <td><button type="button" (click)="addMeal(fMeal)" class="btn btn-success">Create Meal</button></td>
+              </tbody>
+            </table>
+          </div>
+        </form>
       </div>
-
-      <table id="RawMaterialList">
-        <thead>
-        <tr>
-          <th>Id:</th>
-          <th>Name:</th>
-          <th>Amount:</th>
-          <th>Red Line:</th>
-          <th>Type:</th>
-
-        </tr>
-        </thead>
-        <tbody>
-
-        <tr *ngFor="let item of rawMaterial">
-          <td> <input id="{{item?.id}}" type="checkbox" (click)="addToGrocery(item?.id)"/> </td>
-          <td>{{item?.id}}</td>
-          <td>{{item?.value.name}}</td>
-          <td>{{item?.value.amount}}</td>
-          <td>{{item?.value.redLine}}</td>
-          <td>{{item?.value.type}}</td>
-
-        </tr>
-
-        </tbody>
-      </table>
     </div>
-  </form>
+  </div>
+
+ <!-- //------------------------------ mid --------------------------// -->
+  <div id="midSide" style="float:left;border-right:solid 1px red;width:300px;min-height:200px">
+    <div style="margin:15px;">
+      <div id="dish-form-container">
+        <form #fDish="ngForm">
+          <div class="form-group">
+            <div id="groceryToDish">
+              <label> Dish </label>
+              <div>
+                <label for="txtDName">Name:</label>
+                <input id="txtDName" name="txtDName" [(ngModel)]="dish.name" type="text" required/>
+              </div>
+              <div>
+                <label for="txtDescription">Description::</label>
+                <input id="txtDescription" name="txtDescription" [(ngModel)]="dish.description" type="txt" required/>
+              </div>
+              <div>
+                <label for="txtTotalTime">Total Time:</label>
+                <input id="txtTotalTime" name="txtTotalTime" [(ngModel)]="dish.totalTime" type="txt" required/>
+              </div>
+              <div>
+                <select id="txtCategory" name="txtCategory" [(ngModel)]="dish.category">
+                  <option *ngFor="let item of categoryG?.list" >
+                    {{item}}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <table id="groceryList">
+              <thead>
+                <th>Id:</th>
+                <th>Name:</th>
+              </thead>
+
+                <tbody>
+                <tr *ngFor="let item of grocery">
+                  <td> <input id="{{item?.name}}" type="checkbox" (click)="addToDish(item?.name)" /> </td>
+                  <td for="txtName">
+                    <input id="{{item?.name +'inpD1'}}" name="txtName" value="{{item.name}}" type="text" disabled required/>
+                  </td>
+                </tr>
+
+                <td><button type="button" (click)="addDish(fDish)" class="btn btn-success">Create Dish</button></td>
+                </tbody>
+            </table>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!--//------------------------------ right --------------------------//-->
+  <div id="rightSide" style="float:left;width:300px;min-height:200px">
+    <div style="margin:15px;">
+      <div id="grocery-form-container" class="container">
+        <form  #fRawMaterial="ngForm" >
+          <div class="form-group">
+            <div id="rawToGrocery">
+              <label> Grocery </label>
+              <div>
+              <label for="txtGName">Name:</label>
+              <input id="txtGName" name="txtGName" [(ngModel)]="gro.name" type="text" required/>
+              </div>
+              <div>
+              <label for="txtCookingTime">Cooking Time:</label>
+              <input id="txtCookingTime" name="txtCookingTime" [(ngModel)]="gro.cookingTime" type="text" required/>
+              </div>
+              <div>
+              <label for="txtCookingType">Unit:</label>
+              <select id="txtCookingType" name="txtCookingType" [(ngModel)]="gro.types">
+                <option *ngFor="let item of cookingTypeG?.types" >
+                  {{item}}
+                </option>
+              </select>
+              </div>
+              <td><button type="button" (click)="addGrocery(fRawMaterial)" class="btn btn-success">create Grocery</button></td>
+            </div>
+
+            <div id="rawMaterialForm">
+              <table id="rawMaterialList">
+                <thead>
+                <tr>
+                  <td></td>
+                  <th>Id:</th>
+                  <th>Name:</th>
+                  <th>Amount in grocery:</th>
+                  <th>Red line for meal</th>
+                  <th>importance to meal</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr *ngFor="let item of rawMaterial">
+                  <td><input id="{{item?.id}}" type="checkbox" (click)="addToGrocery(item?.id)"/></td>
+                  <td>{{item?.id}}</td>
+                  <td>{{item?.name}}</td>
+                  <td for="txtAmount">
+                    <input #txtAmount id="{{item?.id +'inp1'}}" name="txtAmount" type="text" required/>
+                  </td>
+                  <td for="txtRedLine">
+                    <input id="{{item?.id+'inp2'}}" name="txtRedLine" type="text" required/>
+                  </td>
+                  <td for="txtImportance">
+                    <input id="{{item?.id+'check'}}" type="checkbox" required/>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
 </div>
+
+
+
+
+
+
+

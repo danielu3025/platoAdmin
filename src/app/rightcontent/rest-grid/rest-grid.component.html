@@ -1,0 +1,12 @@
+<div class="grid-layout-container">
+  <div class="layout-table"
+    [ngStyle]="{'grid-template-columns': 'repeat(' + restWidth + ', 30px)', 'grid-template-rows': 'repeat(' + restHeight + ', 30px)'}">
+    <div class="grid-block" *ngFor="let item of gridRepeater"></div>
+  </div>
+  <div class="layout-table"
+    [ngStyle]="{'grid-template-columns': 'repeat(' + restWidth + ', 30px)', 'grid-template-rows': 'repeat(' + restHeight + ', 30px)'}">
+    <div class="grid-table" *ngFor="let table of tables"
+      [ngStyle]="tableGridStyle(table)">
+    </div>
+  </div>
+</div>

@@ -34,6 +34,9 @@ import { ManageStockComponent } from './rightcontent/stock/manage-stock/manage-s
 import { RestsOptionsComponent } from './rightcontent/nav-options/rests-options/rests-options.component';
 import { ManageTablesComponent } from './rightcontent/tables/manage-tables/manage-tables.component';
 import { CreateMealComponent } from './rightcontent/menu/create-meal/create-meal.component';
+import { RestGridComponent } from './rightcontent/rest-grid/rest-grid.component';
+import { DropZoneDirective } from './drop-zone.directive';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 
 
@@ -90,6 +93,9 @@ const appRouts: Routes = [
     RestsOptionsComponent,
     ManageTablesComponent,
     CreateMealComponent,
+    RestGridComponent,
+    DropZoneDirective,
+    FileUploadComponent,
   ],
   imports: [
     BrowserModule,

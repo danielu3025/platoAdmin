@@ -12,7 +12,10 @@ import {Validators, FormControl, FormGroup} from "@angular/forms";
 })
 
 export class ManageStockComponent implements OnInit {
-    private path  = "/Restaurants/Mozes-333";
+
+    private path  = "/RestAlfa/kibutz-222/KitchenStation";
+    restRoot  = "RestAlfa";
+    resturantID = "kibutz-222";
 
     test:any;
     rawMaterial: RawMaterial;
@@ -25,62 +28,50 @@ export class ManageStockComponent implements OnInit {
         this.rawMaterialRef = db.list(this.path);
     }
 
-  addRawMaterial(RawMaterialForm) {
+    addRawMaterial(RawMaterialForm) {
     console.log("formUpdate-> ", RawMaterialForm.valid);
     console.log("bind--> ",this.rawMaterial);
 
+    let amount = document.getElementById('txtAmount') as HTMLInputElement;
+    let redLine = document.getElementById('txtRedLine') as HTMLInputElement;
+
+    let newRaw = {
+        "name": this.rawMaterial.name,
+        "amount": parseInt(amount.value),
+        "redLine": parseInt(redLine.value),
+        "type":this.rawMaterial.type,
+        "unit":this.rawMaterial.units
+    };
+
+    let valueJson = {"value":newRaw};
+
       if(RawMaterialForm.valid){
-      this.afs.collection("/Restaurants/Mozes-333/WarehouseStock").doc(this.rawMaterial.id).set({
-        name: this.rawMaterial.name,
-        amount: this.rawMaterial.amount,
-        redLine: this.rawMaterial.redLine,
-        type: this.rawMaterial.type,
-        //units: this.rawMaterial.units
-      })
+      this.afs.collection(this.restRoot + "/" + this.resturantID + "/WarehouseStock").doc(this.rawMaterial.id).set(valueJson)
           .then(function () {
             console.log("Document successfully written!");
           })
-          .catch(function (error) {
+          .catch(function (error){
             console.error("Error writing document: ", error);
           });
-    } //else{
-      //this.checkValidFields(RawMaterialForm);
-    //}
+    }
   }
-  //
-  // checkValidFields(workerForm){
-  //   if(workerForm.controls.txtId.invalid){
-  //     this.txtWorkerIdErrorClass = true;
-  //   }else{
-  //     this.txtWorkerIdErrorClass = false;
-  //   }
-  //
-  //   if(workerForm.controls.txtFirstName.invalid){
-  //     this.txtWorkerFirstNameErrorClass = true;
-  //   }else {
-  //     this.txtWorkerFirstNameErrorClass = false;
-  //   }
-  //   if(workerForm.controls.txtLastName.invalid) {
-  //     this.txtWorkerLastNameErrorClass = true;
-  //   }else {
-  //     this.txtWorkerLastNameErrorClass = false;
-  //   }
-  //   if(workerForm.controls.txtRole.invalid){
-  //     this.txtWorkerRoleErrorClass = true;
-  //   }else {
-  //     this.txtWorkerRoleErrorClass = false;
-  //   }
-  // }
-  //
+
   updateRawMaterial(RawMaterialForm) {
+     let amount = document.getElementById('txtAmount') as HTMLInputElement;
+     let redLine = document.getElementById('txtRedLine') as HTMLInputElement;
+
+      let newRaw = {
+          "name": this.rawMaterial.name,
+          "amount": parseInt(amount.value),
+          "redLine": parseInt(redLine.value),
+          "type":this.rawMaterial.type,
+          "unit":this.rawMaterial.units
+      };
+
+      let valueJson = {"value":newRaw};
+
     console.log("formUpdate-> ", RawMaterialForm);
-    this.afs.collection("/Restaurants/Mozes-333/WarehouseStock").doc(this.rawMaterial.id).set({
-        name: this.rawMaterial.name,
-        amount: this.rawMaterial.amount,
-        redLine: this.rawMaterial.redLine,
-        type: this.rawMaterial.type,
-        // units: this.rawMaterial.units
-    })
+    this.afs.collection(this.restRoot + "/" + this.resturantID + "/WarehouseStock").doc(this.rawMaterial.id).set({valueJson})
         .then(function () {
           console.log("Document successfully written!");
         })
@@ -89,8 +80,8 @@ export class ManageStockComponent implements OnInit {
         });
   }
 
-  deleteRawMaterial(RawMaterialId){
-    this.afs.collection("/Restaurants/Mozes-333/WarehouseStock").doc(RawMaterialId).delete()
+  deleteRawMaterial(RawMaterialName){
+    this.afs.collection(this.restRoot + "/" + this.resturantID + "/WarehouseStock").doc(RawMaterialName).delete()
         .then(function () {
           console.log("Document successfully written!");
         })
@@ -101,17 +92,14 @@ export class ManageStockComponent implements OnInit {
 
   ngOnInit(){
 
-       this.rawMaterial = new RawMaterial;
-
-      console.log("start");
-
+      this.rawMaterial = new RawMaterial;
       this.afs.collection('Globals').doc("Units").valueChanges()
           .subscribe(data =>
           {
               this.test = data;
           });
 
-      this.rawMaterial$ =  this.afs.collection('Restaurants').doc("Mozes-333").collection("WarehouseStock")
+      this.rawMaterial$ =  this.afs.collection(this.restRoot).doc(this.resturantID).collection("WarehouseStock")
           .snapshotChanges()
           .map(data => {
               return data.map(data => ({id:data.payload.doc.id, ...data.payload.doc.data()}));

@@ -12,7 +12,10 @@ import {Validators, FormControl, FormGroup} from "@angular/forms";
 })
 
 export class ManageWorkerComponent implements OnInit {
-    private path  = "/Rests/RestId";
+
+    private path  = "/RestAlfa/kibutz-222/KitchenStation";
+    restRoot  = "RestAlfa";
+    resturantID = "kibutz-222";
 
     worker: Worker;
     txtWorkerIdErrorClass:boolean = false;
@@ -33,7 +36,7 @@ export class ManageWorkerComponent implements OnInit {
 
 
     if(workerForm.valid){
-      this.afs.collection("Rests/restId/Workers").doc(this.worker.id).set({
+      this.afs.collection(this.restRoot + "/" + this.resturantID + "/Workers").doc(this.worker.id).set({
         firstName: this.worker.firstName,
         lastName: this.worker.lastName,
         role: this.worker.role
@@ -75,7 +78,7 @@ export class ManageWorkerComponent implements OnInit {
 
   updateWorker(workerForm) {
     console.log("formUpdate-> ", workerForm);
-     this.afs.collection("Rests/RestID/Workers").doc(this.worker.id).set({
+     this.afs.collection(this.restRoot + "/" + this.resturantID + "/Workers").doc(this.worker.id).set({
        firstName: this.worker.firstName,
        lastName: this.worker.lastName,
        role: this.worker.role
@@ -89,7 +92,7 @@ export class ManageWorkerComponent implements OnInit {
   }
 
   deleteWorker(workerId){
-    this.afs.collection("Rests/restId/Workers").doc(workerId).delete()
+    this.afs.collection(this.restRoot + "/" + this.resturantID + "/Workers").doc(workerId).delete()
         .then(function () {
           console.log("Document successfully written!");
         })
@@ -104,7 +107,7 @@ export class ManageWorkerComponent implements OnInit {
 
     console.log("start");
 
-    this.workerID$ =  this.afs.collection('Rests').doc("restId").collection("Workers")
+    this.workerID$ =  this.afs.collection(this.restRoot).doc(this.resturantID).collection("Workers")
         .snapshotChanges()
         .map(data => {
           return data.map(data => ({id:data.payload.doc.id, ...data.payload.doc.data()}));

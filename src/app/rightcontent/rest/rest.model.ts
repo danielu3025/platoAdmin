@@ -5,7 +5,7 @@ export class Rest {
 
     public location: Object = {
         latitude: '1010',
-        longtitude: '2020'
+        longitude: '2020'
     };
 
     public name: string;
@@ -16,7 +16,7 @@ export class Rest {
         totalRanks: '0'
     };
     public smoking: boolean = false;
-    public restType: string;
+    public type: string;
 
 }
 
