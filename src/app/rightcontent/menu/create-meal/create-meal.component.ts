@@ -34,11 +34,13 @@ export class CreateMealComponent implements OnInit {
   raw: RawMaterial = new RawMaterial();
   grocery: Object[];
   dishes: Object[];
+  rawMaterialToMeal: Object[];
 
   constructor(private afs: AngularFirestore, private db: AngularFireDatabase) {
     this.rawMaterialRef = db.list(this.path);
+    this.rawMaterialToMeal = [];
+    this.selectedRawMaterial = [];
   }
-
 
     addGrocery(fRawMaterial) {
         //console.log("formUpdate-> ", fRawMaterial.valid);
@@ -75,9 +77,6 @@ export class CreateMealComponent implements OnInit {
     }
 
     addDish(fDish) {
-        console.log("bind--> ", this.gro);
-        console.log("selectedGrocery--> ", this.selectedGrocery);
-
         if(fDish.valid) {
 
             this.afs.collection(this.restRoot + "/" + this.resturantID + "/Dishes").doc(this.dish.name).set({
@@ -95,7 +94,7 @@ export class CreateMealComponent implements OnInit {
             });
             this.selectedGrocery.forEach((item) => {
                 let groObj = {"id":item.id};
-                this.afs.collection(this.restRoot + "/" + this.resturantID + "/Dishes/"+this.dish.name+"/grocery").doc(item.id)
+                this.afs.collection(this.restRoot + "/" + this.resturantID + "/Dishes/" + this.dish.name + "/grocery").doc(item.id)
                     .set(groObj)
                 .then(function () {
                     console.log("Document successfully written!");
@@ -149,6 +148,7 @@ export class CreateMealComponent implements OnInit {
                 subMenus: this.meal.subMenus,
                 vegan: v,
                 glotenFree:g,
+                displayed: true
             })
             .then(function () {
                 console.log("Document successfully written!");
@@ -168,8 +168,19 @@ export class CreateMealComponent implements OnInit {
                     .catch(function (error) {
                         console.error("Error writing document: ", error);
                     });
-            })
-        }
+            });
+            this.rawMaterialToMeal.forEach(rawMat => {
+                const inputRedLine = document.getElementById(rawMat['id'] + 'inp2') as HTMLInputElement;
+                const inpRedLine =  inputRedLine.value;
+                const checkBoximportance = document.getElementById(rawMat['id'] + 'check') as any;
+                const CBImportance =  checkBoximportance.checked;
+                console.log("CBImportance-> ", CBImportance);
+                this.afs.doc(this.restRoot + "/" + this.resturantID + "/WarehouseStock/" + rawMat['id'])
+                    .collection("Meals").doc(this.meal.name)
+                    .set({'redLine' : inpRedLine, 'importance' : CBImportance, 'menu' : true});
+                });
+            }
+
     }
 
   ngOnInit() {
@@ -201,6 +212,12 @@ export class CreateMealComponent implements OnInit {
               this.categoryG = data;
           });
 
+      // get all subMenu from db
+      this.afs.doc('Globals/SubMenus').valueChanges()
+          .subscribe(data =>{
+              this.subMenuG = data;
+          });
+
      //get all Grocery from db
       this.afs.collection(this.restRoot + "/" + this.resturantID + "/Grocery")
           .snapshotChanges()
@@ -227,27 +244,55 @@ export class CreateMealComponent implements OnInit {
 
     // add selected rawMaterials to object and parsing to int
     addToGrocery(id) {
-        this.selectedRawMaterial = [];
+
          this.rawMaterial.forEach((item) => {
 
-            console.log(item["id"], id);
+            // console.log(item["id"], id);
              if(item["id"] == id){
+                 // console.log('item', item['id']);
+                 let idRawMa = item["id"]+'_rawMa'
+                 const checkBoxRaw = document.getElementById(idRawMa) as HTMLInputElement;
+                 const CBIRaw =  checkBoxRaw.checked;
+                 console.log('checkbox: ' ,CBIRaw);
+                 if(CBIRaw) {
 
-                 console.log(item);
-                 console.log((item["id"]+'inp1').toLocaleString());
-                 let input = document.getElementById(item["id"]+'inp1') as HTMLInputElement;
-                 let inp1val =  input.value;
-                 console.log("inp1val-< ", inp1val);
-                 // if(inp1val == ""){
-                 //     alert("please insert amount first");
-                 // }
-                 // else {
-                    let content = {[item["id"]]:parseInt(inp1val) };
-                     this.selectedRawMaterial.push(content);
-                     console.log("rawMaterialList->>" ,this.selectedRawMaterial);
+                     let test = 0;
+                     // console.log(item);
+                     // console.log((item["id"] + 'inp1').toLocaleString());
+                     let input = document.getElementById(item["id"] + 'inp1') as HTMLInputElement;
+                     let inp1val = input.value;
+                     for(let i = 0; i< this.selectedRawMaterial.length; i++ ) {
+                         console.log(Object.keys(this.selectedRawMaterial[i])[0]);
+                         if(Object.keys(this.selectedRawMaterial[i])[0] === id) {
+                             //updating checked rawMaterial input
+                             this.selectedRawMaterial[i][id]=inp1val;
+                             test = 1;
+                             break;
+                         }
+                     }
+                     console.log("inp1val-< ", inp1val);
+                     // if(inp1val == ""){
+                     //     alert("please insert amount first");
+                     // }
+                     // else {
+                     if(test==0) {
+                         let content = {[item["id"]]: parseInt(inp1val)};
+                         //adding checked rawMaterial
+                         this.selectedRawMaterial.push(content);
+                     }
 
+                     console.log("rawMaterialList->>", this.selectedRawMaterial);
+                 } else {
+                     for(let i = 0; i< this.selectedRawMaterial.length; i++ ) {
+                         console.log(Object.keys(this.selectedRawMaterial[i])[0]);
+                         if(Object.keys(this.selectedRawMaterial[i])[0] === id) {
+                             //deleting false checked rawMaterial
+                            this.selectedRawMaterial.splice(i,1);
+                         }
+                     }
+                 }
              }
-         })
+         });
     }
 
     // add selected groceries to object
@@ -255,10 +300,11 @@ export class CreateMealComponent implements OnInit {
         console.log("id-> ", id);
         console.log("groc-> ", this.grocery);
         this.grocery.forEach((item) => {
-            if(item["id"] == id){
+            if(item["id"] == id) {
                 this.selectedGrocery.push(item);
             }
         });
+        console.log( this.selectedGrocery);
     }
 
     // add selected dishes to object
@@ -268,7 +314,24 @@ export class CreateMealComponent implements OnInit {
         this.dishes.forEach((item) => {
             if(item["id"] == id){
                 this.selectedDish.push(item);
+                console.log(id);
+                this.afs.collection(this.restRoot + "/" + this.resturantID + "/" + "Dishes/" + id + "/grocery")
+                    .snapshotChanges()
+                    .subscribe(data => {
+                        const grocery = [];
+                        data.forEach(docs=>{
+                            this.afs.doc(this.restRoot + "/" + this.resturantID + "/" + "Grocery/" + docs.payload.doc.data().id)
+                                .snapshotChanges()
+                                .subscribe(groc => {
+                                    this.rawMaterialToMeal.push({'id' : Object.keys(groc.payload.data().rawMaterial)[0]});
+                                });
+                        });
+                        console.log(this.rawMaterialToMeal);
+
+                    });
+                console.log("selectedDish", this.selectedDish);
             }
         });
     }
 }
+

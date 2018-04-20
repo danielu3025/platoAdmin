@@ -14,8 +14,7 @@ export class Dish{
     description: string;
     totalTime: number;
     status: number = 0;
-    category: string;
-    //image: string
+    category: string = "Drinks";
 }
 
 export class Meal{

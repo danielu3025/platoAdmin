@@ -59,7 +59,6 @@ const appRouts: Routes = [
     { path : 'manageStock', component: ManageStockComponent },
     { path : 'manageTables', component: ManageTablesComponent },
     { path : 'createMeal', component: CreateMealComponent }
-
 ] ;
 
 

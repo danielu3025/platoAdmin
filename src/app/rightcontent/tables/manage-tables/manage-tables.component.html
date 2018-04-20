@@ -34,7 +34,6 @@
   </table>
 </div>
 
-
 <div id="rest-table-form-container">
   <form  #fTable="ngForm" >
     <div class="form-group">
@@ -46,10 +45,13 @@
               <label for="txtId">Id:</label>
               <input id="txtId" name="txtId" type="text" required validateUserId [(ngModel)]="table.id"/>
             </td>
-            <td>
-              <label for="txtAcceabilty">Acceabilty:</label>
-              <input id="txtAcceabilty" name="txtAcceabilty" type="text" required validateUserId [(ngModel)]="table.acceabilty"/>
-            </td>
+
+            <label for="drpAccesabilityTable">Accesability:</label>
+            <select id="drpAccesabilityTable" name="drpAccesabilityTable" [(ngModel)]="table.acceabilty">
+              <option value="false">false</option>
+              <option value="true">true</option>
+            </select>
+
             <td>
               <label for="txtpBottom">pBottom:</label>
               <input id="txtpBottom" name="txtpBottom" type="text" required validateUserId [(ngModel)]="table.pBottom"/>
@@ -73,33 +75,27 @@
 
           <tr>
             <td>
-              <label for="txtSize">size:</label>
+              <label for="txtSize">Size:</label>
               <input id="txtSize" name="txtSize" type="text" required validateUserId [(ngModel)]="table.size"/>
             </td>
+
+            <label for="drpSmokingTable">Accesability:</label>
+            <select id="drpSmokingTable" name="drpSmokingTable" [(ngModel)]="table.acceabilty">
+              <option value="false">false</option>
+              <option value="true">true</option>
+            </select>
+
             <td>
-              <label for="txtSmoking">smoking:</label>
-              <input id="txtSmoking" name="txtSmoking" type="text" required validateUserId [(ngModel)]="table.smoking"/>
-            </td>
-            <td>
-              <label for="txtStatus">status:</label>
-              <input id="txtStatus" name="txtStatus" type="text" required validateUserId [(ngModel)]="table.status"/>
+              <label for="txtStatus">Status:</label>
+              <input id="txtStatus" name="txtStatus" type="text" required validateUserId disabled [(ngModel)]="table.status"/>
             </td>
           </tr>
         </table>
       </fieldset>
-
-
-
-
-
-
-
-
-
     </div>
     <button type="submit" (click)="addTable(fTable)">add</button>
-    <!--<button type="submit" (click)="updateWorker(f)">update</button>-->
-    <!--<button type="submit" (click)="deleteWorker(worker.id)" >delete</button>-->
+    <button type="submit" (click)="updateWorker(fTable)">update</button>
+    <button type="submit" (click)="deleteTable(table.id)" >delete</button>
   </form>
   <app-rest-grid [tables]="tableID$ | async"></app-rest-grid>
 </div>

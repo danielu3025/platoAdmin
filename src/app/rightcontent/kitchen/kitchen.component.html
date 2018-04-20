@@ -1,9 +1,20 @@
 <app-topbar><app-kitchen-options></app-kitchen-options></app-topbar>
 
-<div id="worker-form-container" class="container">
-    <form  #fkitchenStation$="ngForm" >
+<div id="kitchen-form-container" class="container">
+    <form  #fkitchenStation="ngForm" >
         <div class="form-group">
-            <table id="workerList">
+            <label for="txtId">Id:</label>
+            <input id="txtId" name="txtId" type="text" required validateUserId [(ngModel)]="kitchenStation.id"/>
+            <label for="txtName">Name:</label>
+            <input id="txtName" name="txtName" type="text" required validateUserId [(ngModel)]="kitchenStation.name"/>
+
+            <div>
+            <button type="submit" (click)="addKitchenStation(fkitchenStation)">add</button>
+            <button type="submit" (click)="updateKitchenStation(fkitchenStation)">update</button>
+            <button type="submit" (click)="deleteKitchenStation(kitchenStation.id)" >delete</button>
+            </div>
+
+            <table id="kitchenList">
                 <thead>
                 <tr>
                     <th>Id:</th>
@@ -17,15 +28,8 @@
                 </tr>
                 </tbody>
             </table>
-            <label for="txtId">Id:</label>
-            <input id="txtId" name="txtId" type="text" required validateUserId [(ngModel)]="kitchenStation.id"/>
-            <label for="txtName">stationName:</label>
-            <input id="txtName" name="txtName" type="text" required validateUserId [(ngModel)]="kitchenStation.name"/>
 
         </div>
-        <button type="submit" (click)="addKitchenStation(fkitchenStation$)">add</button>
-        <button type="submit" (click)="updateKitchenStation(fkitchenStation$)">update</button>
-        <button type="submit" (click)="deleteKitchenStation(kitchenStation.id)" >delete</button>
     </form>
 </div>
 

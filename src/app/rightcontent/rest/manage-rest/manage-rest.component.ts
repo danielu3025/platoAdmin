@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {AngularFireDatabase, AngularFireList} from "angularfire2/database";
 import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
 import {Rest} from "../rest.model";
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-manage-rest',
@@ -22,7 +23,9 @@ export class ManageRestComponent implements OnInit {
   restList:any[] = [];
   subMenus: object[];
   subMenuG:any;
+  restTypeG:any;
   selectedSubMenus: any[] = [];
+  selectedRestTypes:any[] = [];
 
     workingDay = [
         {
@@ -59,6 +62,7 @@ export class ManageRestComponent implements OnInit {
     this.restRef = db.list(this.path);
   }
 
+  // add rest to db
   addRest(restForm) {
 
     //console.log("formUpdate-> ", restForm.valid);
@@ -82,64 +86,88 @@ export class ManageRestComponent implements OnInit {
             s =  false;
         }
 
-      this.afs.collection(this.restRoot).doc(this.resturantID).set({
-        accesability: this.rest.accesability,
-        address: a,
+      this.afs.collection(this.restRoot).doc(this.rest.id).set({
+        accesability: a,
+        address: this.rest.address,
         location : this.rest.location,
         name: this.rest.name,
         phone: this.rest.phone,
         picture: this.rest.picture,
         rank : this.rest.rank,
         smoking: s,
-         type: this.rest.type
+        type: this.rest.type
 
       }).then(function () {
             console.log("Document successfully written!");
+            alert("restaurant successfully written");
         }).catch(function (error) {
             console.error("Error writing document: ", error);
-          });
+      });
 
+        // add working days to the rest
         let num: number = 0;
         for (let num = 0; num <= 6; num++) {
-            this.afs.collection(this.restRoot + "/" + this.resturantID + "/WorkingDays/")
+            this.afs.collection(this.restRoot + "/" + this.rest.id + "/WorkingDays/")
                 .doc(num.toLocaleString())
                 .set(this.workingDay[num]);
         }
 
         let submenusJson = {"list":this.selectedSubMenus} ;
-        this.afs.collection(this.restRoot + "/" + this.resturantID + "/restGlobals/")
+        this.afs.collection(this.restRoot + "/" + this.rest.id  + "/restGlobals/")
             .doc("subMenus").set(submenusJson);
     }
 
   }
 
+  // update rest in db
   updateRest(restForm) {
-    this.afs.collection(this.restRoot).doc(this.resturantID).set({
-      accesability: this.rest.accesability,
-      address: this.rest.address,
-      location : this.rest.location,
-      name: this.rest.name,
-      phone: this.rest.phone,
-      picture: this.rest.picture,
-      rank : this.rest.rank,
-      smoking: this.rest.smoking,
-        type: this.rest.type,
-    })
-        .then(function () {
+      let a;
+      let s;
+
+      let accObj = document.getElementById('txtAccesability') as HTMLSelectElement;
+      if(accObj.value =='true'){
+          a = true;
+      }else{
+          a = false;
+      }
+
+      let smokObj = document.getElementById('txtSmoking') as HTMLSelectElement;
+      if(smokObj.value =='true'){
+          s =  true;
+      }else{
+          s =  false;
+      }
+
+    this.afs.collection(this.restRoot).doc(this.rest.id).set({
+        accesability: a,
+        address: this.rest.address,
+        location : this.rest.location,
+        name: this.rest.name,
+        phone: this.rest.phone,
+        picture: this.rest.picture,
+        rank : this.rest.rank,
+        smoking: s,
+        type: this.rest.type
+    }).then(function () {
           console.log("Document successfully written!");
         })
         .catch(function (error) {
           console.error("Error writing document: ", error);
         });
-      let num:number = 0;
-      for(num=0;num<=6;num++) {
-          // this.afs.collection("/Restaurants/" + this.rest.id + "/WorkingDays/")
-          //     .doc("num").set(
-          //    // this.workingDay
-          // );
-      }
-  }
 
+    let num: number = 0;
+    for (let num = 0; num <= 6; num++) {
+         this.afs.collection(this.restRoot + "/" + this.rest.id + "/WorkingDays/")
+             .doc(num.toLocaleString())
+             .set(this.workingDay[num]);
+    }
+
+    let submenusJson = {"list":this.selectedSubMenus} ;
+    this.afs.collection(this.restRoot + "/" + this.rest.id  + "/restGlobals/")
+          .doc("subMenus").set(submenusJson);
+    }
+
+    // delete rest from db
   deleteRest(restId){
     this.afs.collection(this.restRoot).doc(restId).delete()
         .then(function () {
@@ -151,31 +179,39 @@ export class ManageRestComponent implements OnInit {
   }
 
     // add selected subMenus to array
-    addSubMenus(id) {
+    addSubMenus(id){
         console.log("id-> ", id);
         this.selectedSubMenus.push(id);
     }
 
-  ngOnInit() {
-          this.rest = new Rest();
-          console.log("start");
-          this.afs.collection(this.restRoot)
-              .snapshotChanges()
-              .map(data => {
-                  return data.map(subData => {
-                      console.log("main-> ", subData.payload.doc.data());
+    // get all working days of rest from db
+    getWorkingDaysByRestId(restId){
+        $("#"+restId).toggle("slow");
+        console.log(restId);
+        this.workingDays = [];
+        this.afs.collection(this.restRoot + "/" + restId + "/WorkingDays").snapshotChanges()
+        .map(item => {
+            const x = item;
+            return (item.map(result => ({
 
-                      this.restList.push({id:subData.payload.doc.id, ...subData.payload.doc.data()});
-                      this.afs.collection(this.restRoot + "/" +subData.payload.doc.id + "/WorkingDays").snapshotChanges()
-                          .map(item => {
-                              this.workingDays.push(item.map(result => ({
-                                  [subData.payload.doc.id]:{
-                                      ...result.payload.doc.data()
-                                  }
-                              })))
-                          }).subscribe()})
-              }).subscribe(mainObj => {
-              console.log("this.restList=> ", this.restList);
+                [result.payload.doc.id]:{
+                    ...result.payload.doc.data()
+                }
+            })));
+        }).subscribe(data => {
+            this.workingDays.push(data);
+        });
+    }
+
+  ngOnInit() {
+      this.rest = new Rest();
+
+      // get all rests from db
+      this.restID$ = this.afs.collection(this.restRoot)
+          .snapshotChanges()
+          .map(data => {
+              return data.map(subData => ({id:subData.payload.doc.id, ...subData.payload.doc.data()}));
+
           });
 
       // get all subMenu from db
@@ -183,6 +219,14 @@ export class ManageRestComponent implements OnInit {
           .subscribe(data =>{
               this.subMenuG = data;
           });
+
+      // get all restTypes from db
+      this.afs.doc('Globals/restType').valueChanges()
+          .subscribe(data =>{
+              this.restTypeG = data;
+          });
+
       }
+
 
 }

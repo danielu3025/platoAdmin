@@ -9,16 +9,18 @@
 
 #tableList thead tr th{text-align: center;padding:5px;}
 
-
 #tableList tbody{}
 
 #tableList tbody tr{height:30px;}
 
 #tableList tbody tr:nth-child(even) {background: #CCC}
+
 #tableList tbody tr:nth-child(odd) {background: #FFF}
 
 #tableList tbody tr td{text-align: center}
 
-#restFormTable tr td label{min-width:20px;padding:0 10px}
+#restFormTable tr td label{max-width:40px;padding:0 10px}
 
 #rest-table-form-container{width:470px;}
+
+

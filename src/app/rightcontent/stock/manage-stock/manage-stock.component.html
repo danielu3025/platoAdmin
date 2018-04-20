@@ -10,8 +10,6 @@
                 <input id="txtName" name="txtName" [(ngModel)]="rawMaterial.name" type="text" required/>
                 <label for="txtAmount">Amount:</label>
                 <input id="txtAmount" name="txtAmount" [(ngModel)]="rawMaterial.amount" type="text" required/>
-                <label for="txtRedLine">Red Line:</label>
-                <input id="txtRedLine" name="txtRedLine" [(ngModel)]="rawMaterial.redLine" type="text" required/>
                 <label for="txtType">Type:</label>
                 <input id="txtType" name="txtType" [(ngModel)]="rawMaterial.type" type="text" required/>
 
@@ -33,7 +31,6 @@
                 <tr>
                     <th>Name:</th>
                     <th>Amount:</th>
-                    <th>Red Line:</th>
                     <th>Type:</th>
                     <th>Unit:</th>
                 </tr>
@@ -42,7 +39,6 @@
                 <tr *ngFor="let item of rawMaterial$ | async">
                     <td>{{item.value.name}}</td>
                     <td>{{item.value.amount}}</td>
-                    <td>{{item.value.redLine}}</td>
                     <td>{{item.value.type}}</td>
                     <td>{{item.value.units}}</td>
                 </tr>

@@ -24,6 +24,14 @@
                 <input id="txtPrice" name="txtPrice" [(ngModel)]="meal.price" type="txt" required/>
               </div>
               <div>
+                <label for="txtSubMenu">Sub Menus</label>
+                <select id="txtSubMenu" name="txtSubMenu" [(ngModel)]="meal.subMenus">
+                  <option *ngFor="let item of subMenuG?.list" >
+                    {{item}}
+                  </option>
+                </select>
+              </div>
+              <div>
                 <label>vegetarian:</label>
                 <select id="drpIsVegi" name="drpIsVegi" [(ngModel)]="meal.vegan">
                   <option>true</option>
@@ -54,9 +62,33 @@
 
               <tbody>
               <tr *ngFor="let item of dishes">
-                <td> <input id="{{item?.name}}" type="checkbox" (click)="addToMeal(item?.name)" /> </td>
+                <td> <input id="{{item?.name+'_dish'}}" type="checkbox" (click)="addToMeal(item?.name)" /> </td>
                 <td for="txtName">
-                  <input id="{{item?.name +'inpM1'}}" name="txtName" value="{{item.name}}" type="text" disabled required/>
+                  <input id="{{item?.name +'inp1'}}" name="txtName" value="{{item.name}}" type="text" disabled required/>
+                </td>
+              </tr>
+              <!--<td><button type="button" (click)="addMeal(fMeal)" class="btn btn-success">Create Meal</button></td>-->
+              </tbody>
+            </table>
+
+            <table id="dishesList">
+              <thead>
+              <th>Importance:</th>
+              <th>Name:</th>
+              <th>RedLine for meal</th>
+              </thead>
+
+              <tbody>
+
+              <tr *ngFor="let rawName of rawMaterialToMeal">
+                <td for="txtImportance">
+                  <input id="{{rawName?.id+'check'}}" type="checkbox" required/>
+                </td>
+                <td for="txtName">
+                  <input id="{{rawName?.id +'inp4'}}" name="txtName" value="{{rawName.id}}" type="text" required/>
+                </td>
+                <td for="txtRedLine">
+                  <input id="{{rawName?.id+'inp2'}}" name="txtRedLine" type="text" required/>
                 </td>
               </tr>
               <td><button type="button" (click)="addMeal(fMeal)" class="btn btn-success">Create Meal</button></td>
@@ -89,6 +121,7 @@
                 <input id="txtTotalTime" name="txtTotalTime" [(ngModel)]="dish.totalTime" type="txt" required/>
               </div>
               <div>
+                <label for="txtCategory">Category:</label>
                 <select id="txtCategory" name="txtCategory" [(ngModel)]="dish.category">
                   <option *ngFor="let item of categoryG?.list" >
                     {{item}}
@@ -105,9 +138,9 @@
 
                 <tbody>
                 <tr *ngFor="let item of grocery">
-                  <td> <input id="{{item?.name}}" type="checkbox" (click)="addToDish(item?.name)" /> </td>
+                  <td> <input id="{{item?.name+'_grocery'}}" type="checkbox" (click)="addToDish(item?.name)" /> </td>
                   <td for="txtName">
-                    <input id="{{item?.name +'inpD1'}}" name="txtName" value="{{item.name}}" type="text" disabled required/>
+                    <input id="{{item?.name +'inp3'}}" name="txtName" value="{{item.name}}" type="text" disabled required/>
                   </td>
                 </tr>
 
@@ -137,7 +170,7 @@
               <input id="txtCookingTime" name="txtCookingTime" [(ngModel)]="gro.cookingTime" type="text" required/>
               </div>
               <div>
-              <label for="txtCookingType">Unit:</label>
+              <label for="txtCookingType">Cooking Type:</label>
               <select id="txtCookingType" name="txtCookingType" [(ngModel)]="gro.types">
                 <option *ngFor="let item of cookingTypeG?.types" >
                   {{item}}
@@ -155,24 +188,16 @@
                   <th>Id:</th>
                   <th>Name:</th>
                   <th>Amount in grocery:</th>
-                  <th>Red line for meal</th>
-                  <th>importance to meal</th>
                 </tr>
                 </thead>
 
                 <tbody>
                 <tr *ngFor="let item of rawMaterial">
-                  <td><input id="{{item?.id}}" type="checkbox" (click)="addToGrocery(item?.id)"/></td>
+                  <td> <input id="{{item?.id+'_rawMa'}}" type="checkbox" (click)="addToGrocery(item?.id)"/> </td>
                   <td>{{item?.id}}</td>
                   <td>{{item?.name}}</td>
                   <td for="txtAmount">
-                    <input #txtAmount id="{{item?.id +'inp1'}}" name="txtAmount" type="text" required/>
-                  </td>
-                  <td for="txtRedLine">
-                    <input id="{{item?.id+'inp2'}}" name="txtRedLine" type="text" required/>
-                  </td>
-                  <td for="txtImportance">
-                    <input id="{{item?.id+'check'}}" type="checkbox" required/>
+                    <input #txtAmount id="{{item?.id +'inp1'}}" name="txtAmount" type="text" (keyup)="addToGrocery(item?.id)" required/>
                   </td>
                 </tr>
                 </tbody>

@@ -33,12 +33,10 @@ export class ManageStockComponent implements OnInit {
     console.log("bind--> ",this.rawMaterial);
 
     let amount = document.getElementById('txtAmount') as HTMLInputElement;
-    let redLine = document.getElementById('txtRedLine') as HTMLInputElement;
 
     let newRaw = {
         "name": this.rawMaterial.name,
         "amount": parseInt(amount.value),
-        "redLine": parseInt(redLine.value),
         "type":this.rawMaterial.type,
         "unit":this.rawMaterial.units
     };
@@ -58,12 +56,10 @@ export class ManageStockComponent implements OnInit {
 
   updateRawMaterial(RawMaterialForm) {
      let amount = document.getElementById('txtAmount') as HTMLInputElement;
-     let redLine = document.getElementById('txtRedLine') as HTMLInputElement;
 
       let newRaw = {
           "name": this.rawMaterial.name,
           "amount": parseInt(amount.value),
-          "redLine": parseInt(redLine.value),
           "type":this.rawMaterial.type,
           "unit":this.rawMaterial.units
       };

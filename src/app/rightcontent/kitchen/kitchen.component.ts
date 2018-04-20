@@ -25,11 +25,11 @@ export class KitchenComponent implements OnInit {
     this.kitchenStationRef = db.list(this.path);
   }
 
-  addKitchenStation(kitchenStationForm) {
-    console.log("formUpdate-> ", kitchenStationForm.valid);
+  addKitchenStation(KitchenStationForm) {
+    console.log("formUpdate-> ", KitchenStationForm.valid);
     console.log("bind--> ",this.kitchenStation);
 
-    if(kitchenStationForm.valid){
+    if(KitchenStationForm.valid){
       this.afs.collection(this.restRoot + "/" + this.resturantID + "/KitchenStation/").doc(this.kitchenStation.id).set({
         name: this.kitchenStation.name,
       }).then(function () {
@@ -54,8 +54,8 @@ export class KitchenComponent implements OnInit {
         });
     }
 
-  deleteKitchenStation(kitchenStationd){
-    this.afs.collection(this.restRoot + "/" + this.resturantID + "/KitchenStation/").doc(kitchenStationd).delete()
+  deleteKitchenStation(kitchenStationId){
+    this.afs.collection(this.restRoot + "/" + this.resturantID + "/KitchenStation/").doc(kitchenStationId).delete()
         .then(function () {
           console.log("Document successfully written!");
         })

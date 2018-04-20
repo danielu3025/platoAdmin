@@ -7,12 +7,12 @@ export const environment = {
   production: false,
 
   config : {
-    apiKey: "AIzaSyA3WJ9OM4djaPCTRGvF2qaeh_hE4qXQ8DU",
-    authDomain: "plato-7fb01.firebaseapp.com",
-    databaseURL: "https://plato-7fb01.firebaseio.com",
-    projectId: "plato-7fb01",
-    storageBucket: "plato-7fb01.appspot.com",
-    messagingSenderId: "1064887107825"
+    apiKey: "AIzaSyC17LboYF2DtS34_J_FCKGEhPL5ozf3CHo",
+    authDomain: "plato-9a79e.firebaseapp.com",
+    databaseURL: "https://plato-9a79e.firebaseio.com",
+    projectId: "plato-9a79e",
+    storageBucket: "plato-9a79e.appspot.com",
+    messagingSenderId: "428535021409"
   }
 
 };

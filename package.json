@@ -27,7 +27,7 @@
     "firebase": "^4.10.1",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19",
-    "lodash":"^4.17.5"
+    "jquery":"^3.3.1"
   },
   "devDependencies": {
     "@angular/cli": "~1.7.2",
