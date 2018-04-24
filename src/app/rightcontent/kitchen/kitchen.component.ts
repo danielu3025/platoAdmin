@@ -12,9 +12,9 @@ import {Global} from "../../globals.model";
 })
 export class KitchenComponent implements OnInit {
 
-  private path  = "/RestAlfa/kibutz-222/KitchenStation";
+  private path  = "/RestAlfa/mozes-333/KitchenStation";
   private restRoot  = "RestAlfa";
-  private resturantID = "kibutz-222";
+  private resturantID = "mozes-333";
 
 
   kitchenStation : KitchenStation;

@@ -13,16 +13,17 @@ import {Validators, FormControl, FormGroup} from "@angular/forms";
 
 export class ManageStockComponent implements OnInit {
 
-    private path  = "/RestAlfa/kibutz-222/KitchenStation";
+    private path  = "/RestAlfa/mozes-333/KitchenStation";
     restRoot  = "RestAlfa";
-    resturantID = "kibutz-222";
+    resturantID = "mozes-333";
 
     test:any;
     rawMaterial: RawMaterial;
     rawMaterial$: Observable<any[]>;
     // units$: Observable<any>;
     rawMaterialRef: AngularFireList<RawMaterial> = null;
-    units:any;
+    units: any;
+    unitG: any;
 
     constructor(private afs: AngularFirestore, private db: AngularFireDatabase) {
         this.rawMaterialRef = db.list(this.path);
@@ -92,7 +93,7 @@ export class ManageStockComponent implements OnInit {
       this.afs.collection('Globals').doc("Units").valueChanges()
           .subscribe(data =>
           {
-              this.test = data;
+              this.unitG = data;
           });
 
       this.rawMaterial$ =  this.afs.collection(this.restRoot).doc(this.resturantID).collection("WarehouseStock")
@@ -101,11 +102,11 @@ export class ManageStockComponent implements OnInit {
               return data.map(data => ({id:data.payload.doc.id, ...data.payload.doc.data()}));
           });
 
-      this.afs.doc('Globals/Units').valueChanges()
-          .subscribe(data =>{
-              this.units = data;
-              let x : Object = data;
-          });
+    //   this.afs.doc('Globals/Units').valueChanges()
+    //       .subscribe(data =>{
+    //           this.units = data;
+    //           let x : Object = data;
+    //       });
 
       }
 

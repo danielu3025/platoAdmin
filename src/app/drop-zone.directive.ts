@@ -1,4 +1,4 @@
-import { Directive, HostLisener,  EventEmmiter} from '@angular/core';
+import { Directive } from '@angular/core';
 
 @Directive({
   selector: '[appDropZone]'

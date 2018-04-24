@@ -48,10 +48,10 @@
          <input id="txtAddress" name="txtAddress" type="text" required [(ngModel)]="rest.address"/>
 
          <label for="txtLocationR">LocationR:</label>
-         <input id="txtLocationR" name="txtLocationR" type="text" required [(ngModel)]="rest.location.latitude"/>
+         <input id="txtLocationR" name="txtLocationR" type="text" required [(ngModel)]="rest.location['latitude']"/>
 
          <label for="txtLocationL">LocationL:</label>
-         <input id="txtLocationL" name="txtLocationL" type="text" required [(ngModel)]="rest.location.longitude" [ngClass]="{'errorTest' : txtWorkerRoleErrorClass === true}"/>
+         <input id="txtLocationL" name="txtLocationL" type="text" required [(ngModel)]="rest.location['longitude']"/>
 
         <label for="txtName">Name:</label>
          <input id="txtName" name="txtName" type="text" [(ngModel)]="rest.name">
@@ -63,10 +63,10 @@
         <input id="txtPicture" name="txtPicture" type="text" [(ngModel)]="rest.picture">
 
         <label for="txtRank">Sum Rank:</label>
-        <input id="txtRank" name="txtRank" type="text" [(ngModel)]="rest.rank.rankSum">
+        <input id="txtRank" name="txtRank" type="text" [(ngModel)]="rest.rank['rankSum']">
 
         <label for="txtTotalRank">Total Rank:</label>
-        <input id="txtTotalRank" name="txtTotalRank" type="text" [(ngModel)]="rest.rank.totalRanks">
+        <input id="txtTotalRank" name="txtTotalRank" type="text" [(ngModel)]="rest.rank['totalRanks']">
 
         <label for="txtSmoking">Smoking:</label>
         <select id="txtSmoking" name="txtSmoking" [(ngModel)]="rest.smoking">

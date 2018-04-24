@@ -16,9 +16,9 @@ import {log} from "util";
 })
 export class CreateMealComponent implements OnInit {
 
-  private path  = "/RestAlfa/kibutz-222/KitchenStation";
+  private path  = "/RestAlfa/mozes-333/KitchenStation";
   restRoot  = "RestAlfa";
-  resturantID = "kibutz-222";
+  resturantID = "mozes-333";
 
   selectedRawMaterial: any[] =[];
   selectedGrocery: any[] =[];
@@ -31,19 +31,21 @@ export class CreateMealComponent implements OnInit {
   cookingTypeG:any;
   categoryG:any;
   subMenuG:any;
+  mealTypeG:any;
   raw: RawMaterial = new RawMaterial();
   grocery: Object[];
   dishes: Object[];
   rawMaterialToMeal: Object[];
+  dishesToGroceries: Object[];
 
   constructor(private afs: AngularFirestore, private db: AngularFireDatabase) {
     this.rawMaterialRef = db.list(this.path);
     this.rawMaterialToMeal = [];
     this.selectedRawMaterial = [];
+    this.dishesToGroceries= [];
   }
 
     addGrocery(fRawMaterial) {
-        //console.log("formUpdate-> ", fRawMaterial.valid);
         console.log("this.gro--> ", this.gro);
         console.log("selectedRawMaterial--> ", this.selectedRawMaterial);
         let obj = [];
@@ -76,9 +78,9 @@ export class CreateMealComponent implements OnInit {
         }
     }
 
+    // add dish to db
     addDish(fDish) {
         if(fDish.valid) {
-
             this.afs.collection(this.restRoot + "/" + this.resturantID + "/Dishes").doc(this.dish.name).set({
                 name:this.dish.name,
                 description: this.dish.description,
@@ -92,10 +94,15 @@ export class CreateMealComponent implements OnInit {
             .catch(function (error) {
                 console.error("Error writing document: ", error);
             });
-            this.selectedGrocery.forEach((item) => {
-                let groObj = {"id":item.id};
-                this.afs.collection(this.restRoot + "/" + this.resturantID + "/Dishes/" + this.dish.name + "/grocery").doc(item.id)
-                    .set(groObj)
+            console.log(this.selectedGrocery);
+            this.selectedGrocery.forEach(item => {
+                console.log("item->" , item);
+                console.log('dish',this.dish.name);
+                console.log('item', item[Object.keys(item)[0]]);
+                let groObj = {"id":item[Object.keys(item)[0]]};
+                console.log("groObj->", groObj.id);
+                this.afs.collection(this.restRoot + "/" + this.resturantID + "/Dishes/" + this.dish.name + "/" + "grocery")
+                .doc(item[Object.keys(item)[0]]).set(groObj)
                 .then(function () {
                     console.log("Document successfully written!");
                 })
@@ -103,10 +110,10 @@ export class CreateMealComponent implements OnInit {
                     console.error("Error writing document: ", error);
                 });
             })
-
         }
     }
 
+    // add meal to db
     addMeal(fMeal) {
         console.log("meal--> ", this.meal);
         console.log("selectedDish--> ", this.selectedDish);
@@ -137,9 +144,7 @@ export class CreateMealComponent implements OnInit {
         }
 
         if(fMeal.valid) {
-
             let pm = document.getElementById("txtPrice") as HTMLInputElement;
-
             this.afs.collection(this.restRoot + "/" + this.resturantID + "/Meals").doc(this.meal.name).set({
                 name:this.meal.name,
                 description: this.meal.description,
@@ -148,22 +153,25 @@ export class CreateMealComponent implements OnInit {
                 subMenus: this.meal.subMenus,
                 vegan: v,
                 glotenFree:g,
-                displayed: true
+                displayed: true,
+                mealType: this.meal.mealType
             })
             .then(function () {
                 console.log("Document successfully written!");
             })
             .catch(function (error) {
                  console.error("Error writing document: ", error);
-            });
-
+            });           
             this.selectedDish.forEach((item) => {
                 console.log("item->>>", item);
-                let tempobj = {"id":item.id};
+                let dishObj = {"id":item[Object.keys(item)[0]]};
+                console.log("dishObj->>",dishObj);
+                console.log("item[Object.keys(item)[0]]",item[Object.keys(item)[0]]);
                 this.afs.collection(this.restRoot + "/" + this.resturantID + "/Meals/" + this.meal.name + "/dishes")
-                    .doc(item.name).set(tempobj)
+                    .doc(item[Object.keys(item)[0]]).set(dishObj)
                     .then(function () {
                         console.log("Document successfully written!");
+                        alert("Meal successfully added")
                     })
                     .catch(function (error) {
                         console.error("Error writing document: ", error);
@@ -185,8 +193,6 @@ export class CreateMealComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log("start");
-
     // get all RawMaterial from db
      this.afs.collection(this.restRoot).doc(this.resturantID).collection("WarehouseStock")
         .snapshotChanges()
@@ -196,8 +202,6 @@ export class CreateMealComponent implements OnInit {
         .subscribe(data => {
              this.rawMaterial = data;
              console.log("maltreats::", this.rawMaterial);
-            // rawMaterialJson = JSON.stringify(rawMaterial);
-            // console.log("ssdsd- >", this.rawMaterial);
         });
 
     // get all CookingType from db
@@ -217,6 +221,12 @@ export class CreateMealComponent implements OnInit {
           .subscribe(data =>{
               this.subMenuG = data;
           });
+
+    // get all mealTypes from db
+      this.afs.doc('Globals/mealTypes').valueChanges()
+      .subscribe(data =>{
+          this.mealTypeG = data;
+      });
 
      //get all Grocery from db
       this.afs.collection(this.restRoot + "/" + this.resturantID + "/Grocery")
@@ -246,19 +256,13 @@ export class CreateMealComponent implements OnInit {
     addToGrocery(id) {
 
          this.rawMaterial.forEach((item) => {
-
-            // console.log(item["id"], id);
              if(item["id"] == id){
-                 // console.log('item', item['id']);
                  let idRawMa = item["id"]+'_rawMa'
                  const checkBoxRaw = document.getElementById(idRawMa) as HTMLInputElement;
                  const CBIRaw =  checkBoxRaw.checked;
                  console.log('checkbox: ' ,CBIRaw);
                  if(CBIRaw) {
-
-                     let test = 0;
-                     // console.log(item);
-                     // console.log((item["id"] + 'inp1').toLocaleString());
+                    let test = 0;
                      let input = document.getElementById(item["id"] + 'inp1') as HTMLInputElement;
                      let inp1val = input.value;
                      for(let i = 0; i< this.selectedRawMaterial.length; i++ ) {
@@ -271,10 +275,6 @@ export class CreateMealComponent implements OnInit {
                          }
                      }
                      console.log("inp1val-< ", inp1val);
-                     // if(inp1val == ""){
-                     //     alert("please insert amount first");
-                     // }
-                     // else {
                      if(test==0) {
                          let content = {[item["id"]]: parseInt(inp1val)};
                          //adding checked rawMaterial
@@ -297,15 +297,47 @@ export class CreateMealComponent implements OnInit {
 
     // add selected groceries to object
     addToDish(id) {
-        console.log("id-> ", id);
-        console.log("groc-> ", this.grocery);
         this.grocery.forEach((item) => {
-            if(item["id"] == id) {
-                this.selectedGrocery.push(item);
+            if(item["id"] == id){
+                let idGroc = item["id"]+'_grocery'
+                console.log("id-> ", id);
+                const checkBoxGro = document.getElementById(idGroc) as HTMLInputElement;
+                const CBIGro =  checkBoxGro.checked;
+                console.log('checkbox: ' ,CBIGro);
+                if(CBIGro) {
+                    let test = 0;
+                     let input = document.getElementById(item["id"] + 'inp3') as HTMLInputElement;
+                     let inp1val = input.value;
+                     for(let i = 0; i< this.selectedGrocery.length; i++ ) {
+                         console.log(Object.keys(this.selectedGrocery[i])[0]);
+                         if(Object.keys(this.selectedGrocery[i])[0] === id) {
+                             //updating checked rawMaterial input
+                             this.selectedGrocery[i][id]=inp1val;
+                             test = 1;
+                             break;
+                         }
+                     }
+                     console.log("inp1val-< ", inp1val);
+                     if(test==0) {
+                         console.log('item:' , item);
+                         let content = {[item['id']]: inp1val};
+                         //adding checked rawMaterial
+                         this.selectedGrocery.push(content);
+                     }
+                }else{
+                    console.log("selectedgrocery:" , this.selectedGrocery);
+                    for(let i = 0; i< this.selectedGrocery.length; i++ ) {
+                        console.log(Object.keys(this.selectedGrocery[i])[0]);
+                        if(Object.keys(this.selectedGrocery[i])[0] === id) {
+                            //deleting false checked rawMaterial
+                           this.selectedGrocery.splice(i,1);
+                        }
+                    }
+                 }
+                 console.log("rawMaterialList->>", this.selectedGrocery);
             }
         });
-        console.log( this.selectedGrocery);
-    }
+    }  
 
     // add selected dishes to object
     addToMeal(id) {
@@ -313,25 +345,73 @@ export class CreateMealComponent implements OnInit {
         console.log("dish-> ", this.dishes);
         this.dishes.forEach((item) => {
             if(item["id"] == id){
-                this.selectedDish.push(item);
-                console.log(id);
-                this.afs.collection(this.restRoot + "/" + this.resturantID + "/" + "Dishes/" + id + "/grocery")
-                    .snapshotChanges()
-                    .subscribe(data => {
-                        const grocery = [];
-                        data.forEach(docs=>{
-                            this.afs.doc(this.restRoot + "/" + this.resturantID + "/" + "Grocery/" + docs.payload.doc.data().id)
-                                .snapshotChanges()
-                                .subscribe(groc => {
-                                    this.rawMaterialToMeal.push({'id' : Object.keys(groc.payload.data().rawMaterial)[0]});
+                let idDish = item["id"]+'_dish'
+                console.log("id-> ", id);
+                const checkBoxDish = document.getElementById(idDish) as HTMLInputElement;
+                const CBIDish =  checkBoxDish.checked;
+                console.log('checkbox: ' ,CBIDish);
+                if(CBIDish) {
+                     let test = 0;
+                     let input = document.getElementById(item["id"] + 'inp1') as HTMLInputElement;
+                     let inp1val = input.value;
+                     for(let i = 0; i< this.selectedDish.length; i++ ) {
+                         console.log(Object.keys(this.selectedDish[i])[0]);
+                         if(Object.keys(this.selectedDish[i])[0] === id) {
+                             //updating checked rawMaterial input
+                             this.selectedDish[i][id]=inp1val;
+                             test = 1;
+                             break;
+                         }
+                     }
+                     console.log("inp1val-< ", inp1val);
+                     if(test==0) {
+                         let content = {[item["id"]]: inp1val};
+                         //adding checked rawMaterial
+                         this.selectedDish.push(content);
+                         this.afs.collection(this.restRoot + "/" + this.resturantID + "/" + "Dishes/" + id + "/grocery")
+                         .snapshotChanges()
+                         .subscribe(data => {
+                             const grocery = [];
+                             data.forEach(docs=>{
+                                 this.afs.doc(this.restRoot + "/" + this.resturantID + "/" + "Grocery/" + docs.payload.doc.data().id)
+                                     .snapshotChanges()
+                                     .subscribe(groc => {
+                                         this.rawMaterialToMeal.push({'id' : Object.keys(groc.payload.data().rawMaterial)[0]});
+                                         this.dishesToGroceries.push({id: item['id'], content: Object.keys(groc.payload.data().rawMaterial)[0]})
+                                     });
+                             });
+                             console.log(this.rawMaterialToMeal);
+     
+                            });
+                        }
+                    } else{
+                        console.log("selectedDish:" , this.selectedDish);
+                        for(let i = 0; i< this.selectedDish.length; i++ ) {
+                            console.log(Object.keys(this.selectedDish[i])[0]);
+                            if(Object.keys(this.selectedDish[i])[0] === id) {
+                                for(let k:number=0; k<this.dishesToGroceries.length; k++) {
+                                    if(this.dishesToGroceries[k]['id']== id) {
+                                        this.dishesToGroceries.forEach(grocerysAfterSplice=>{
+                                            this.dishesToGroceries.splice(k,1);
+                                            console.log("dishesToGroceries=>" , this.dishesToGroceries);
+                                        });
+                                    }
+                                }
+                                this.rawMaterialToMeal = [];
+                                console.log("this.rawMaterialToMeal->>",this.rawMaterialToMeal);
+                                this.dishesToGroceries.forEach(grocerysAfter => {
+                                    this.rawMaterialToMeal.push({id: grocerysAfter['content']});
                                 });
-                        });
-                        console.log(this.rawMaterialToMeal);
-
-                    });
-                console.log("selectedDish", this.selectedDish);
-            }
-        });
-    }
+                                console.log(this.dishesToGroceries);
+                                //deleting false checked rawMaterial
+                               this.selectedDish.splice(i,1);
+                               console.log("selectedDish->>", this.selectedDish);
+                            }
+                        }
+                     }
+                     console.log("selectedDish->>", this.selectedDish);
+                    }
+                });
+            }           
 }
 

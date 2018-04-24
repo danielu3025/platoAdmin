@@ -14,7 +14,8 @@ export class Dish{
     description: string;
     totalTime: number;
     status: number = 0;
-    category: string = "Drinks";
+    category: string = 'Drinks';
+
 }
 
 export class Meal{
@@ -25,9 +26,5 @@ export class Meal{
     subMenus: string = 'Starters';
     vegan: boolean = false;
     glotenFree: boolean = false;
+    mealType: string = 'meat'
 }
-
-// export class RawMaterial{
-//     name: string;
-//     amount: number;
-//}

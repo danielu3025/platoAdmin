@@ -15,7 +15,7 @@
 
                 <label for="txtUnit">Unit:</label>
                 <select id="txtUnit" name="txtUnit" [(ngModel)]="rawMaterial.units">
-                    <option *ngFor="let item of units?.units" >
+                    <option *ngFor="let item of unitG?.units" >
                         {{item}}
                     </option>
                 </select>
@@ -40,7 +40,7 @@
                     <td>{{item.value.name}}</td>
                     <td>{{item.value.amount}}</td>
                     <td>{{item.value.type}}</td>
-                    <td>{{item.value.units}}</td>
+                    <td>{{item.value.unit}}</td>
                 </tr>
                 </tbody>
             </table>

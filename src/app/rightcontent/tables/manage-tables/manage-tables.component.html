@@ -79,8 +79,8 @@
               <input id="txtSize" name="txtSize" type="text" required validateUserId [(ngModel)]="table.size"/>
             </td>
 
-            <label for="drpSmokingTable">Accesability:</label>
-            <select id="drpSmokingTable" name="drpSmokingTable" [(ngModel)]="table.acceabilty">
+            <label for="drpSmokingTable">Smoking:</label>
+            <select id="drpSmokingTable" name="drpSmokingTable" [(ngModel)]="table.smoking">
               <option value="false">false</option>
               <option value="true">true</option>
             </select>
@@ -94,10 +94,8 @@
       </fieldset>
     </div>
     <button type="submit" (click)="addTable(fTable)">add</button>
-    <button type="submit" (click)="updateWorker(fTable)">update</button>
+    <button type="submit" (click)="updateTable(fTable)">update</button>
     <button type="submit" (click)="deleteTable(table.id)" >delete</button>
   </form>
   <app-rest-grid [tables]="tableID$ | async"></app-rest-grid>
 </div>
-
-

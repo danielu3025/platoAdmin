@@ -3,6 +3,7 @@ import {Table} from "../table.model";
 import {AngularFireList, AngularFireDatabase} from "angularfire2/database";
 import {Observable} from "rxjs";
 import {AngularFirestore} from "angularfire2/firestore";
+import { ZipSubscriber } from 'rxjs/operators/zip';
 
 @Component({
   selector: 'app-manage-tables',
@@ -12,9 +13,9 @@ import {AngularFirestore} from "angularfire2/firestore";
 
 export class ManageTablesComponent implements OnInit {
 
-  private path  = "/RestAlfa/kibutz-222/KitchenStation";
+  private path  = "/RestAlfa/mozes-333/KitchenStation";
   restRoot  = "RestAlfa";
-  resturantID = "kibutz-222";
+  resturantID = "mozes-333";
 
   table: Table;
   tableID$: Observable<any[]>;
@@ -41,19 +42,29 @@ export class ManageTablesComponent implements OnInit {
       this.pt = document.getElementById("txtpTop") as HTMLInputElement;
       this.ps = document.getElementById("txtSize") as HTMLInputElement;
 
-      if(this.validTable(parseInt(this.pl.value), parseInt(this.pr.value))) {
-
-        this.afs.collection(this.restRoot + "/" + this.resturantID + "/Tables").doc(this.table.id).set({
-          id: this.table.id,
-          acceabilty: Boolean(this.table.acceabilty),
-          pBottom: parseInt(this.pb.value),
-          pLeft: parseInt(this.pl.value),
-          pRight: parseInt(this.pr.value),
-          pTop: parseInt(this.pt.value),
-          size: parseInt(this.ps.value),
-          smoking: Boolean(this.table.smoking),
-          status: String(this.table.status),
-        });
+      let tableJson = {
+        id: this.table.id,
+        acceabilty: Boolean(this.table.acceabilty),
+        pBottom: parseInt(this.pb.value),
+        pLeft: parseInt(this.pl.value),
+        pRight: parseInt(this.pr.value),
+        pTop: parseInt(this.pt.value),
+        size: parseInt(this.ps.value),
+        smoking: Boolean(this.table.smoking),
+        status: String(this.table.status),
+      }
+      
+      let tableValidationRes = false;
+      for(let i=0; i< this.restTableList.length;i++){
+        if(!tableValidationRes){
+           tableValidationRes = this.validTable(tableJson,this.restTableList[i]);
+           if(tableValidationRes){
+             break;
+           }
+        }
+      }
+      if(!tableValidationRes){
+        this.afs.collection(this.restRoot + "/" + this.resturantID + "/Tables").doc(this.table.id).set(tableJson);
         this.afs.collection(this.restRoot + "/" + this.resturantID + "/TablesOrders").doc(this.table.id).set({})
             .then(function () {
               console.log("Tble successfully written!");
@@ -64,6 +75,7 @@ export class ManageTablesComponent implements OnInit {
       }
       else {
         console.log("draw failed");
+        alert("Tables overlaps")
       }
     }
   }
@@ -78,19 +90,28 @@ export class ManageTablesComponent implements OnInit {
       this.pt = document.getElementById("txtpTop") as HTMLInputElement;
       this.ps = document.getElementById("txtSize") as HTMLInputElement;
 
-      if(this.validTable(parseInt(this.pl.value), parseInt(this.pr.value))) {
+      let tableJson = {
+        id: this.table.id,
+        acceabilty: Boolean(this.table.acceabilty),
+        pBottom: parseInt(this.pb.value),
+        pLeft: parseInt(this.pl.value),
+        pRight: parseInt(this.pr.value),
+        pTop: parseInt(this.pt.value),
+        size: parseInt(this.ps.value),
+        smoking: Boolean(this.table.smoking),
+        status: String(this.table.status),
+      }
+      
+      let tableValidationRes = false;
+      for(let i=0; i< this.restTableList.length;i++){
+        if(!tableValidationRes){
+           tableValidationRes = this.validTable(tableJson,this.restTableList[i]);
+           break;
+        }
+      }
 
-        this.afs.collection(this.restRoot + "/" + this.resturantID + "/Tables").doc(this.table.id).set({
-          id: this.table.id,
-          acceabilty: Boolean(this.table.acceabilty),
-          pBottom: parseInt(this.pb.value),
-          pLeft: parseInt(this.pl.value),
-          pRight: parseInt(this.pr.value),
-          pTop: parseInt(this.pt.value),
-          size: parseInt(this.ps.value),
-          smoking: Boolean(this.table.smoking),
-          status: String(this.table.status),
-        });
+      if(this.validTable(parseInt(this.pl.value), parseInt(this.pr.value))) {
+        this.afs.collection(this.restRoot + "/" + this.resturantID + "/Tables").doc(this.table.id).set(tableJson);
         this.afs.collection(this.restRoot + "/" + this.resturantID + "/TablesOrders").doc(this.table.id).set({})
             .then(function () {
               console.log("Table successfully update!");
@@ -105,7 +126,6 @@ export class ManageTablesComponent implements OnInit {
     }
   }
 
-
   // delete table from db
   deleteTable(restId){
     this.afs.collection(this.restRoot + "/" + this.resturantID + "/" + "Tables").doc(this.table.id).delete()
@@ -117,29 +137,39 @@ export class ManageTablesComponent implements OnInit {
         });
     this.afs.collection(this.restRoot + "/" + this.resturantID + "/" + "TablesOrders").doc(this.table.id).delete()
         .then(function () {
-          console.log("Ttable oreder successfully deleted!");
+          console.log("Table oreder successfully deleted!");
         })
   }
 
   // a function that checks if table can be drawn
-  public validTable(x, y) : boolean {
+  public validTable(a,b) : boolean {
     let flag: boolean = false;
-
-    for(let i=0; i< this.restTableList.length;i++){
-      console.log(this.restTableList[i]);
-      if (x >= this.restTableList[i].pLeft) {
-        if (y >= this.restTableList[i].pTop) {
-          if (x <= this.restTableList[i].pRight) {
-            if (y <= this.restTableList[i].pBottom) {
-              flag = true;
-            }
-          }
-        }
-
-      }
+    if (a.pLeft >= b.pRight || a.pTop >= b.pBottom || a.pRight <= b.pLeft || a.pBottom <= b.pTop){
+      
+    } 
+    else{
+      flag = true;
     }
     return flag;
   }
+
+
+
+  //   for(let i=0; i< this.restTableList.length;i++){
+  //     console.log(this.restTableList[i]);
+  //     if (x >= this.restTableList[i].pLeft +1){
+  //       if (y >= this.restTableList[i].pTop +1){
+  //         if (x <= this.restTableList[i].pRight +1){
+  //           if (y <= this.restTableList[i].pBottom +1){
+  //             flag = true;
+  //           }
+  //         }
+  //       }
+
+  //     }
+  //   }
+  //   return flag;
+  // }
 
   // get all tables from db
   getTables(){

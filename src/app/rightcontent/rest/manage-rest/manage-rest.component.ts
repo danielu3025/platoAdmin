@@ -12,9 +12,9 @@ import * as $ from 'jquery';
 })
 export class ManageRestComponent implements OnInit {
 
-  private path  = "/RestAlfa/kibutz-222/KitchenStation";
+  private path  = "/RestAlfa/mozes-333/KitchenStation";
   restRoot  = "RestAlfa";
-  resturantID = "kibutz-222";
+  resturantID = "mozes-333";
 
   rest: Rest;
   restID$: Observable<any[]>;

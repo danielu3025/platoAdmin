@@ -24,7 +24,7 @@
                 <input id="txtPrice" name="txtPrice" [(ngModel)]="meal.price" type="txt" required/>
               </div>
               <div>
-                <label for="txtSubMenu">Sub Menus</label>
+                <label for="txtSubMenu">Sub Menu</label>
                 <select id="txtSubMenu" name="txtSubMenu" [(ngModel)]="meal.subMenus">
                   <option *ngFor="let item of subMenuG?.list" >
                     {{item}}
@@ -53,10 +53,18 @@
                 </select>
               </div>
             </div>
+            <div>
+              <label for="txtMealType">Meal Type</label>
+              <select id="txtMealType" name="txtMealType" [(ngModel)]="meal.mealType">
+                <option *ngFor="let item of mealTypeG?.types" >
+                  {{item}}
+                </option>
+              </select>
+            </div>
 
-            <table id="dishesList">
+            <table id="dishesListFromDb">
               <thead>
-              <th>Id:</th>
+              <th></th>
               <th>Name:</th>
               </thead>
 
@@ -67,7 +75,6 @@
                   <input id="{{item?.name +'inp1'}}" name="txtName" value="{{item.name}}" type="text" disabled required/>
                 </td>
               </tr>
-              <!--<td><button type="button" (click)="addMeal(fMeal)" class="btn btn-success">Create Meal</button></td>-->
               </tbody>
             </table>
 
@@ -77,9 +84,7 @@
               <th>Name:</th>
               <th>RedLine for meal</th>
               </thead>
-
               <tbody>
-
               <tr *ngFor="let rawName of rawMaterialToMeal">
                 <td for="txtImportance">
                   <input id="{{rawName?.id+'check'}}" type="checkbox" required/>
@@ -132,7 +137,7 @@
 
             <table id="groceryList">
               <thead>
-                <th>Id:</th>
+                <th></th>
                 <th>Name:</th>
               </thead>
 
@@ -171,13 +176,12 @@
               </div>
               <div>
               <label for="txtCookingType">Cooking Type:</label>
-              <select id="txtCookingType" name="txtCookingType" [(ngModel)]="gro.types">
+              <select id="txtCookingType" name="txtCookingType" [(ngModel)]="gro.cookingType">
                 <option *ngFor="let item of cookingTypeG?.types" >
                   {{item}}
                 </option>
               </select>
               </div>
-              <td><button type="button" (click)="addGrocery(fRawMaterial)" class="btn btn-success">create Grocery</button></td>
             </div>
 
             <div id="rawMaterialForm">
@@ -202,6 +206,7 @@
                 </tr>
                 </tbody>
               </table>
+              <button type="button" (click)="addGrocery(fRawMaterial)" class="btn btn-success">create Grocery</button>
             </div>
           </div>
         </form>
