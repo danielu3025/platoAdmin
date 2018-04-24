@@ -381,7 +381,6 @@ export class CreateMealComponent implements OnInit {
                                      });
                              });
                              console.log(this.rawMaterialToMeal);
-     
                             });
                         }
                     } else{
