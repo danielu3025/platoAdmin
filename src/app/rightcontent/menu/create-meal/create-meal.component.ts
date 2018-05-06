@@ -380,6 +380,7 @@ export class CreateMealComponent implements OnInit {
                                          this.dishesToGroceries.push({id: item['id'], content: Object.keys(groc.payload.data().rawMaterial)[0]})
                                      });
                              });
+                             
                              console.log(this.rawMaterialToMeal);
                             });
                         }
