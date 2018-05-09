@@ -19,7 +19,7 @@ import { LayoutOptionsComponent } from './rightcontent/nav-options/layout-option
 import { MenuOptionsComponent } from './rightcontent/nav-options/menu-options/menu-options.component';
 import { StockOptionsComponent } from './rightcontent/nav-options/stock-options/stock-options.component';
 import { KitchenOptionsComponent } from './rightcontent/nav-options/kitchen-options/kitchen-options.component';
-import { AngularFireDatabaseModule } from "angularfire2/database";
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { CreateStaffFormComponent } from './rightcontent/staff/create-staff-form/create-staff-form.component';
 import { ManageWorkerComponent } from './rightcontent/staff/manage-worker/manage-worker.component';
 import { ManageRestComponent } from './rightcontent/rest/manage-rest/manage-rest.component';
@@ -30,10 +30,15 @@ import { CreateMealComponent } from './rightcontent/menu/create-meal/create-meal
 import { RestGridComponent } from './rightcontent/rest-grid/rest-grid.component';
 import { DropZoneDirective } from './drop-zone.directive';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { AgmCoreModule } from '@agm/core';
+import { LoginWindowComponent } from './side-menu/login-window/login-window.component';
+import {AuthService} from './auth.service';
+import {AngularFireAuthModule} from 'angularfire2/auth';
 
 
 
 const appRouts: Routes = [
+  { path: 'login', component: LoginWindowComponent },
     { path : 'rests', component: RestsOptionsComponent },
     { path : 'staff', component: StaffComponent },
     { path : 'stock', component: StockComponent },
@@ -75,17 +80,19 @@ const appRouts: Routes = [
     RestGridComponent,
     DropZoneDirective,
     FileUploadComponent,
+    LoginWindowComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRouts),
-    AngularFireModule.initializeApp(environment.config),
+    AngularFireModule.initializeApp(environment.config, 'angular-auth-firebase'),
     AngularFireDatabaseModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
