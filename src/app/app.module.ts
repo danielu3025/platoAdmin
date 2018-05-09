@@ -32,8 +32,9 @@ import { DropZoneDirective } from './drop-zone.directive';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { AgmCoreModule } from '@agm/core';
 import { LoginWindowComponent } from './side-menu/login-window/login-window.component';
-import {AuthService} from './auth.service';
+import {AuthService} from './services/auth.service';
 import {AngularFireAuthModule} from 'angularfire2/auth';
+import {KitchenStoreService} from './services/kitchen-store.service';
 
 
 
@@ -92,7 +93,7 @@ const appRouts: Routes = [
     AngularFirestoreModule,
     AngularFireAuthModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, KitchenStoreService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
