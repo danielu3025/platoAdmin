@@ -205,10 +205,11 @@ export class CreateMealComponent implements OnInit {
         });
 
     // get all CookingType from db
-     this.afs.doc('Globals/CookingType').valueChanges()
-          .subscribe(data => {
-              this.cookingTypeG = data;
-          });
+    //  this.afs.doc('Globals/CookingType').valueChanges()
+    //       .subscribe(data => {
+    //         debugger;
+    //           this.cookingTypeG = data;
+    //       });
 
       // get all categories from db
       this.afs.doc('Globals/Category').valueChanges()

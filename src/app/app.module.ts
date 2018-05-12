@@ -35,6 +35,9 @@ import { LoginWindowComponent } from './side-menu/login-window/login-window.comp
 import {AuthService} from './services/auth.service';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {KitchenStoreService} from './services/kitchen-store.service';
+import { CreateGroceryComponent } from './rightcontent/menu/create-grocery/create-grocery.component';
+import {CookingTypesService} from './services/cooking-types.service';
+import {RawMaterialService} from './services/raw-material.service';
 
 
 
@@ -82,6 +85,7 @@ const appRouts: Routes = [
     DropZoneDirective,
     FileUploadComponent,
     LoginWindowComponent,
+    CreateGroceryComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,7 +97,7 @@ const appRouts: Routes = [
     AngularFirestoreModule,
     AngularFireAuthModule
   ],
-  providers: [AuthService, KitchenStoreService],
+  providers: [AuthService, KitchenStoreService, CookingTypesService, RawMaterialService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

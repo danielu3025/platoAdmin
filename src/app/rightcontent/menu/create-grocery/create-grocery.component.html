@@ -1,0 +1,22 @@
+<div>
+  <h3>Grocery</h3>
+  <div>Name:<input [(ngModel)]="grocery.name"/></div>
+  <div>Cooking Time:<input type="number" [(ngModel)]="grocery.cookingTime"/></div>
+  <div>Cooking Type:
+    <select [(ngModel)]="grocery.cookingType">
+      <option *ngFor="let item of cookingTypes">
+        {{item}}
+      </option>
+    </select>
+  </div>
+  <div>
+    <div *ngFor="let item of rawMaterial; let i = index">
+      <input type="checkbox" [(ngModel)]="rawMaterialSelected[i]"/>
+      <span>{{item.id}}</span>
+      <span>{{item.name}}</span>
+      <input type="number" placeholder="Amount" [(ngModel)]="rawMaterialAmount[i]" required/>
+    </div>
+  </div>
+
+  <button (click)="createGrocery()">Create Grocery</button>
+</div>
