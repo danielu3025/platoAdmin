@@ -15,12 +15,12 @@ export class KitchenComponent implements OnInit {
 
   private path  = '/RestAlfa/mozes-333/KitchenStation';
   private restRoot  = 'RestAlfa';
-  private resturantID = 'mozes-333';
+  public resturantID = 'mozes-333';
 
 
   kitchenStation: KitchenStation;
   kitchenStation$: Observable<KitchenStation[]>;
-  kitchenStationRef: AngularFireList<Worker> = null;
+  kitchenStationRef: AngularFireList<KitchenStation> = null;
 
   constructor(private kitchenStore: KitchenStoreService, private afs: AngularFirestore, private db: AngularFireDatabase) {
     this.kitchenStationRef = db.list(this.path);
@@ -55,18 +55,12 @@ export class KitchenComponent implements OnInit {
         });
     }
 
-  deleteKitchenStation(kitchenStationId) {
-    this.afs.collection(this.restRoot + '/' + this.resturantID + '/KitchenStation/').doc(kitchenStationId).delete()
-        .then(function () {
-          console.log('Document successfully written!');
-        })
-        .catch(function (error) {
-          console.error('Error writing document: ', error);
-        });
+  deleteKitchenStation(restId: string, kithcenId: string) {
+    this.kitchenStore.deleteKitchenStation(restId, kithcenId);
   }
 
   ngOnInit() {
-    this.kitchenStation = new KitchenStation();
+    this.kitchenStation = new KitchenStation('', '');
 
     console.log('start');
 

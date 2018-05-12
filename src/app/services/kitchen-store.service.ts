@@ -16,4 +16,11 @@ export class KitchenStoreService {
         return data.map(x => new KitchenStation(x.payload.doc.id, x.payload.doc.data().name));
       });
   }
+
+  deleteKitchenStation(resturantId: string, kitchenStationId: string): void {
+    this.afs.collection('RestAlfa' + '/' + resturantId + '/KitchenStation/').doc(kitchenStationId).delete()
+      .catch(function (error) {
+        console.error('Error writing document: ', error);
+      });
+  }
 }
