@@ -45,38 +45,38 @@ export class CreateMealComponent implements OnInit {
     this.dishesToGroceries = [];
   }
 
-    addGrocery(fRawMaterial) {
-        console.log('this.gro--> ', this.gro);
-        console.log('selectedRawMaterial--> ', this.selectedRawMaterial);
-        const obj = [];
-        const json: any = {};
-
-        this.selectedRawMaterial.forEach((item) => {
-             const keyy = (Object.keys(item))[0];
-             console.log('key-->' , keyy);
-             const val = parseInt(item[keyy], 10);
-             console.log('val-->' , val);
-             json[keyy] = val;
-        });
-
-        if (fRawMaterial.valid) {
-            const ct = document.getElementById('txtCookingTime') as HTMLInputElement;
-            this.afs.collection(this.restRoot + '/' + this.resturantID + '/Grocery/').doc(this.gro.name).set({
-                name: this.gro.name,
-                cookingTime: parseInt(ct.value),
-                cookingType: this.gro.cookingType,
-                rawMaterial : json
-            })
-            .then(function () {
-                console.log('Document successfully written!');
-
-            })
-            .catch(function (error) {
-                console.error('Error writing document: ', error);
-            });
-
-        }
-    }
+    // addGrocery(fRawMaterial) {
+    //     console.log('this.gro--> ', this.gro);
+    //     console.log('selectedRawMaterial--> ', this.selectedRawMaterial);
+    //     const obj = [];
+    //     const json: any = {};
+    //
+    //     this.selectedRawMaterial.forEach((item) => {
+    //          const keyy = (Object.keys(item))[0];
+    //          console.log('key-->' , keyy);
+    //          const val = parseInt(item[keyy], 10);
+    //          console.log('val-->' , val);
+    //          json[keyy] = val;
+    //     });
+    //
+    //     if (fRawMaterial.valid) {
+    //         const ct = document.getElementById('txtCookingTime') as HTMLInputElement;
+    //         this.afs.collection(this.restRoot + '/' + this.resturantID + '/Grocery/').doc(this.gro.name).set({
+    //             name: this.gro.name,
+    //             cookingTime: parseInt(ct.value),
+    //             cookingType: this.gro.cookingType,
+    //             rawMaterial : json
+    //         })
+    //         .then(function () {
+    //             console.log('Document successfully written!');
+    //
+    //         })
+    //         .catch(function (error) {
+    //             console.error('Error writing document: ', error);
+    //         });
+    //
+    //     }
+    // }
 
     // add dish to db
     addDish(fDish) {

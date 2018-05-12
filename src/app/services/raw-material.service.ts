@@ -10,7 +10,7 @@ export class RawMaterialService {
   constructor(private afs: AngularFirestore, private db: AngularFireDatabase) {
   }
 
-  get(restId: string) : Observable<RawMaterial[]> {
+  get(restId: string): Observable<RawMaterial[]> {
     return this.afs.collection('RestAlfa').doc(restId).collection('WarehouseStock')
       .snapshotChanges()
       .map(data => {

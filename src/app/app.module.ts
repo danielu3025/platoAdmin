@@ -38,6 +38,7 @@ import {KitchenStoreService} from './services/kitchen-store.service';
 import { CreateGroceryComponent } from './rightcontent/menu/create-grocery/create-grocery.component';
 import {CookingTypesService} from './services/cooking-types.service';
 import {RawMaterialService} from './services/raw-material.service';
+import {CreateGroceryService} from './services/create-grocery.service';
 
 
 
@@ -97,7 +98,7 @@ const appRouts: Routes = [
     AngularFirestoreModule,
     AngularFireAuthModule
   ],
-  providers: [AuthService, KitchenStoreService, CookingTypesService, RawMaterialService],
+  providers: [AuthService, KitchenStoreService, CookingTypesService, RawMaterialService, CreateGroceryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

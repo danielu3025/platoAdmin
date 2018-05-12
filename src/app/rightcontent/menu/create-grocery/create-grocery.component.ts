@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Grocery} from '../meal.model';
 import {CookingTypesService} from '../../../services/cooking-types.service';
-import Any = jasmine.Any;
 import {RawMaterialService} from '../../../services/raw-material.service';
 import {RawMaterial} from '../../stock/stock.model';
+import {CreateGroceryService} from '../../../services/create-grocery.service';
 
 @Component({
   selector: 'app-create-grocery',
@@ -21,7 +21,7 @@ export class CreateGroceryComponent implements OnInit {
   cookingTypes: string[] = [];
 
   constructor(private cookingTypesService: CookingTypesService,
-              private rawMaterialService: RawMaterialService) {
+              private rawMaterialService: RawMaterialService, private creatGroceryService: CreateGroceryService ) {
   }
 
   ngOnInit() {
@@ -36,6 +36,8 @@ export class CreateGroceryComponent implements OnInit {
   }
 
   createGrocery() {
-    debugger;
+    this.creatGroceryService.CreateGrocery(
+      this.restId, this.grocery.name, this.grocery.cookingTime, this.grocery.cookingType,
+      this.rawMaterialSelected);
   }
 }

@@ -2,8 +2,8 @@ import {RawMaterial} from "../stock/stock.model";
 export class Grocery{
     name: string;
     cookingTime: number;
-    cookingType: string = "frying";
-    rawMaterial: Object = {};
+    cookingType: string = 'frying';
+    rawMaterial: RawMaterial[];
     amountInGrocery: string;
     redLineForMeal: string;
     importanceToMeal: boolean = true;
