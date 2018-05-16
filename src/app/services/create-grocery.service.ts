@@ -8,12 +8,12 @@ export class CreateGroceryService {
 
   constructor(private afs: AngularFirestore, private db: AngularFireDatabase) { }
 
-  CreateGrocery(restId: string, groName: string, cookingTime: number, cookingType: string, rawMaterialSelected: boolean[]): void {
+  CreateGrocery(restId: string, groName: string, cookingTime: number, cookingType: string, rawMaterial: object): void {
       this.afs.collection('RestAlfa' + '/' + restId + '/Grocery/').doc(groName).set({
         name: groName,
         cookingTime: cookingTime,
         cookingType: cookingType,
-        rawMaterial: rawMaterialSelected
+        rawMaterial
       });
   }
 }

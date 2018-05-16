@@ -21,7 +21,7 @@ export class CreateGroceryComponent implements OnInit {
   cookingTypes: string[] = [];
 
   constructor(private cookingTypesService: CookingTypesService,
-              private rawMaterialService: RawMaterialService, private creatGroceryService: CreateGroceryService ) {
+              private rawMaterialService: RawMaterialService, private creatGroceryService: CreateGroceryService) {
   }
 
   ngOnInit() {
@@ -36,8 +36,14 @@ export class CreateGroceryComponent implements OnInit {
   }
 
   createGrocery() {
+    const rawMaterialForGrocery = {};
+    for (let i = 0; i < this.rawMaterialSelected.length; i++) {
+      if (this.rawMaterialSelected[i]) {
+        rawMaterialForGrocery[this.rawMaterial[i].name] = this.rawMaterialAmount[i];
+      }
+    }
+
     this.creatGroceryService.CreateGrocery(
-      this.restId, this.grocery.name, this.grocery.cookingTime, this.grocery.cookingType,
-      this.rawMaterialSelected);
+      this.restId, this.grocery.name, this.grocery.cookingTime, this.grocery.cookingType, rawMaterialForGrocery);
   }
 }
