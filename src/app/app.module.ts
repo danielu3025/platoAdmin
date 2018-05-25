@@ -50,6 +50,7 @@ import {CreateMealService} from './services/create-meal.service';
 import {DishService} from './services/dish.service';
 import {SubMenuService} from './services/sub-menu.service';
 import {MealTypeService} from './services/meal-type.service';
+import { CreateMealPageComponent } from './rightcontent/menu/create-meal-page/create-meal-page.component';
 
 const appRouts: Routes = [
   { path: 'login', component: LoginWindowComponent },
@@ -64,7 +65,7 @@ const appRouts: Routes = [
     { path : 'manageRests', component: ManageRestComponent },
     { path : 'manageStock', component: ManageStockComponent },
     { path : 'manageTables', component: ManageTablesComponent },
-    { path : 'createMeal', component: CreateMealComponent }
+    { path : 'createMeal', component: CreateMealPageComponent }
 ] ;
 
 @NgModule({
@@ -96,6 +97,7 @@ const appRouts: Routes = [
     LoginWindowComponent,
     CreateGroceryComponent,
     CreateDishComponent,
+    CreateMealPageComponent,
   ],
   imports: [
     BrowserModule,

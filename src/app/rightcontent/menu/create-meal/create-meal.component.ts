@@ -13,7 +13,7 @@ import {DishService} from '../../../services/dish.service';
 })
 export class CreateMealComponent implements OnInit {
 
-  resturantID = 'mozes-333';
+  @Input() restId: string;
   subMenus: string[];
   mealTypes: string[] = [];
   dish: Dish[] = [];
@@ -27,7 +27,7 @@ export class CreateMealComponent implements OnInit {
   ngOnInit() {
     this.subMenuService.getAll().subscribe(x => this.subMenus = x);
     this.mealTypeService.getAll().subscribe(x => this.mealTypes = x);
-    this.dishService.get(this.resturantID).subscribe(x => {
+    this.dishService.get(this.restId).subscribe(x => {
       this.dish = x;
       this.dish.forEach(m => {
         this.dishSelected.push(false);
@@ -44,7 +44,7 @@ export class CreateMealComponent implements OnInit {
     }
 
     this.createMealService.CreateMeal(
-      this.resturantID, this.meal.dairy, this.meal.name, this.meal.description,
+      this.restId, this.meal.dairy, this.meal.name, this.meal.description,
       this.meal.price, this.meal.subMenus, this.meal.vegan, this.meal.glotenFree,
       this.meal.mealType);
   }
