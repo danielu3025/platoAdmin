@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AngularFireList, AngularFireDatabase} from 'angularfire2/database';
-import {Observable} from 'rxjs';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {KitchenStation} from './kitchen.model';
 import {Global} from '../../globals.model';
 import {KitchenStoreService} from '../../services/kitchen-store.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-kitchen',
@@ -13,58 +13,27 @@ import {KitchenStoreService} from '../../services/kitchen-store.service';
 })
 export class KitchenComponent implements OnInit {
 
-  private path  = '/RestAlfa/mozes-333/KitchenStation';
-  private restRoot  = 'RestAlfa';
-  public resturantID = 'mozes-333';
+  @Input() restId: string;
 
-
-  kitchenStation: KitchenStation;
+  kitchenStations: KitchenStation[] = [];
   kitchenStation$: Observable<KitchenStation[]>;
-  kitchenStationRef: AngularFireList<KitchenStation> = null;
+  kitchenStation: KitchenStation = new KitchenStation();
 
-  constructor(private kitchenStore: KitchenStoreService, private afs: AngularFirestore, private db: AngularFireDatabase) {
-    this.kitchenStationRef = db.list(this.path);
-  }
+  constructor(private kitchenStore: KitchenStoreService, private afs: AngularFirestore, private db: AngularFireDatabase) {}
 
-  addKitchenStation(KitchenStationForm) {
-    console.log('formUpdate-> ', KitchenStationForm.valid);
-    console.log('bind--> ', this.kitchenStation);
-
-    if (KitchenStationForm.valid) {
-      this.afs.collection(this.restRoot + '/' + this.resturantID + '/KitchenStation/').doc(this.kitchenStation.id).set({
-        name: this.kitchenStation.name,
-      }).then(function () {
-            console.log('Document successfully written!');
-          })
-          .catch(function (error) {
-            console.error('Error writing document: ', error);
-          });
-    }
-  }
-
-  updateKitchenStation(restForm) {
-    console.log('formUpdate-> ', restForm);
-    this.afs.collection(this.restRoot + '/' + this.resturantID + '/KitchenStation/').doc(this.kitchenStation.id).set({
-      name: this.kitchenStation.name,
-    })
-        .then(function () {
-          console.log('Document successfully written!');
-        })
-        .catch(function (error) {
-          console.error('Error writing document: ', error);
-        });
-    }
-
-  deleteKitchenStation(restId: string, kithcenId: string) {
-    this.kitchenStore.deleteKitchenStation(restId, kithcenId);
-  }
+  // deleteKitchenStation(restId: string, kithcenId: string) {
+  //   this.kitchenStore.deleteKitchenStation(restId, kithcenId);
+  // }
 
   ngOnInit() {
-    this.kitchenStation = new KitchenStation('', '');
+    this.kitchenStore.get(this.restId).subscribe(x => this.kitchenStations = x);
+    // this.kitchenStation = new KitchenStation('', '');
+    // console.log('start');
+    // this.kitchenStation$ = this.kitchenStore.get(this.resturantID);
+  }
 
-    console.log('start');
-
-    this.kitchenStation$ = this.kitchenStore.getAll(this.resturantID);
+  createKitchenStation() {
+    this.kitchenStore.CreateKitchenStation(this.restId, this.kitchenStation.id, this.kitchenStation.name);
   }
 
 }

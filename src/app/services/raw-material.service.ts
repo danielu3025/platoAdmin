@@ -11,24 +11,11 @@ export class RawMaterialService {
   }
 
   get(restId: string): Observable<RawMaterial[]> {
-    return this.afs.collection('RestAlfa').doc(restId).collection('WarehouseStock')
-      .snapshotChanges()
-      .map(data => {
-
-        return data.map(data => {
-          const value = data.payload.doc.data().value;
-
-          const rawMaterial: RawMaterial = {
-            id: data.payload.doc.id,
-            name: value.name,
-            amount: value.amount,
-            redLine: value.redLine,
-            type: value.type,
-            units: value.unit
-          };
-
-          return rawMaterial;
+    return Observable.create(observer => {
+      this.afs.collection('RestAlfa').doc(restId).collection<{ value: RawMaterial }>('WarehouseStock').valueChanges()
+        .subscribe(x => {
+          observer.next(x.map(x => x.value));
         });
-      });
+    });
   }
 }

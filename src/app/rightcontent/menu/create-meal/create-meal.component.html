@@ -1,225 +1,41 @@
-<app-topbar><app-staff-options></app-staff-options></app-topbar>
+<app-topbar>
+  <app-staff-options></app-staff-options>
+</app-topbar>
 
 <app-create-grocery [restId]="resturantID"></app-create-grocery>
 
-<div id="pageContainer">
-  <div id="leftSide" style="float:left;border-right:solid 1px red;width:300px;min-height:200px">
-    <div style="margin:15px;">
-      <!-- //------------------------------ left --------------------------// -->
+<app-create-dish [restId]="resturantID"></app-create-dish>
 
-      <div id="meal-form-container">
-        <form #fMeal="ngForm">
-          <div class="form-group">
-            <div id="dishToMeal">
-              <label> Meal </label>
-              <div>
-                <label for="txtMName">Name:</label>
-                <input id="txtMName" name="txtMName" [(ngModel)]="meal.name" type="text" required/>
-              </div>
-              <div>
-                <label for="txtMDescription">Description::</label>
-                <input id="txtMDescription" name="txtMDescription" [(ngModel)]="meal.description" type="txt" required/>
-              </div>
-              <div>
-                <label for="txtPrice">Price:</label>
-                <input id="txtPrice" name="txtPrice" [(ngModel)]="meal.price" type="txt" required/>
-              </div>
-              <div>
-                <label for="txtSubMenu">Sub Menu</label>
-                <select id="txtSubMenu" name="txtSubMenu" [(ngModel)]="meal.subMenus">
-                  <option *ngFor="let item of subMenuG?.list" >
-                    {{item}}
-                  </option>
-                </select>
-              </div>
-              <div>
-                <label>vegetarian:</label>
-                <select id="drpIsVegi" name="drpIsVegi" [(ngModel)]="meal.vegan">
-                  <option>true</option>
-                  <option>false</option>
-                </select>
-              </div>
-              <div>
-                <label>dairy:</label>
-                <select id="drpIsDairy" name="drpIsDairy" [(ngModel)]="meal.dairy">
-                  <option>true</option>
-                  <option>false</option>
-                </select>
-              </div>
-              <div>
-                <label>gloten Free:</label>
-                <select id="drpIsGlotenFree" name="drpIsGlotenFree" [(ngModel)]="meal.glotenFree">
-                  <option>true</option>
-                  <option>false</option>
-                </select>
-              </div>
-            </div>
-            <div>
-              <label for="txtMealType">Meal Type</label>
-              <select id="txtMealType" name="txtMealType" [(ngModel)]="meal.mealType">
-                <option *ngFor="let item of mealTypeG?.types" >
-                  {{item}}
-                </option>
-              </select>
-            </div>
-
-            <table id="dishesListFromDb">
-              <thead>
-              <th></th>
-              <th>Name:</th>
-              </thead>
-
-              <tbody>
-              <tr *ngFor="let item of dishes">
-                <td> <input id="{{item?.name+'_dish'}}" type="checkbox" (click)="addToMeal(item?.name)" /> </td>
-                <td for="txtName">
-                  <input id="{{item?.name +'inp1'}}" name="txtName" value="{{item.name}}" type="text" disabled required/>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-
-            <table id="dishesList">
-              <thead>
-              <th>Importance:</th>
-              <th>Name:</th>
-              <th>RedLine for meal</th>
-              </thead>
-              <tbody>
-              <tr *ngFor="let rawName of rawMaterialToMeal">
-                <td for="txtImportance">
-                  <input id="{{rawName?.id+'check'}}" type="checkbox" required/>
-                </td>
-                <td for="txtName">
-                  <input id="{{rawName?.id +'inp4'}}" name="txtName" value="{{rawName.id}}" type="text" required/>
-                </td>
-                <td for="txtRedLine">
-                  <input id="{{rawName?.id+'inp2'}}" name="txtRedLine" type="text" required/>
-                </td>
-              </tr>
-              <td><button type="button" (click)="addMeal(fMeal)" class="btn btn-success">Create Meal</button></td>
-              </tbody>
-            </table>
-          </div>
-        </form>
-      </div>
+<div>
+  <h3>Meal</h3>
+  <div>Name:<input [(ngModel)]="meal.name"/></div>
+  <div>Sub Menus:
+    <select [(ngModel)]="meal.subMenus">
+      <option *ngFor="let item of subMenus">
+        {{item}}
+      </option>
+    </select>
+  </div>
+  <div>dairy:
+    <select [(ngModel)]="meal.dairy">
+      <option id="yesDairy"> Yes</option>
+      <option id="noDairy"> No</option>
+    </select>
+  </div>
+  <div>dairy:
+    <select [(ngModel)]="meal.vegan">
+      <option id="yesVegan"> Yes</option>
+      <option id="noVegan"> No</option>
+    </select>
+  </div>
+  <div>
+    <div *ngFor="let item of dish; let i = index">
+      <input type="checkbox" [(ngModel)]="dishSelected[i]"/>
+      <span>{{item.name}}</span>
     </div>
   </div>
 
- <!-- //------------------------------ mid --------------------------// -->
-  <div id="midSide" style="float:left;border-right:solid 1px red;width:300px;min-height:200px">
-    <div style="margin:15px;">
-      <div id="dish-form-container">
-        <form #fDish="ngForm">
-          <div class="form-group">
-            <div id="groceryToDish">
-              <label> Dish </label>
-              <div>
-                <label for="txtDName">Name:</label>
-                <input id="txtDName" name="txtDName" [(ngModel)]="dish.name" type="text" required/>
-              </div>
-              <div>
-                <label for="txtDescription">Description::</label>
-                <input id="txtDescription" name="txtDescription" [(ngModel)]="dish.description" type="txt" required/>
-              </div>
-              <div>
-                <label for="txtTotalTime">Total Time:</label>
-                <input id="txtTotalTime" name="txtTotalTime" [(ngModel)]="dish.totalTime" type="txt" required/>
-              </div>
-              <div>
-                <label for="txtCategory">Category:</label>
-                <select id="txtCategory" name="txtCategory" [(ngModel)]="dish.category">
-                  <option *ngFor="let item of categoryG?.list" >
-                    {{item}}
-                  </option>
-                </select>
-              </div>
-            </div>
-
-            <table id="groceryList">
-              <thead>
-                <th></th>
-                <th>Name:</th>
-              </thead>
-
-                <tbody>
-                <tr *ngFor="let item of grocery">
-                  <td> <input id="{{item?.name+'_grocery'}}" type="checkbox" (click)="addToDish(item?.name)" /> </td>
-                  <td for="txtName">
-                    <input id="{{item?.name +'inp3'}}" name="txtName" value="{{item.name}}" type="text" disabled required/>
-                  </td>
-                </tr>
-
-                <td><button type="button" (click)="addDish(fDish)" class="btn btn-success">Create Dish</button></td>
-                </tbody>
-            </table>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!--//------------------------------ right --------------------------//-->
-  <div id="rightSide" style="float:left;width:300px;min-height:200px">
-    <div style="margin:15px;">
-      <div id="grocery-form-container" class="container">
-        <form  #fRawMaterial="ngForm" >
-          <div class="form-group">
-            <div id="rawToGrocery">
-              <label> Grocery </label>
-              <div>
-              <label for="txtGName">Name:</label>
-              <input id="txtGName" name="txtGName" [(ngModel)]="gro.name" type="text" required/>
-              </div>
-              <div>
-              <label for="txtCookingTime">Cooking Time:</label>
-              <input id="txtCookingTime" name="txtCookingTime" [(ngModel)]="gro.cookingTime" type="text" required/>
-              </div>
-              <div>
-              <label for="txtCookingType">Cooking Type:</label>
-              <select id="txtCookingType" name="txtCookingType" [(ngModel)]="gro.cookingType">
-                <option *ngFor="let item of cookingTypeG?.types" >
-                  {{item}}
-                </option>
-              </select>
-              </div>
-            </div>
-
-            <div id="rawMaterialForm">
-              <table id="rawMaterialList">
-                <thead>
-                <tr>
-                  <td></td>
-                  <th>Id:</th>
-                  <th>Name:</th>
-                  <th>Amount in grocery:</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <tr *ngFor="let item of rawMaterial">
-                  <td> <input id="{{item?.id+'_rawMa'}}" type="checkbox" (click)="addToGrocery(item?.id)"/> </td>
-                  <td>{{item?.id}}</td>
-                  <td>{{item?.name}}</td>
-                  <td for="txtAmount">
-                    <input #txtAmount id="{{item?.id +'inp1'}}" name="txtAmount" type="text" (keyup)="addToGrocery(item?.id)" required/>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-              <button type="button" (click)="addGrocery(fRawMaterial)" class="btn btn-success">create Grocery</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
+  <button (click)="createMeal()">Create Meal</button>
+  <!--<button (click)="deleteGrocery()">Delete Grocery</button>-->
+  <!--<button (click)="updateGrocery()">Update Grocery</button>-->
 </div>
-
-
-
-
-
-
-

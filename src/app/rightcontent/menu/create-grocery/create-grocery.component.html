@@ -12,10 +12,12 @@
   <div>
     <div *ngFor="let item of rawMaterial; let i = index">
       <input type="checkbox" [(ngModel)]="rawMaterialSelected[i]"/>
-      <span>{{item.id}}</span>
+      <span>{{item.name}}</span>
       <input type="number" min="0" placeholder="Amount" [(ngModel)]="rawMaterialAmount[i]" required/>
     </div>
   </div>
 
   <button (click)="createGrocery()">Create Grocery</button>
+  <button (click)="deleteGrocery()">Delete Grocery</button>
+  <!--<button (click)="updateGrocery()">Update Grocery</button>-->
 </div>

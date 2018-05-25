@@ -4,6 +4,8 @@ import {CookingTypesService} from '../../../services/cooking-types.service';
 import {RawMaterialService} from '../../../services/raw-material.service';
 import {RawMaterial} from '../../stock/stock.model';
 import {CreateGroceryService} from '../../../services/create-grocery.service';
+import {DeleteGroceryService} from '../../../services/delete-grocery.service';
+import {UpdateGroceryService} from '../../../services/update-grocery.service';
 
 @Component({
   selector: 'app-create-grocery',
@@ -20,8 +22,9 @@ export class CreateGroceryComponent implements OnInit {
   grocery: Grocery = new Grocery();
   cookingTypes: string[] = [];
 
-  constructor(private cookingTypesService: CookingTypesService,
-              private rawMaterialService: RawMaterialService, private creatGroceryService: CreateGroceryService) {
+  constructor(private cookingTypesService: CookingTypesService, private rawMaterialService: RawMaterialService,
+              private creatGroceryService: CreateGroceryService, private deleteGroceryService: DeleteGroceryService,
+              private updateGroceryService: UpdateGroceryService) {
   }
 
   ngOnInit() {
@@ -46,4 +49,13 @@ export class CreateGroceryComponent implements OnInit {
     this.creatGroceryService.CreateGrocery(
       this.restId, this.grocery.name, this.grocery.cookingTime, this.grocery.cookingType, rawMaterialForGrocery);
   }
+
+  deleteGrocery() {
+    this.deleteGroceryService.DeleteGrocery(this.restId, this.grocery.name);
+  }
+
+  // updateGrocery() {
+  //   this.updateGroceryService.UpdateGrocery(this.restId, this.grocery.name,
+  //                                           this.grocery.cookingTime, this.grocery.cookingType, rawMaterialForGrocery);
+  // }
 }

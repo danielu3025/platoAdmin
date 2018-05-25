@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable()
-export class CreateGroceryService {
+export class UpdateGroceryService {
 
   constructor(private http: HttpClient) { }
 
-  CreateGrocery(restId: string, groName: string, cookingTime: number, cookingType: string, rawMaterial: object): void {
-    this.http.post('https://us-central1-plato-9a79e.cloudfunctions.net/addGrocery',
+  UpdateGrocery(restId: string, groName: string, cookingTime: number, cookingType: string, rawMaterial: object) {
+    this.http.post('https://us-central1-plato-9a79e.cloudfunctions.net/updateGrocery',
       {
         data: {
           restId,
@@ -19,9 +19,12 @@ export class CreateGroceryService {
           }
         }
       }).toPromise()
-      .then( X => {
+      .then(x => {
+        console.log('grocery was deleted');
       })
-      .catch(X => {
+      .catch(x => {
+        console.log('eror');
       });
   }
+
 }

@@ -39,8 +39,17 @@ import { CreateGroceryComponent } from './rightcontent/menu/create-grocery/creat
 import {CookingTypesService} from './services/cooking-types.service';
 import {RawMaterialService} from './services/raw-material.service';
 import {CreateGroceryService} from './services/create-grocery.service';
-
-
+import { HttpClientModule } from '@angular/common/http';
+import {DeleteGroceryService} from './services/delete-grocery.service';
+import { CreateDishComponent } from './rightcontent/menu/create-dish/create-dish.component';
+import {GroceryService} from './services/grocery.service';
+import {UpdateGroceryService} from './services/update-grocery.service';
+import {CategoryService} from './services/category.service';
+import {CreateDishService} from './services/create-dish.service';
+import {CreateMealService} from './services/create-meal.service';
+import {DishService} from './services/dish.service';
+import {SubMenuService} from './services/sub-menu.service';
+import {MealTypeService} from './services/meal-type.service';
 
 const appRouts: Routes = [
   { path: 'login', component: LoginWindowComponent },
@@ -57,7 +66,6 @@ const appRouts: Routes = [
     { path : 'manageTables', component: ManageTablesComponent },
     { path : 'createMeal', component: CreateMealComponent }
 ] ;
-
 
 @NgModule({
   declarations: [
@@ -87,6 +95,7 @@ const appRouts: Routes = [
     FileUploadComponent,
     LoginWindowComponent,
     CreateGroceryComponent,
+    CreateDishComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,9 +105,13 @@ const appRouts: Routes = [
     AngularFireModule.initializeApp(environment.config, 'angular-auth-firebase'),
     AngularFireDatabaseModule,
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    HttpClientModule,
   ],
-  providers: [AuthService, KitchenStoreService, CookingTypesService, RawMaterialService, CreateGroceryService],
+  providers: [AuthService, KitchenStoreService, CookingTypesService, RawMaterialService,
+              CreateGroceryService, HttpClientModule, DeleteGroceryService, UpdateGroceryService,
+              GroceryService, CategoryService, CreateDishService, CreateMealService, DishService,
+              SubMenuService, MealTypeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

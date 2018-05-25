@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {AngularFireDatabase} from 'angularfire2/database';
 import {AngularFirestore} from 'angularfire2/firestore';
+import {AngularFireDatabase} from 'angularfire2/database';
 
 @Injectable()
-export class CookingTypesService {
+export class CategoryService {
 
   constructor(private afs: AngularFirestore, private db: AngularFireDatabase) { }
 
   getAll(): Observable<string[]> {
     return Observable.create(observer => {
-      this.afs.doc('Globals/CookingType').valueChanges()
-        .subscribe((data: {types: string}) => {
-          observer.next(data.types);
+      this.afs.doc('Globals/Category').valueChanges()
+        .subscribe((data: {list: string[]}) => {
+          observer.next(data.list);
         });
     });
   }
+
 }
