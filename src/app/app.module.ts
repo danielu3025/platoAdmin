@@ -29,8 +29,6 @@ import { ManageTablesComponent } from './rightcontent/tables/manage-tables/manag
 import { CreateMealComponent } from './rightcontent/menu/create-meal/create-meal.component';
 import { RestGridComponent } from './rightcontent/rest-grid/rest-grid.component';
 import { DropZoneDirective } from './drop-zone.directive';
-import { FileUploadComponent } from './file-upload/file-upload.component';
-import { AgmCoreModule } from '@agm/core';
 import { LoginWindowComponent } from './side-menu/login-window/login-window.component';
 import {AuthService} from './services/auth.service';
 import {AngularFireAuthModule} from 'angularfire2/auth';
@@ -93,7 +91,6 @@ const appRouts: Routes = [
     CreateMealComponent,
     RestGridComponent,
     DropZoneDirective,
-    FileUploadComponent,
     LoginWindowComponent,
     CreateGroceryComponent,
     CreateDishComponent,

@@ -4,7 +4,7 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {KitchenStation} from './kitchen.model';
 import {Global} from '../../globals.model';
 import {KitchenStoreService} from '../../services/kitchen-store.service';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-kitchen',

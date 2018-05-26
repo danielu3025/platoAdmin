@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
 import {Dish} from '../rightcontent/menu/meal.model';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {AngularFireDatabase} from 'angularfire2/database';
+import {Observable} from 'rxjs/internal/Observable';
 
 @Injectable()
 export class DishService {

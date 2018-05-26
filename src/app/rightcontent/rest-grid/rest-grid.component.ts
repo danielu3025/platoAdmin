@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
-import { Observable } from 'rxjs/observable';
 
 const GRID_SIZE = 12;
 @Component({

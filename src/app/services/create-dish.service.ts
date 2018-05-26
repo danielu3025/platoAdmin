@@ -6,7 +6,10 @@ export class CreateDishService {
 
   constructor(private http: HttpClient) { }
 
-  CreateDish(restId: string, name: string, description: string, totalTime: number, status: number = 0, category: string, grocery: object): void {
+  CreateDish(restId: string, name: string, description: string, totalTime: number, status: number = 0,
+             category: string, grocery: object): void {
+
+    debugger;
     this.http.post('https://us-central1-plato-9a79e.cloudfunctions.net/addDish',
       {
         data: {
