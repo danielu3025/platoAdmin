@@ -19,7 +19,8 @@ export class CreateDishComponent implements OnInit {
   categories: string[] = [];
 
   constructor(private categoryService: CategoryService, private groceryService: GroceryService,
-              private createDishService: CreateDishService) { }
+              private createDishService: CreateDishService) {
+  }
 
   ngOnInit() {
     this.categoryService.getAll().subscribe(x => this.categories = x);
@@ -32,15 +33,34 @@ export class CreateDishComponent implements OnInit {
   }
 
   createDish() {
-    const groceryForDish = {};
+    const groceryForDish = [];
     for (let i = 0; i < this.grocerySelected.length; i++) {
       if (this.grocerySelected[i]) {
-        groceryForDish[this.grocery[i].name] =  this.grocery[i].name;
+        groceryForDish.push(this.grocery[i].name);
       }
     }
 
-    this.createDishService.CreateDish(
-      this.restId, this.dish.name, this.dish.description, this.dish.totalTime, this.dish.status, this.dish.category, groceryForDish);
-    }
+    this.createDishService.CreateDish(this.restId, this.dish, groceryForDish)
+      .then(x => {
+        alert('dish created');
+      })
+      .catch(e => {
+        if (e.alreadyExists) {
+          if (confirm('Dish exists, do you want to update it?')) {
+            this.createDishService.CreateDish(this.restId, this.dish, groceryForDish, true)
+              .then(x => {
+                alert('dish updated');
+              })
+              .catch(x => {
+                alert(x.message);
+              });
+          } else {
+            alert('no dish created');
+          }
+        } else {
+          alert(e.message);
+        }
+      });
+  }
 
 }
