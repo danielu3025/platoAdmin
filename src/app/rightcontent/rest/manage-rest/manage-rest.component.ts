@@ -192,7 +192,7 @@ export class ManageRestComponent implements OnInit {
     //     this.selectedSubMenus.push(id);
     // }
 
-    // get all working days of rest from db
+    // getAll all working days of rest from db
     // getWorkingDaysByRestId(restId) {
     //     $('#' + restId).toggle('slow');
     //     console.log(restId);
@@ -212,10 +212,10 @@ export class ManageRestComponent implements OnInit {
     // }
 
   ngOnInit() {
-    // this.restType.get()
+    // this.restType.getAll()
   //     this.rest = new Rest();
   //
-  //     // get all rests from db
+  //     // getAll all rests from db
   //     this.restID$ = this.afs.collection(this.restRoot)
   //         .snapshotChanges()
   //         .map(data => {
@@ -223,13 +223,13 @@ export class ManageRestComponent implements OnInit {
   //
   //         });
   //
-  //     // get all subMenu from db
+  //     // getAll all subMenu from db
   //     this.afs.doc('Globals/SubMenus').valueChanges()
   //         .subscribe(data => {
   //             this.subMenuG = data;
   //         });
   //
-  //     // get all restTypes from db
+  //     // getAll all restTypes from db
   //     this.afs.doc('Globals/restType').valueChanges()
   //         .subscribe(data => {
   //             this.restTypeG = data;

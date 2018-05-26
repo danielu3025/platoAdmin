@@ -29,7 +29,7 @@ export class KitchenComponent implements OnInit {
     this.kitchenStore.get(this.restId).subscribe(x => this.kitchenStations = x);
     // this.kitchenStation = new KitchenStation('', '');
     // console.log('start');
-    // this.kitchenStation$ = this.kitchenStore.get(this.resturantID);
+    // this.kitchenStation$ = this.kitchenStore.getAll(this.resturantID);
   }
 
   createKitchenStation() {

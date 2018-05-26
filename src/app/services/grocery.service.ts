@@ -10,7 +10,12 @@ export class GroceryService {
   constructor(private afs: AngularFirestore, private db: AngularFireDatabase) {
   }
 
-  get(restId: string): Observable<Grocery[]> {
+  getAll(restId: string): Observable<Grocery[]> {
     return this.afs.collection('RestAlfa').doc(restId).collection<Grocery>('Grocery').valueChanges();
+  }
+
+  get(restId: string, grocery: string): Observable<Grocery> {
+    return this.afs.collection('RestAlfa').doc(restId).collection<Grocery>('Grocery')
+      .doc<Grocery>(grocery).valueChanges();
   }
 }

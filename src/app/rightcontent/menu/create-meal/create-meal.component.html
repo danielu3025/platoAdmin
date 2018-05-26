@@ -24,6 +24,9 @@
     <div *ngFor="let item of dish; let i = index">
       <input type="checkbox" [(ngModel)]="dishSelected[i]"/>
       <span>{{item.name}}</span>
+      <div *ngIf="dishSelected[i]">
+        <app-raw-material-for-meal [dishName]="item.name" [restId]="restId"></app-raw-material-for-meal>
+      </div>
     </div>
   </div>
 

@@ -27,7 +27,7 @@ export class CreateMealComponent implements OnInit {
   ngOnInit() {
     this.subMenuService.getAll().subscribe(x => this.subMenus = x);
     this.mealTypeService.getAll().subscribe(x => this.mealTypes = x);
-    this.dishService.get(this.restId).subscribe(x => {
+    this.dishService.getAll(this.restId).subscribe(x => {
       this.dish = x;
       this.dish.forEach(m => {
         this.dishSelected.push(false);

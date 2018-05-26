@@ -24,7 +24,7 @@ export class CreateDishComponent implements OnInit {
 
   ngOnInit() {
     this.categoryService.getAll().subscribe(x => this.categories = x);
-    this.groceryService.get(this.restId).subscribe(x => {
+    this.groceryService.getAll(this.restId).subscribe(x => {
       this.grocery = x;
       this.grocery.forEach(m => {
         this.grocerySelected.push(false);

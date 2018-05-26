@@ -169,7 +169,7 @@ export class ManageTablesComponent implements OnInit {
   //   return flag;
   // }
 
-  // get all tables from db
+  // getAll all tables from db
   getTables() {
     this.afs.collection(this.restRoot).doc(this.resturantID).collection('Tables')
       .snapshotChanges().pipe(
@@ -187,7 +187,7 @@ export class ManageTablesComponent implements OnInit {
 
     console.log('start');
 
-    // get all tables from db and print to the screen
+    // getAll all tables from db and print to the screen
     this.tableID$ = this.afs.collection(this.restRoot).doc(this.resturantID).collection('Tables')
       .snapshotChanges().pipe(
         map(data => {

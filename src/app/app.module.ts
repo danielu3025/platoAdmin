@@ -49,6 +49,7 @@ import {DishService} from './services/dish.service';
 import {SubMenuService} from './services/sub-menu.service';
 import {MealTypeService} from './services/meal-type.service';
 import { CreateMealPageComponent } from './rightcontent/menu/create-meal-page/create-meal-page.component';
+import { RawMaterialForMealComponent } from './rightcontent/menu/create-meal/raw-material-for-meal/raw-material-for-meal.component';
 
 const appRouts: Routes = [
   { path: 'login', component: LoginWindowComponent },
@@ -95,6 +96,7 @@ const appRouts: Routes = [
     CreateGroceryComponent,
     CreateDishComponent,
     CreateMealPageComponent,
+    RawMaterialForMealComponent,
   ],
   imports: [
     BrowserModule,
