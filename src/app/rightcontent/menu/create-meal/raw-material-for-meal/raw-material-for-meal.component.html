@@ -1,6 +1,16 @@
-<div>
-  <!--<div *ngFor="let grocery of groceries">-->
-    <!--{{grocery}}-->
-  <!--</div>-->
-{{groceries|json}}
+<div class="raw-material-container">
+  <table>
+    <thead>
+    <th>Important To Meal</th>
+    <th>Name</th>
+    <th>Redline</th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let rawMaterial of objectKeys(rawMaterials)">
+      <td><input type="checkbox"/></td>
+      <td>{{rawMaterial}}</td>
+      <td><input type="number"/></td>
+    </tr>
+    </tbody>
+  </table>
 </div>

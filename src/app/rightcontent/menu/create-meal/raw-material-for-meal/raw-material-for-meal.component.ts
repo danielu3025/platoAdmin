@@ -15,7 +15,8 @@ export class RawMaterialForMealComponent implements OnInit {
   @Input() restId: string;
   dish: object;
   groceries: object = {};
-  rawMaterials: RawMaterial[];
+  rawMaterials = {};
+  objectKeys = Object.keys;
 
   constructor(private dishService: DishService, private groceryService: GroceryService) {
   }
@@ -30,8 +31,18 @@ export class RawMaterialForMealComponent implements OnInit {
         this.groceries[grocery] = {};
         this.groceryService.get(this.restId, grocery).subscribe(x => {
           this.groceries[grocery] = x;
+          Object.keys(x.rawMaterial).forEach(rawMaterial => {
+            if (this.rawMaterials[rawMaterial]) {
+              this.rawMaterials[rawMaterial].push(x.name);
+            } else {
+              this.rawMaterials[rawMaterial] = [x.name];
+            }
+          });
+
         });
       });
+
+      console.log(this.groceries);
     });
   }
 
