@@ -50,6 +50,10 @@ import {SubMenuService} from './services/sub-menu.service';
 import {MealTypeService} from './services/meal-type.service';
 import { CreateMealPageComponent } from './rightcontent/menu/create-meal-page/create-meal-page.component';
 import { RawMaterialForMealComponent } from './rightcontent/menu/create-meal/raw-material-for-meal/raw-material-for-meal.component';
+import * as firebase from 'firebase';
+import {AngularFireStorageModule} from 'angularfire2/storage';
+
+firebase.initializeApp(environment.config);
 
 const appRouts: Routes = [
   { path: 'login', component: LoginWindowComponent },
@@ -107,6 +111,7 @@ const appRouts: Routes = [
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
     HttpClientModule,
   ],
   providers: [AuthService, KitchenStoreService, CookingTypesService, RawMaterialService,

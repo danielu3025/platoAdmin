@@ -1,10 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {Dish, Meal} from '../meal.model';
 import {forEach} from '@angular/router/src/utils/collection';
 import {CreateMealService} from '../../../services/create-meal.service';
 import {SubMenuService} from '../../../services/sub-menu.service';
 import {MealTypeService} from '../../../services/meal-type.service';
 import {DishService} from '../../../services/dish.service';
+import {RawMaterialForMealComponent} from './raw-material-for-meal/raw-material-for-meal.component';
 
 @Component({
   selector: 'app-create-meal',
@@ -14,11 +15,14 @@ import {DishService} from '../../../services/dish.service';
 export class CreateMealComponent implements OnInit {
 
   @Input() restId: string;
+  @ViewChildren('rawMaterials') rawMaterials: QueryList<RawMaterialForMealComponent>;
   subMenus: string[];
   mealTypes: string[] = [];
   dish: Dish[] = [];
   meal: Meal = new Meal();
   dishSelected: boolean[] = [];
+  dishesForMeal = {};
+  image: any = null;
 
   constructor(private createMealService: CreateMealService, private subMenuService: SubMenuService,
               private mealTypeService: MealTypeService, private dishService: DishService) {
@@ -35,18 +39,38 @@ export class CreateMealComponent implements OnInit {
     });
   }
 
+  uploadImage(e) {
+    this.image = e.target.files[0];
+  }
+
   createMeal() {
-    const dishForMeal = {};
-    for (let i = 0; i < this.dishSelected.length; i++) {
-      if (this.dishSelected[i]) {
-        dishForMeal[this.dish[i].name] = this.dish[i].name;
-      }
+
+    if(this.rawMaterials.length === 0) {
+      alert('You need to select at least one dish!');
+      return;
     }
 
-    this.createMealService.CreateMeal(
-      this.restId, this.meal.dairy, this.meal.name, this.meal.description,
-      this.meal.price, this.meal.subMenus, this.meal.vegan, this.meal.glotenFree,
-      this.meal.mealType);
+    this.createMealService.UploadMealImage(this.restId, this.image)
+      .then((imageUrl: string) => {
+        this.meal.pic = imageUrl;
+        const rawMaterials = {};
+        this.rawMaterials.forEach(x => {
+          Object.keys(x.rawMaterials).forEach(rawMaterial => {
+            rawMaterials[rawMaterial] = x.rawMaterials[rawMaterial];
+          });
+        });
+
+        const dishes: string[] = this.rawMaterials.map(x => x.dishName);
+        this.createMealService.CreateMeal(this.restId, this.meal, dishes, rawMaterials)
+          .then(x => {
+            alert('meal created successfully');
+          })
+          .catch(x => {
+            alert('error when creating a meal');
+            console.log(x);
+          });
+
+      });
   }
 }
 

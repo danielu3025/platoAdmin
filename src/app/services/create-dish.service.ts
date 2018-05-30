@@ -14,7 +14,6 @@ export class CreateDishService {
 
   constructor() {
 
-    firebase.initializeApp(environment.config);
     this.functions = firebase.functions();
     this.addDishFunction = this.functions.httpsCallable('addDish');
   }

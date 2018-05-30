@@ -1,29 +1,32 @@
 import {RawMaterial} from '../stock/stock.model';
+
 export class Grocery {
-    name: string;
-    cookingTime: number;
-    cookingType: string = 'frying';
-    rawMaterial: RawMaterial[];
-    // amountInGrocery: string;
-    // redLineForMeal: string;
-    // importanceToMeal: boolean = true;
+  name: string;
+  cookingTime: number;
+  cookingType = 'frying';
+  rawMaterial: RawMaterial[];
+  // amountInGrocery: string;
+  // redLineForMeal: string;
+  // importanceToMeal: boolean = true;
 }
 
 export class Dish {
-    name: string;
-    description: string;
-    totalTime: number;
-    status: number = 0;
-    category: string = 'Drinks';
+  name: string;
+  description: string;
+  totalTime: number;
+  status = 0;
+  category = 'Drinks';
 }
 
 export class Meal {
-    dairy: boolean = false;
-    name: string;
-    description: string;
-    price: number;
-    subMenus: string = 'Starters';
-    vegan: boolean = false;
-    glotenFree: boolean = false;
-    mealType: string = 'meat';
+  dairy = false;
+  name: string;
+  description: string;
+  pic = '';
+  price: number;
+  subMenus = 'Starters';
+  vegan = false;
+  glotenFree = false;
+  mealType = 'meat';
+  displayed = true;
 }

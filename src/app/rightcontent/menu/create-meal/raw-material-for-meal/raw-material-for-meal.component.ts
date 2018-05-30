@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {Dish} from '../../meal.model';
 import {DishService} from '../../../../services/dish.service';
 import {RawMaterial} from '../../../stock/stock.model';
@@ -9,7 +9,7 @@ import {GroceryService} from '../../../../services/grocery.service';
   templateUrl: './raw-material-for-meal.component.html',
   styleUrls: ['./raw-material-for-meal.component.css']
 })
-export class RawMaterialForMealComponent implements OnInit {
+export class RawMaterialForMealComponent implements OnInit, AfterViewInit {
 
   @Input() dishName: string;
   @Input() restId: string;
@@ -32,13 +32,11 @@ export class RawMaterialForMealComponent implements OnInit {
         this.groceryService.get(this.restId, grocery).subscribe(x => {
           this.groceries[grocery] = x;
           Object.keys(x.rawMaterial).forEach(rawMaterial => {
-            if (this.rawMaterials[rawMaterial]) {
-              this.rawMaterials[rawMaterial].push(x.name);
-            } else {
-              this.rawMaterials[rawMaterial] = [x.name];
-            }
+            this.rawMaterials[rawMaterial] = {
+              isImportant: false,
+              redLine: 0
+            };
           });
-
         });
       });
 
@@ -46,4 +44,13 @@ export class RawMaterialForMealComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit(): void {
+  }
+
+  onRedLineChange($event, model) {
+    if (model.redLine < 0) {
+      alert('Redline must be 0 or greater!');
+      model.redLine = 0;
+    }
+  }
 }

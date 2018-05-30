@@ -10,22 +10,44 @@
   </div>
   <div>dairy:
     <select [(ngModel)]="meal.dairy">
-      <option id="yesDairy"> Yes</option>
-      <option id="noDairy"> No</option>
+      <option [value]="true"> Yes</option>
+      <option [value]="false"> No</option>
     </select>
   </div>
-  <div>dairy:
+  <div>vegan:
     <select [(ngModel)]="meal.vegan">
-      <option id="yesVegan"> Yes</option>
-      <option id="noVegan"> No</option>
+      <option [value]="true">Yes</option>
+      <option [value]="false">No</option>
     </select>
+  </div>
+  <div>
+    Description:
+    <input [(ngModel)]="meal.description"/>
+  </div>
+  <div>
+    Gloten Free:
+    <input type="checkbox" [(ngModel)]="meal.glotenFree"/>
+  </div>
+  <div>
+    Meal Type:
+    <select [(ngModel)]="meal.mealType">
+      <option *ngFor="let type of mealTypes" [value]="type">{{type}}</option>
+    </select>
+  </div>
+  <div>
+    Price:
+    <input type="number" [(ngModel)]="meal.price" min="0" />
+  </div>
+  <div>
+    Pic:
+    <input type="file" name="pic" accept="image/*" (change)="uploadImage($event)">
   </div>
   <div>
     <div *ngFor="let item of dish; let i = index">
       <input type="checkbox" [(ngModel)]="dishSelected[i]"/>
       <span>{{item.name}}</span>
       <div *ngIf="dishSelected[i]">
-        <app-raw-material-for-meal [dishName]="item.name" [restId]="restId"></app-raw-material-for-meal>
+        <app-raw-material-for-meal #rawMaterials [dishName]="item.name" [restId]="restId" (rawMaterial)="rawMaterials[item.name]"></app-raw-material-for-meal>
       </div>
     </div>
   </div>

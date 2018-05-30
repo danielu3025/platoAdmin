@@ -7,9 +7,9 @@
     </thead>
     <tbody>
     <tr *ngFor="let rawMaterial of objectKeys(rawMaterials)">
-      <td><input type="checkbox"/></td>
+      <td><input type="checkbox" [(ngModel)]="rawMaterials[rawMaterial].isImportant"/></td>
       <td>{{rawMaterial}}</td>
-      <td><input type="number"/></td>
+      <td><input type="number" min="0" (change)="onRedLineChange($event, rawMaterials[rawMaterial])" [(ngModel)]="rawMaterials[rawMaterial].redLine"/></td>
     </tr>
     </tbody>
   </table>
