@@ -5,47 +5,41 @@ import {RawMaterial} from '../rightcontent/stock/stock.model';
 import {Rest} from '../rightcontent/rest/rest.model';
 import {Observable} from 'rxjs/internal/Observable';
 import {map} from 'rxjs/operators';
+import {AngularFireStorage} from 'angularfire2/storage';
+import * as firebase from 'firebase';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class RestService {
 
-  constructor(private afs: AngularFirestore, private db: AngularFireDatabase) {
+  private functions;
+  private addRestFunction;
+
+  constructor(private storage: AngularFireStorage) {
+    this.functions = firebase.functions();
+    this.addRestFunction = this.functions.httpsCallable('addRest');
   }
 
   get(restId: string): Observable<Rest[]> {
     return null;
   }
 
-  // return this.afs.collection('RestAlfa').doc(restId)
-  //   .snapshotChanges()
-  // .pipe(
-  //   map(data => {
-  //
-  //     return data.map(x => {
-  //       const value = x.payload.doc.data().value;
-  //
-  //       const rest: Rest = {
-  //         id: value.id,
-  //         accesability: value.accesability,
-  //         address: value.address,
-  //         location: {
-  //           latitude: value.location.latitude,
-  //           longitude: value.location.longitude,
-  //         },
-  //         name: value.name,
-  //         phone: value.phone,
-  //         picture: value.picture,
-  //         rank: {
-  //           rankSum: value.rank.rankSum,
-  //           totalRanks: value.rank.totalRanks,
-  //         },
-  //         smoking: value.smoking,
-  //         type: value.type
-  //       };
-  //
-  //       return rest;
-  //     });
-  //   }));
+  create(rest: Rest) {
+    return new Promise((resolve, reject) => {
+      this.addRestFunction(rest).then(resolve).catch(reject);
+    });
+  }
 
-
+  UploadRestImage(file: any) {
+    return new Promise((resolve, reject) => {
+      const id = Math.random().toString(36).substring(2);
+      const ref = this.storage.ref(`/restPics/${id}`);
+      ref.put(file)
+        .then(x => {
+          ref.getDownloadURL().subscribe(url => {
+            resolve(url);
+          });
+        })
+        .catch(reject);
+    });
+  }
 }

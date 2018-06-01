@@ -3,7 +3,7 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {Observable} from 'rxjs/internal/Observable';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class RestTypeService {
 
   constructor(private afs: AngularFirestore, private db: AngularFireDatabase) {
