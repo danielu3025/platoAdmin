@@ -6,6 +6,7 @@ import * as $ from 'jquery';
 import {RestService} from '../../../services/rest.service';
 import {RestTypeService} from '../../../services/rest-type.service';
 import {SubMenuService} from '../../../services/sub-menu.service';
+import {isBoolean} from 'util';
 
 @Component({
   selector: 'app-manage-rest',
@@ -17,7 +18,7 @@ export class ManageRestComponent implements OnInit {
   rest: Rest = new Rest();
   image: any = null;
   types: string[];
-  subMenus: string[];
+  subMenus: [{value: string, isSelected: boolean}] = [({value: '', isSelected: false})];
   days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   constructor(private restService: RestService, private restType: RestTypeService, private subMenu: SubMenuService) {
@@ -25,7 +26,10 @@ export class ManageRestComponent implements OnInit {
 
   ngOnInit() {
     this.restType.getAll().subscribe(x => this.types = x);
-    this.subMenu.getAll().subscribe(x => this.subMenus = x);
+    this.subMenu.getAll().subscribe(x => {
+      this.subMenus.splice(0, 1);
+      x.forEach(value => this.subMenus.push({value, isSelected: false}));
+    });
     for (let i = 0; i < 7; i++) {
       this.rest.workingDays.push(new WorkingDay());
     }
@@ -49,15 +53,15 @@ export class ManageRestComponent implements OnInit {
     this.restService.UploadRestImage(this.image)
       .then((imageUrl: string) => {
         this.rest.picture = imageUrl;
-        this.restService.create(this.rest)
+        this.restService.create(this.rest, this.subMenus.filter(x => x.isSelected).map(x => x.value))
           .then(x => alert('Restaurant Created'))
           .catch(x => {
-            alert('Error when uploading restaurant image');
+            alert('Error when creating restaurant');
             console.log(x);
           });
       })
       .catch(x => {
-        alert('Error when creating restaurant');
+        alert('Error when uploading restaurant image');
         console.log(x);
       });
   }

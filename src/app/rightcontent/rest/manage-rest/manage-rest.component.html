@@ -45,6 +45,13 @@
     </select>
   </div>
   <div>
+    Sub Menus:
+    <div *ngFor="let item of subMenus">
+      <input type="checkbox" [(ngModel)]="item.isSelected"/>
+      {{item.value}}
+    </div>
+  </div>
+  <div>
     <table>
       <thead>
       <th>Day</th>

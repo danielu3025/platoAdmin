@@ -22,7 +22,7 @@ export class Rest {
   };
   public smoking = false;
   public type = 'Caffe';
-  public subMenus = 'Starters';
+  public subMenus: string[];
   public workingDays: WorkingDay[] = [];
 }
 

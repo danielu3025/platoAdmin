@@ -23,7 +23,8 @@ export class RestService {
     return null;
   }
 
-  create(rest: Rest) {
+  create(rest: Rest, subMenus: string[]) {
+    rest.subMenus = subMenus;
     return new Promise((resolve, reject) => {
       this.addRestFunction(rest).then(resolve).catch(reject);
     });
