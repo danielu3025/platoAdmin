@@ -19,7 +19,7 @@
     </agm-map>
   </div>
   <div>
-    Phone:<input [(ngModel)]="rest.phone"/>
+    Phone:<input type="tel" [(ngModel)]="rest.phone"/>
   </div>
   <div>
     Picture: <input type="file" name="pic" accept="image/*" (change)="uploadImage($event)">

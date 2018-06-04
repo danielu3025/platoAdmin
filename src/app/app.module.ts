@@ -20,7 +20,6 @@ import {MenuOptionsComponent} from './rightcontent/nav-options/menu-options/menu
 import {StockOptionsComponent} from './rightcontent/nav-options/stock-options/stock-options.component';
 import {KitchenOptionsComponent} from './rightcontent/nav-options/kitchen-options/kitchen-options.component';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
-import {CreateStaffFormComponent} from './rightcontent/staff/create-staff-form/create-staff-form.component';
 import {ManageWorkerComponent} from './rightcontent/staff/manage-worker/manage-worker.component';
 import {ManageRestComponent} from './rightcontent/rest/manage-rest/manage-rest.component';
 import {ManageStockComponent} from './rightcontent/stock/manage-stock/manage-stock.component';
@@ -53,6 +52,7 @@ import {RawMaterialForMealComponent} from './rightcontent/menu/create-meal/raw-m
 import * as firebase from 'firebase';
 import {AngularFireStorageModule} from 'angularfire2/storage';
 import {AgmCoreModule} from '@agm/core';
+import {RawMaterialUnitService} from './services/raw-material-unit.service';
 
 firebase.initializeApp(environment.config);
 
@@ -64,7 +64,6 @@ const appRouts: Routes = [
   {path: 'kitchen', component: KitchenComponent},
   {path: 'layout', component: LayoutComponent},
   {path: 'menu', component: ManuComponent},
-  {path: 'creatstaffform', component: CreateStaffFormComponent},
   {path: 'manageWorkers', component: ManageWorkerComponent},
   {path: 'manageRests', component: ManageRestComponent},
   {path: 'manageStock', component: ManageStockComponent},
@@ -88,7 +87,6 @@ const appRouts: Routes = [
     MenuOptionsComponent,
     StockOptionsComponent,
     KitchenOptionsComponent,
-    CreateStaffFormComponent,
     ManageWorkerComponent,
     ManageRestComponent,
     ManageStockComponent,
@@ -119,7 +117,7 @@ const appRouts: Routes = [
   providers: [AuthService, KitchenStoreService, CookingTypesService, RawMaterialService,
     CreateGroceryService, HttpClientModule, DeleteGroceryService, UpdateGroceryService,
     GroceryService, CategoryService, CreateDishService, CreateMealService, DishService,
-    SubMenuService, MealTypeService],
+    SubMenuService, MealTypeService, RawMaterialUnitService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

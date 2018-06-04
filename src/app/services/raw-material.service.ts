@@ -18,4 +18,7 @@ export class RawMaterialService {
         });
     });
   }
+
+  CreateRawMaterial(restId: string, rawMaterial: RawMaterial): void{
+  }
 }

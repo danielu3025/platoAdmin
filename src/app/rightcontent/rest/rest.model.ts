@@ -21,7 +21,8 @@ export class Rest {
     totalRanks: 0
   };
   public smoking = false;
-  public type: string;
+  public type = 'Caffe';
+  public subMenus = 'Starters';
   public workingDays: WorkingDay[] = [];
 }
 

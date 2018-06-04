@@ -5,6 +5,7 @@ import {Rest, WorkingDay} from '../rest.model';
 import * as $ from 'jquery';
 import {RestService} from '../../../services/rest.service';
 import {RestTypeService} from '../../../services/rest-type.service';
+import {SubMenuService} from '../../../services/sub-menu.service';
 
 @Component({
   selector: 'app-manage-rest',
@@ -16,13 +17,15 @@ export class ManageRestComponent implements OnInit {
   rest: Rest = new Rest();
   image: any = null;
   types: string[];
+  subMenus: string[];
   days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-  constructor(private restService: RestService, private restType: RestTypeService) {
+  constructor(private restService: RestService, private restType: RestTypeService, private subMenu: SubMenuService) {
   }
 
   ngOnInit() {
     this.restType.getAll().subscribe(x => this.types = x);
+    this.subMenu.getAll().subscribe(x => this.subMenus = x);
     for (let i = 0; i < 7; i++) {
       this.rest.workingDays.push(new WorkingDay());
     }
