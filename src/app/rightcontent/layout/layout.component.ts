@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
+  restId = 'mozes-333';
+
   constructor() { }
 
   ngOnInit() {

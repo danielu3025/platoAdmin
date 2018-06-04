@@ -1,0 +1,27 @@
+<div>
+  Id:<input [(ngModel)]="table.id"/>
+</div>
+<div>
+  Accessabillity
+  <select [(ngModel)]="table.acceabilty">
+    <option [value]="true">Yes</option>
+    <option [value]="false">No</option>
+  </select>
+</div>
+<div>
+  Smoking
+  <select [(ngModel)]="table.smoking">
+    <option [value]="true">Yes</option>
+    <option [value]="false">No</option>
+  </select>
+</div>
+<div>
+  Is Connectable
+  <select [(ngModel)]="table.isConnectable">
+    <option [value]="true">Yes</option>
+    <option [value]="false">No</option>
+  </select>
+</div>
+<div>
+  <button (click)="createTable()">Create Table</button>
+</div>

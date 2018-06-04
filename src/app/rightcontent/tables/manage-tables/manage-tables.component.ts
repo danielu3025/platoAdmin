@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Table} from '../table.model';
+import {Table} from '../../layout/table.model';
 import {AngularFireList, AngularFireDatabase} from 'angularfire2/database';
 import {Observable} from 'rxjs/index';
 import {AngularFirestore} from 'angularfire2/firestore';

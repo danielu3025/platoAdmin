@@ -53,6 +53,8 @@ import * as firebase from 'firebase';
 import {AngularFireStorageModule} from 'angularfire2/storage';
 import {AgmCoreModule} from '@agm/core';
 import {RawMaterialUnitService} from './services/raw-material-unit.service';
+import { CreateTableComponent } from './rightcontent/layout/create-table/create-table.component';
+import {AgGridModule} from 'ag-grid-angular/main';
 
 firebase.initializeApp(environment.config);
 
@@ -100,6 +102,7 @@ const appRouts: Routes = [
     CreateDishComponent,
     CreateMealPageComponent,
     RawMaterialForMealComponent,
+    CreateTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,7 +115,8 @@ const appRouts: Routes = [
     AngularFireAuthModule,
     AngularFireStorageModule,
     HttpClientModule,
-    AgmCoreModule.forRoot({apiKey: 'AIzaSyC17LboYF2DtS34_J_FCKGEhPL5ozf3CHo'})
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyC17LboYF2DtS34_J_FCKGEhPL5ozf3CHo'}),
+    AgGridModule.forRoot()
   ],
   providers: [AuthService, KitchenStoreService, CookingTypesService, RawMaterialService,
     CreateGroceryService, HttpClientModule, DeleteGroceryService, UpdateGroceryService,
