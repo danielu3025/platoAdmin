@@ -15,7 +15,7 @@ export class KitchenStoreService {
 
   get(restId: string): Observable<KitchenStation[]> {
     return Observable.create(observer => {
-      this.afs.collection<KitchenStation>('RestAlfa' + restId + 'KitchenStation').valueChanges()
+      this.afs.collection<KitchenStation>('Rests' + restId + 'KitchenStation').valueChanges()
         .subscribe(x => {
             observer(x.map(station => {
               return {

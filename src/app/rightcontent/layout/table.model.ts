@@ -9,4 +9,5 @@ export class Table {
   size: number;
   smoking = false;
   status = 'free';
+  connectableTables: number[] = [];
 }

@@ -1,0 +1,9 @@
+<table class="grid">
+  <tr *ngFor="let rowIndex of objectKeys(this.grid)">
+    <app-grid-cell *ngFor="let colIndex of objectKeys(this.grid[rowIndex])"
+                   [cellInfo]="grid[rowIndex][colIndex]"
+                   (onMouseDown)="selectionStarted(colIndex, rowIndex, $event)"
+                   (onMouseUp)="selectionEnded(colIndex, rowIndex)">
+    </app-grid-cell>
+  </tr>
+</table>

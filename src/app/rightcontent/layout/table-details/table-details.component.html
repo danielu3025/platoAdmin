@@ -1,0 +1,23 @@
+<div class="table-details">
+  <div>
+    Number: {{table.id}}
+  </div>
+  <div>
+    Accessabillity: {{table.acceabilty}}
+  </div>
+  <div>
+    Smoking: {{table.smoking}}
+  </div>
+  <div>
+    Connectable: {{table.isConnectable}}
+  </div>
+  <div>
+    Size: {{table.size}}
+  </div>
+  <div>
+    Connectable Tables:
+    <div *ngFor="let tableId of table.connectableTables">
+      {{tableId}}
+    </div>
+  </div>
+</div>

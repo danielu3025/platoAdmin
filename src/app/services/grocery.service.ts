@@ -11,11 +11,11 @@ export class GroceryService {
   }
 
   getAll(restId: string): Observable<Grocery[]> {
-    return this.afs.collection('RestAlfa').doc(restId).collection<Grocery>('Grocery').valueChanges();
+    return this.afs.collection('Rests').doc(restId).collection<Grocery>('Grocery').valueChanges();
   }
 
   get(restId: string, grocery: string): Observable<Grocery> {
-    return this.afs.collection('RestAlfa').doc(restId).collection<Grocery>('Grocery')
+    return this.afs.collection('Rests').doc(restId).collection<Grocery>('Grocery')
       .doc<Grocery>(grocery).valueChanges();
   }
 }

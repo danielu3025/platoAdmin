@@ -1,5 +1,5 @@
 
 export class Global{
-    restRoot: string = "RestAlfa";
+    restRoot: string = "Rests";
     restId: string = "mozes-333";
 }

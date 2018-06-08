@@ -1,27 +1,30 @@
+<div>Mark Your Table</div>
+<app-grid [rows]="10"
+          [cols]="10"
+          [cellWidth]="30"
+          [cellHeight]="30"
+          [rectanglesObservable]="tablesRectangelsObservable"
+          (rectangleCreated)="addNewTable($event)">
+
+</app-grid>
+<app-new-table-details [isDisplayed]="displayNewTableForm"
+                       [table]="newTable"
+                       (newTableCreated)="createNewTable($event)"
+                       (tableCreationCancled)="tableCreationCanceled()">
+</app-new-table-details>
 <div>
-  Id:<input [(ngModel)]="table.id"/>
-</div>
-<div>
-  Accessabillity
-  <select [(ngModel)]="table.acceabilty">
-    <option [value]="true">Yes</option>
-    <option [value]="false">No</option>
+  Set
+  <select [(ngModel)]="connectableFromId" (change)="connectableFromChanged($event)">
+    <option *ngFor="let table of connectableTables" [value]=table.id>{{table.id}}</option>
   </select>
-</div>
-<div>
-  Smoking
-  <select [(ngModel)]="table.smoking">
-    <option [value]="true">Yes</option>
-    <option [value]="false">No</option>
+  To Be Connectable To
+  <select [(ngModel)]="connectableToId">
+    <option *ngFor="let table of connectableToTables" [value]=table.id>{{table.id}}</option>
   </select>
+  <button (click)="setPossibleConnection()">Set</button>
 </div>
 <div>
-  Is Connectable
-  <select [(ngModel)]="table.isConnectable">
-    <option [value]="true">Yes</option>
-    <option [value]="false">No</option>
-  </select>
-</div>
-<div>
-  <button (click)="createTable()">Create Table</button>
+  <div *ngFor="let table of tables">
+    <app-table-details [table]="table"></app-table-details>
+  </div>
 </div>

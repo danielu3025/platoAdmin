@@ -1,0 +1,10 @@
+<td class="grid-cell" draggable="false"
+    [style.width.px]="cellInfo.width"
+    [style.height.px]="cellInfo.height"
+    [style.backgroundColor]="cellInfo.isSelected ? cellInfo.colorWhenSelected : cellInfo.color"
+    (mousedown)="onMouseDownEvent($event)"
+    (mouseup)="onMouseUpEvent()"
+    (contextmenu)="contextMenuEvent()">
+</td>
+<span class="grid-divider" draggable="false" [style.height.px]="cellInfo.height"
+      (contextmenu)="contextMenuEvent()"></span>
