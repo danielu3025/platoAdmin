@@ -37,6 +37,7 @@ export class GridComponent implements OnInit {
     this.grid = this.createEmptyGridObject();
     this.rectanglesObservable.subscribe(x => {
       this.rectangles = x;
+      this.grid = this.createEmptyGridObject();
       this.markRectangles(this.grid, this.rectangles);
     });
 
@@ -62,12 +63,8 @@ export class GridComponent implements OnInit {
       this.markRectangles(newGrid, newRectangles);
       this.rectangles = newRectangles;
       this.grid = newGrid;
-      connectRects.resolve();
-
-
+      connectRects.resolve(mergedRectangle);
     });
-
-    console.log(this.grid);
   }
 
   private getNewRectangle(rect1: Rectangle, rect2: Rectangle): Rectangle {
