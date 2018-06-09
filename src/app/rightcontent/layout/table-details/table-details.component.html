@@ -3,6 +3,9 @@
     Number: {{table.id}}
   </div>
   <div>
+    X: {{table.x}} Y:{{table.y}}
+  </div>
+  <div>
     Accessabillity: {{table.acceabilty}}
   </div>
   <div>
@@ -14,10 +17,19 @@
   <div>
     Size: {{table.size}}
   </div>
-  <div>
+  <div *ngIf="isMerged">
+    <button (click)="disconnectMergedTable()">Disconnect</button>
+  </div>
+  <div *ngIf="!isMerged">
     Connectable Tables:
-    <div *ngFor="let tableId of table.connectableTables">
-      {{tableId}}
+    <div *ngIf="connectableTables">
+      <div *ngFor="let tableId of connectableTables">
+        {{tableId}}
+        <button (click)="onConnectTables(tableId)">Connect</button>
+      </div>
+    </div>
+    <div *ngIf="connectableTables.length === 0">
+      No Connectable Tables
     </div>
   </div>
 </div>

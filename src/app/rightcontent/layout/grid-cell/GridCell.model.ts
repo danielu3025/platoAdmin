@@ -1,4 +1,5 @@
 export class GridCell {
+  id: string = '';
   color: string = 'lightblue';
   colorWhenSelected: string = 'lightgreen';
   isSelected: boolean = false;

@@ -1,9 +1,10 @@
 <div>Mark Your Table</div>
-<app-grid [rows]="10"
-          [cols]="10"
+<app-grid [rows]="gridHeight"
+          [cols]="gridWidth"
           [cellWidth]="30"
           [cellHeight]="30"
           [rectanglesObservable]="tablesRectangelsObservable"
+          [connectRectangles]="connectRectangelsObservable"
           (rectangleCreated)="addNewTable($event)">
 
 </app-grid>
@@ -25,6 +26,6 @@
 </div>
 <div>
   <div *ngFor="let table of tables">
-    <app-table-details [table]="table"></app-table-details>
+    <app-table-details [restId]="restId" [table]="table" (connectTables)="connectTables($event)"></app-table-details>
   </div>
 </div>

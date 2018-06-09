@@ -1,6 +1,9 @@
+import {Rectangle} from './grid/GridEvents.model';
+
 export class Table {
   acceabilty = false;
   isConnectable = false;
+  displayed = true;
   id: string;
   x: number;
   y: number;
@@ -9,5 +12,8 @@ export class Table {
   size: number;
   smoking = false;
   status = 'free';
-  connectableTables: number[] = [];
+  pLeft: number;
+  pTop: number;
+  pRight: number;
+  pBottom: number;
 }

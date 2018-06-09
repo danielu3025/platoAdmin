@@ -23,6 +23,9 @@ export class NewTableDetailsComponent implements OnInit {
   }
 
   createTable() {
+    this.table.acceabilty = this.table.acceabilty.toString() === 'true';
+    this.table.isConnectable = this.table.isConnectable.toString() === 'true';
+    this.table.smoking = this.table.smoking.toString() === 'true';
     this.newTableCreated.emit(this.table);
   }
 

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {GridCell} from '../grid-cell/GridCell.model';
-import {Rectangle} from './GridEvents.model';
+import {ConnectRectanglesEvent, Rectangle} from './GridEvents.model';
 import {Observable} from 'rxjs/internal/Observable';
 
 @Component({
@@ -15,6 +15,8 @@ export class GridComponent implements OnInit {
   @Input() cellWidth = 50;
   @Input() cellHeight = 50;
   @Input() rectanglesObservable: Observable<Rectangle[]>;
+  @Input() connectRectangles: Observable<ConnectRectanglesEvent>;
+
   rectangles: Rectangle[];
 
   @Output() rectangleCreated: EventEmitter<Rectangle> = new EventEmitter<Rectangle>();
@@ -32,12 +34,59 @@ export class GridComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.resetGridCells();
+    this.grid = this.createEmptyGridObject();
     this.rectanglesObservable.subscribe(x => {
       this.rectangles = x;
-      this.markRectangles();
+      this.markRectangles(this.grid, this.rectangles);
     });
+
+    this.connectRectangles.subscribe(connectRects => {
+
+      const newRectangles = this.rectangles.map(x => x);
+      newRectangles.splice(newRectangles.findIndex(x => x.id === connectRects.rect1.id), 1);
+      newRectangles.splice(newRectangles.findIndex(x => x.id === connectRects.rect2.id), 1);
+
+      const mergedRectangle = this.getNewRectangle(connectRects.rect1, connectRects.rect2);
+      if (mergedRectangle === null) {
+        connectRects.reject('Cannot connect rectangles! Height or Width must be equal!');
+      }
+
+      const newGrid = this.createEmptyGridObject();
+      this.markRectangles(newGrid, newRectangles);
+      if (this.willRectangleWontOverrideOtherRectangles(newGrid, mergedRectangle)) {
+        connectRects.reject('New table will override existing tables');
+        return;
+      }
+
+      newRectangles.push(mergedRectangle);
+      this.markRectangles(newGrid, newRectangles);
+      this.rectangles = newRectangles;
+      this.grid = newGrid;
+      connectRects.resolve();
+
+
+    });
+
     console.log(this.grid);
+  }
+
+  private getNewRectangle(rect1: Rectangle, rect2: Rectangle): Rectangle {
+    const id = `${rect1.id}+${rect2.id}`;
+    if (rect1.width === rect2.width) {
+      const x = rect1.x;
+      const y = rect1.y;
+      const width = rect1.width;
+      const height = rect1.height + rect2.height;
+      return new Rectangle(x, y, width, height, id);
+    } else if (rect1.height === rect2.height) {
+      const x = rect1.x;
+      const y = rect1.y;
+      const height = rect1.height;
+      const width = rect1.width + rect2.width;
+      return new Rectangle(x, y, width, height, id);
+    }
+
+    return null;
   }
 
   selectionStarted(x, y, event) {
@@ -68,7 +117,8 @@ export class GridComponent implements OnInit {
       x: this.selectEnd.colIndex > this.selectStart.colIndex ? this.selectStart.colIndex : this.selectEnd.colIndex,
       y: this.selectEnd.rowIndex > this.selectStart.rowIndex ? this.selectStart.rowIndex : this.selectEnd.rowIndex,
       width: Math.abs(this.selectEnd.colIndex - this.selectStart.colIndex) + 1,
-      height: Math.abs(this.selectEnd.rowIndex - this.selectStart.rowIndex) + 1
+      height: Math.abs(this.selectEnd.rowIndex - this.selectStart.rowIndex) + 1,
+      id: ''
     };
 
 
@@ -91,23 +141,41 @@ export class GridComponent implements OnInit {
     this.selectEnd = null;
   }
 
-  private resetGridCells() {
+  private createEmptyGridObject() {
+    const grid = {};
     for (let row = 0; row < this.rows; row++) {
-      this.grid[row] = {};
+      grid[row] = {};
 
       for (let col = 0; col < this.cols; col++) {
-        this.grid[row][col] = new GridCell();
+        grid[row][col] = new GridCell();
       }
     }
+
+    return grid;
   }
 
-  private markRectangles() {
-    this.rectangles.forEach(rect => {
+  private markRectangles(grid, rectangles) {
+    rectangles.forEach(rect => {
       for (let row = rect.y; row < rect.y + rect.height; row++) {
         for (let col = rect.x; col < rect.x + rect.width; col++) {
-          this.grid[row][col].isSelected = true;
+          grid[row][col].isSelected = true;
+          if (rect.id.length > 0) {
+            grid[row][col].id = rect.id;
+          }
         }
       }
     });
+  }
+
+  private willRectangleWontOverrideOtherRectangles(grid, rect: Rectangle): boolean {
+    for (let row = rect.y; row < rect.y + rect.height; row++) {
+      for (let col = rect.x; col < rect.x + rect.width; col++) {
+        if (grid[row][col].isSelected) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 }
