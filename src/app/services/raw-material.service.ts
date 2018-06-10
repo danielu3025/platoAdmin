@@ -12,7 +12,7 @@ export class RawMaterialService {
 
   get(restId: string): Observable<RawMaterial[]> {
     return Observable.create(observer => {
-      this.afs.collection('Rests').doc(restId).collection<{ value: RawMaterial }>('WarehouseStock').valueChanges()
+      this.afs.collection('RestAlfa').doc(restId).collection<{ value: RawMaterial }>('WarehouseStock').valueChanges()
         .subscribe(x => {
           observer.next(x.map(x => x.value));
         });

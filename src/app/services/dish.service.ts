@@ -11,16 +11,16 @@ export class DishService {
   }
 
   getAll(restId: string): Observable<Dish[]> {
-    return this.afs.collection('Rests').doc(restId).collection<Dish>('Dishes').valueChanges();
+    return this.afs.collection('RestAlfa').doc(restId).collection<Dish>('Dishes').valueChanges();
   }
 
   get(restId: string, dish: string): Observable<Dish> {
-    return this.afs.collection('Rests').doc(restId).collection<Dish>('Dishes').doc<Dish>(dish).valueChanges();
+    return this.afs.collection('RestAlfa').doc(restId).collection<Dish>('Dishes').doc<Dish>(dish).valueChanges();
   }
 
   getGroceryForDish(restId: string, dish: string): Observable<string[]> {
     return Observable.create(observer => {
-      this.afs.collection('Rests').doc(restId).collection<Dish>('Dishes').doc(dish)
+      this.afs.collection('RestAlfa').doc(restId).collection<Dish>('Dishes').doc(dish)
         .collection('grocery').valueChanges()
         .subscribe((data: [{ id: string }]) => {
           observer.next(data.map(x => x.id));
