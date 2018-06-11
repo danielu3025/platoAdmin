@@ -9,11 +9,11 @@ import {SubMenuService} from '../../../services/sub-menu.service';
 import {isBoolean} from 'util';
 
 @Component({
-  selector: 'app-manage-rest',
-  templateUrl: './manage-rest.component.html',
-  styleUrls: ['./manage-rest.component.css']
+  selector: 'app-create-rest',
+  templateUrl: './create-rest.component.html',
+  styleUrls: ['./create-rest.component.css']
 })
-export class ManageRestComponent implements OnInit {
+export class CreateRestComponent implements OnInit {
 
   rest: Rest = new Rest();
   image: any = null;

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {UserInfoService} from '../../services/user-info.service';
 
 @Component({
   selector: 'app-layout',
@@ -7,11 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
-  restId = 'mozes-333';
+  restId = '';
 
-  constructor() { }
+  constructor(private userInfoService: UserInfoService) { }
 
   ngOnInit() {
+    this.restId = this.userInfoService.getSelectedRestId().restId;
+    this.userInfoService.getSelectedRestId().restIdObservable.subscribe(x => this.restId = x);
   }
 
 }

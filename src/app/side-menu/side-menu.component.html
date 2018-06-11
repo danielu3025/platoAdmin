@@ -2,10 +2,10 @@
     <div class="logo">
         <a href="#" class="logoPic"></a>
     </div>
-  <div class="menuItem" routerLinkActive="menuItemSelected">
+  <div *ngIf="!isLoggedIn" class="menuItem" routerLinkActive="menuItemSelected">
     <a class="link"  [routerLink]="['/login']">Login</a>
   </div>
-  <div *ngIf="authService.isLoggedIn()">
+  <div *ngIf="isLoggedIn">
     <div class="menuItem" routerLinkActive="menuItemSelected">
         <a class="link"  [routerLink]="['/manageRests']">Rests</a>
     </div>
@@ -23,6 +23,9 @@
     </div>
     <div class="menuItem" routerLinkActive="menuItemSelected">
         <a class="link" [routerLink]="['/manageWorkers']">Staff</a>
+    </div>
+    <div *ngIf="isLoggedIn" class="menuItem" routerLinkActive="menuItemSelected">
+      <a class="link" (click)="logout()">Logout</a>
     </div>
   </div>
 </div>

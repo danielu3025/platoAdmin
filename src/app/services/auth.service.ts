@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Router} from '@angular/router';
 import * as firebase from 'firebase/app';
 import {Observable} from 'rxjs/internal/Observable';
 import {User} from 'firebase';
+import {UserInfo} from './UserInfo.model';
+import {AngularFirestore} from 'angularfire2/firestore';
 
 @Injectable()
 export class AuthService {
@@ -11,7 +13,7 @@ export class AuthService {
   private user: Observable<User>;
   private userDetails: User = null;
 
-  constructor(private _firebaseAuth: AngularFireAuth, private router: Router) {
+  constructor(private _firebaseAuth: AngularFireAuth, private afs: AngularFirestore) {
     this.user = _firebaseAuth.authState;
     this.user.subscribe(
       (user) => {
@@ -25,21 +27,49 @@ export class AuthService {
   }
 
   signInWithEmailAndPassword(email: string, password: string) {
-    return this._firebaseAuth.auth.signInWithEmailAndPassword(email, password)
-      .then(x => console.log('logged in'))
-      .catch(x => console.log(x));
+    return new Promise((resolve, reject) => {
+      this._firebaseAuth.auth.signInWithEmailAndPassword(email, password)
+        .then(resolve)
+        .catch(reject);
+    });
   }
 
-  isLoggedIn() {
-    if (this.userDetails == null ) {
-      return false;
-    } else {
-      return true;
-    }
+  isLoggedIn(): Observable<boolean> {
+    return Observable.create(observer => {
+      this.user.subscribe(
+        (user) => {
+          if (user) {
+            observer.next(true);
+          } else {
+            observer.next(false);
+          }
+        }
+      );
+    });
   }
 
   logout() {
-    this._firebaseAuth.auth.signOut()
-      .then((res) => this.router.navigate(['/']));
+    return new Promise((resolve, reject) => {
+      this._firebaseAuth.auth.signOut()
+        .then(resolve)
+        .catch(reject);
+    });
   }
+
+  getUserInfo(): Observable<UserInfo> {
+    return Observable.create((observer) => {
+      const email = this.userDetails.email;
+
+      this.afs.collection<UserInfo>('/GlobWorkers', ref => ref.where('email', '==', email)).snapshotChanges().subscribe(x => {
+        const id = x[0].payload.doc.id;
+        const data = x[0].payload.doc.data();
+        this.afs.collection(`/GlobWorkers/${id}/Rest`).valueChanges().subscribe(rest => {
+          console.log(rest);
+          const rests = rest.map(x => Object.keys(x)[0]);
+          const userInfo = new UserInfo(data.email, data.name, data.role, rests);
+          observer.next(userInfo);
+        });
+      });
+    });
+  };
 }

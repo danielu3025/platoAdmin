@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {AngularFireList, AngularFireDatabase} from 'angularfire2/database';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {KitchenStation} from './kitchen.model';
-import {Global} from '../../globals.model';
 import {KitchenStoreService} from '../../services/kitchen-store.service';
 import {Observable} from 'rxjs/internal/Observable';
 
@@ -19,7 +18,8 @@ export class KitchenComponent implements OnInit {
   kitchenStation$: Observable<KitchenStation[]>;
   kitchenStation: KitchenStation = new KitchenStation();
 
-  constructor(private kitchenStore: KitchenStoreService, private afs: AngularFirestore, private db: AngularFireDatabase) {}
+  constructor(private kitchenStore: KitchenStoreService, private afs: AngularFirestore, private db: AngularFireDatabase) {
+  }
 
   // deleteKitchenStation(restId: string, kithcenId: string) {
   //   this.kitchenStore.deleteKitchenStation(restId, kithcenId);

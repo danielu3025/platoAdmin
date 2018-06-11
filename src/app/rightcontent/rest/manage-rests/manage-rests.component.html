@@ -1,0 +1,9 @@
+<div>
+  Selected Rest: {{selectedRest}}
+  <div *ngFor="let rest of userInfo.rests">
+    {{rest}} <button (click)="selectRest(rest)">Select</button>
+  </div>
+</div>
+<div>
+  <button (click)="createNewRest()">Create New Rest</button>
+</div>

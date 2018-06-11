@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {UserInfoService} from '../../../services/user-info.service';
 
 @Component({
   selector: 'app-create-meal-page',
@@ -7,11 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateMealPageComponent implements OnInit {
 
-  resturantID = 'mozes-333';
+  resturantID = '';
 
-  constructor() { }
+  constructor(private userInfo: UserInfoService) {
+  }
 
   ngOnInit() {
+    debugger;
+    this.resturantID = this.userInfo.getSelectedRestId().restId;
+    this.userInfo.getSelectedRestId().restIdObservable.subscribe(x => this.resturantID = x);
   }
 
 }

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManageRestComponent } from './manage-rest.component';
+import { ManageRestsComponent } from './manage-rests.component';
 
-describe('ManageRestComponent', () => {
-  let component: ManageRestComponent;
-  let fixture: ComponentFixture<ManageRestComponent>;
+describe('ManageRestsComponent', () => {
+  let component: ManageRestsComponent;
+  let fixture: ComponentFixture<ManageRestsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ManageRestComponent ]
+      declarations: [ ManageRestsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ManageRestComponent);
+    fixture = TestBed.createComponent(ManageRestsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
