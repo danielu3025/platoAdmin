@@ -6,6 +6,7 @@ import {RawMaterial} from '../../stock/stock.model';
 import {CreateGroceryService} from '../../../services/create-grocery.service';
 import {DeleteGroceryService} from '../../../services/delete-grocery.service';
 import {UpdateGroceryService} from '../../../services/update-grocery.service';
+import {UserInfoService} from '../../../services/user-info.service';
 
 @Component({
   selector: 'app-create-grocery',
@@ -14,7 +15,7 @@ import {UpdateGroceryService} from '../../../services/update-grocery.service';
 })
 export class CreateGroceryComponent implements OnInit {
 
-  @Input() restId: string;
+  restId: string;
 
   rawMaterial: RawMaterial[] = [];
   rawMaterialAmount: number[] = [];
@@ -24,18 +25,21 @@ export class CreateGroceryComponent implements OnInit {
 
   constructor(private cookingTypesService: CookingTypesService, private rawMaterialService: RawMaterialService,
               private creatGroceryService: CreateGroceryService, private deleteGroceryService: DeleteGroceryService,
-              private updateGroceryService: UpdateGroceryService) {
+              private updateGroceryService: UpdateGroceryService, private userInfoService: UserInfoService) {
   }
 
   ngOnInit() {
-    this.cookingTypesService.getAll().subscribe(x => this.cookingTypes = x);
-    this.rawMaterialService.get(this.restId).subscribe(x => {
-      this.rawMaterial = x;
-      this.rawMaterial.forEach(m => {
-        this.rawMaterialAmount.push(0);
-        this.rawMaterialSelected.push(false);
+    this.userInfoService.getSelectedRestId().subscribe(x => {
+      this.restId = x;
+      this.rawMaterialService.get(this.restId).subscribe(x => {
+        this.rawMaterial = x;
+        this.rawMaterial.forEach(m => {
+          this.rawMaterialAmount.push(0);
+          this.rawMaterialSelected.push(false);
+        });
       });
     });
+    this.cookingTypesService.getAll().subscribe(x => this.cookingTypes = x);
   }
 
   createGrocery() {

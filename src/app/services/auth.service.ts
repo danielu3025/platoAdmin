@@ -64,9 +64,8 @@ export class AuthService {
         const id = x[0].payload.doc.id;
         const data = x[0].payload.doc.data();
         this.afs.collection(`/GlobWorkers/${id}/Rest`).valueChanges().subscribe(rest => {
-          console.log(rest);
           const rests = rest.map(x => Object.keys(x)[0]);
-          const userInfo = new UserInfo(data.email, data.name, data.role, rests);
+          const userInfo = new UserInfo(id, data.email, data.name, data.role, data.lastSelectedRest, rests);
           observer.next(userInfo);
         });
       });

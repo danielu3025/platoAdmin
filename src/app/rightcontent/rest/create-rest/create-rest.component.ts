@@ -7,6 +7,8 @@ import {RestService} from '../../../services/rest.service';
 import {RestTypeService} from '../../../services/rest-type.service';
 import {SubMenuService} from '../../../services/sub-menu.service';
 import {isBoolean} from 'util';
+import {UserInfo} from '../../../services/UserInfo.model';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-create-rest',
@@ -18,13 +20,20 @@ export class CreateRestComponent implements OnInit {
   rest: Rest = new Rest();
   image: any = null;
   types: string[];
-  subMenus: [{value: string, isSelected: boolean}] = [({value: '', isSelected: false})];
+  userInfo: UserInfo;
+  subMenus: [{ value: string, isSelected: boolean }] = [({value: '', isSelected: false})];
   days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-  constructor(private restService: RestService, private restType: RestTypeService, private subMenu: SubMenuService) {
+  constructor(private restService: RestService, private authService: AuthService, private restType: RestTypeService, private subMenu: SubMenuService) {
   }
 
   ngOnInit() {
+    this.authService.isLoggedIn().subscribe(x => {
+      if (!x) {
+        return;
+      }
+      this.authService.getUserInfo().subscribe(x => this.userInfo = x);
+    });
     this.restType.getAll().subscribe(x => this.types = x);
     this.subMenu.getAll().subscribe(x => {
       this.subMenus.splice(0, 1);
@@ -53,7 +62,7 @@ export class CreateRestComponent implements OnInit {
     this.restService.UploadRestImage(this.image)
       .then((imageUrl: string) => {
         this.rest.picture = imageUrl;
-        this.restService.create(this.rest, this.subMenus.filter(x => x.isSelected).map(x => x.value))
+        this.restService.create(this.rest, this.subMenus.filter(x => x.isSelected).map(x => x.value), this.userInfo.fbId)
           .then(x => alert('Restaurant Created'))
           .catch(x => {
             alert('Error when creating restaurant');

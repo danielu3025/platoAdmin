@@ -15,6 +15,7 @@ export class Rest {
 
   public name: string;
   public phone = '';
+  public predict = false;
   public picture: string;
   public rank: Object = {
     rankSum: 0,

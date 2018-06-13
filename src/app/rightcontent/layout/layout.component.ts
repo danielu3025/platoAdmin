@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserInfoService} from '../../services/user-info.service';
+import {Observable} from 'rxjs/internal/Observable';
+import {Observer} from 'rxjs/internal/types';
 
 @Component({
   selector: 'app-layout',
@@ -8,13 +10,10 @@ import {UserInfoService} from '../../services/user-info.service';
 })
 export class LayoutComponent implements OnInit {
 
-  restId = '';
-
-  constructor(private userInfoService: UserInfoService) { }
+  constructor(private userInfoService: UserInfoService) {
+  }
 
   ngOnInit() {
-    this.restId = this.userInfoService.getSelectedRestId().restId;
-    this.userInfoService.getSelectedRestId().restIdObservable.subscribe(x => this.restId = x);
   }
 
 }

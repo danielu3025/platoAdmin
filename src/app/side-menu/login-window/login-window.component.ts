@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login-window',
@@ -10,16 +11,16 @@ export class LoginWindowComponent implements OnInit {
 
   username = '';
   password = '';
-  isLoggedIn = false;
 
-  constructor(private auth: AuthService) {
+  constructor(private auth: AuthService, private router: Router) {
   }
 
   ngOnInit() {
   }
 
   login() {
-    this.auth.signInWithEmailAndPassword(this.username, this.password);
+    this.auth.signInWithEmailAndPassword(this.username, this.password)
+      .then(x => this.router.navigate(['manageRests']));
   }
 
 }

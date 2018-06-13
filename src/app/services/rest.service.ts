@@ -23,10 +23,11 @@ export class RestService {
     return null;
   }
 
-  create(rest: Rest, subMenus: string[]) {
+  create(rest: Rest, subMenus: string[], fbId: string) {
     rest.subMenus = subMenus;
+    const data = {rest, fbId};
     return new Promise((resolve, reject) => {
-      this.addRestFunction(rest).then(resolve).catch(reject);
+      this.addRestFunction(data).then(resolve).catch(reject);
     });
   }
 

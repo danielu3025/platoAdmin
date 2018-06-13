@@ -8,15 +8,10 @@ import {UserInfoService} from '../../../services/user-info.service';
 })
 export class CreateMealPageComponent implements OnInit {
 
-  resturantID = '';
-
   constructor(private userInfo: UserInfoService) {
   }
 
   ngOnInit() {
-    debugger;
-    this.resturantID = this.userInfo.getSelectedRestId().restId;
-    this.userInfo.getSelectedRestId().restIdObservable.subscribe(x => this.resturantID = x);
   }
 
 }

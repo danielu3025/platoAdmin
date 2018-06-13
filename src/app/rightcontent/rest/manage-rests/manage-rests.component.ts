@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
 export class ManageRestsComponent implements OnInit {
 
   selectedRest = '';
-  userInfo: UserInfo = new UserInfo('', '', '', []);
+  userInfo: UserInfo = new UserInfo('', '', '', '', '', []);
 
   constructor(private authService: AuthService, private userInfoService: UserInfoService, private router: Router) {
   }
@@ -27,10 +27,7 @@ export class ManageRestsComponent implements OnInit {
       });
     });
 
-    this.selectedRest = this.userInfoService.getSelectedRestId().restId;
-    this.userInfoService.getSelectedRestId().restIdObservable.subscribe(x => {
-      this.selectedRest = x;
-    });
+    this.userInfoService.getSelectedRestId().subscribe(x => this.selectedRest = x);
   }
 
   createNewRest() {

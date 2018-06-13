@@ -3,6 +3,7 @@ import {Dish, Grocery} from '../meal.model';
 import {GroceryService} from '../../../services/grocery.service';
 import {CreateDishService} from '../../../services/create-dish.service';
 import {CategoryService} from '../../../services/category.service';
+import {UserInfoService} from '../../../services/user-info.service';
 
 @Component({
   selector: 'app-create-dish',
@@ -11,7 +12,7 @@ import {CategoryService} from '../../../services/category.service';
 })
 export class CreateDishComponent implements OnInit {
 
-  @Input() restId: string;
+  restId: string;
 
   grocery: Grocery[] = [];
   dish: Dish = new Dish();
@@ -19,17 +20,20 @@ export class CreateDishComponent implements OnInit {
   categories: string[] = [];
 
   constructor(private categoryService: CategoryService, private groceryService: GroceryService,
-              private createDishService: CreateDishService) {
+              private createDishService: CreateDishService, private userInfoService: UserInfoService) {
   }
 
   ngOnInit() {
-    this.categoryService.getAll().subscribe(x => this.categories = x);
-    this.groceryService.getAll(this.restId).subscribe(x => {
-      this.grocery = x;
-      this.grocery.forEach(m => {
-        this.grocerySelected.push(false);
+    this.userInfoService.getSelectedRestId().subscribe(x => {
+      this.restId = x;
+      this.groceryService.getAll(this.restId).subscribe(x => {
+        this.grocery = x;
+        this.grocery.forEach(m => {
+          this.grocerySelected.push(false);
+        });
       });
     });
+    this.categoryService.getAll().subscribe(x => this.categories = x);
   }
 
   createDish() {

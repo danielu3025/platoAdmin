@@ -5,44 +5,20 @@ import {KitchenStation} from '../rightcontent/kitchen/kitchen.model';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/internal/Observable';
 import {map} from 'rxjs/operators';
+import {Grocery} from '../rightcontent/menu/meal.model';
 
 @Injectable()
 export class KitchenStoreService {
 
-  constructor(private afs: AngularFirestore, private db: AngularFireDatabase, private http: HttpClient) {
+  constructor(private afs: AngularFirestore, private db: AngularFireDatabase) {
   }
 
-
-  get(restId: string): Observable<KitchenStation[]> {
+  getAll(restId: string): Observable<string[]> {
     return Observable.create(observer => {
-      this.afs.collection<KitchenStation>('RestAlfa' + restId + 'KitchenStation').valueChanges()
+      this.afs.collection(`/RestAlfa/${restId}/kitchenStation`).valueChanges()
         .subscribe(x => {
-            observer(x.map(station => {
-              return {
-                id: station.name,
-                name: station.name
-              };
-            }));
-          }
-        );
-
+          observer.next(x.map((y: { name: string }) => y.name));
+        });
     });
-  }
-
-  CreateKitchenStation(restId: string, id: string, name: string): void {
-    this.http.post('https://us-central1-plato-9a79e.cloudfunctions.net/addGrocery',
-      {
-        data: {
-          restId,
-          grocery: {
-            id: id,
-            name: name,
-          }
-        }
-      }).toPromise()
-      .then(X => {
-      })
-      .catch(X => {
-      });
   }
 }

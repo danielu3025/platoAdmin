@@ -5,6 +5,7 @@ import {ConnectRectanglesEvent, Rectangle} from '../grid/GridEvents.model';
 import {Observable} from 'rxjs/internal/Observable';
 import {Subscriber} from 'rxjs/src/internal/Subscriber';
 import {Observer} from 'rxjs/internal/types';
+import {UserInfoService} from '../../../services/user-info.service';
 
 @Component({
   selector: 'app-create-table',
@@ -16,7 +17,7 @@ export class CreateTableComponent implements OnInit {
   gridWidth = 10;
   gridHeight = 10;
 
-  @Input() restId: string;
+  restId: string;
   displayNewTableForm = false;
   tables: Table[];
   tablesRectangels: Rectangle[];
@@ -33,7 +34,7 @@ export class CreateTableComponent implements OnInit {
   connectableTables: Table[];
   connectableToTables: Table[];
 
-  constructor(private tableService: TableService) {
+  constructor(private tableService: TableService, private userInfoService: UserInfoService) {
   }
 
   ngOnInit() {
@@ -45,12 +46,15 @@ export class CreateTableComponent implements OnInit {
     this.connectRectangelsObservable = Observable.create(observer => this.connectRectangelsObserver = observer);
     this.connectRectangelsObservable.subscribe();
 
-    this.tableService.getAllTable(this.restId).subscribe(x => {
-      this.tables = x.filter(x => x.displayed);
-      this.tablesRectangels = this.tables.map(x => new Rectangle(x.x, x.y, x.width, x.height, x.id));
-      this.tablesRectangelsObserver.next(this.tablesRectangels);
+    this.userInfoService.getSelectedRestId().subscribe(restId => {
+      this.restId = restId;
+      this.tableService.getAllTable(restId).subscribe(x => {
+        this.tables = x.filter(x => x.displayed);
+        this.tablesRectangels = this.tables.map(x => new Rectangle(x.x, x.y, x.width, x.height, x.id));
+        this.tablesRectangelsObserver.next(this.tablesRectangels);
 
-      this.connectableTables = this.tables.filter(table => table.isConnectable);
+        this.connectableTables = this.tables.filter(table => table.isConnectable);
+      });
     });
   }
 
@@ -105,38 +109,43 @@ export class CreateTableComponent implements OnInit {
   connectTables(e) {
     const table1 = this.tables.filter(x => x.id === e.table1)[0];
     const table2 = this.tables.filter(x => x.id === e.table2)[0];
-    this.validateTablesAreConnectable(table1, table2)
-      .then(() => {
-        const errorMerging = msg => alert(msg);
-        const successMerging = (mergedRect: Rectangle) => {
-          const mergedTable = new Table();
-          mergedTable.id = mergedRect.id;
-          mergedTable.x = mergedRect.x;
-          mergedTable.y = mergedRect.y;
-          mergedTable.width = mergedRect.width;
-          mergedTable.height = mergedRect.height;
-          mergedTable.size = mergedTable.width * mergedTable.height * 2;
-          mergedTable.smoking = table1.smoking && table2.smoking;
-          mergedTable.acceabilty = table1.acceabilty;
-          mergedTable.isConnectable = false;
-          mergedTable.pTop = mergedTable.y;
-          mergedTable.pLeft = mergedTable.x;
-          mergedTable.pRight = mergedTable.x + mergedTable.width;
-          mergedTable.pBottom = mergedTable.y + mergedTable.height;
 
-          this.tableService.createMergedTable(this.restId, mergedTable, table1, table2)
-            .then(x => alert('merged successfully'))
-            .catch(x => {
-              alert(x);
-              console.log(x);
-            });
-        };
+    this.tableService.mergeTables(this.restId, table1, table2)
+      .then();
 
-        const connectRectangles = new ConnectRectanglesEvent(this.getRectangle(table1), this.getRectangle(table2),
-          successMerging, errorMerging);
-        this.connectRectangelsObserver.next(connectRectangles);
-      })
-      .catch(alert);
+
+    // this.validateTablesAreConnectable(table1, table2)
+    //   .then(() => {
+    //     const errorMerging = msg => alert(msg);
+    //     const successMerging = (mergedRect: Rectangle) => {
+    //       const mergedTable = new Table();
+    //       mergedTable.id = mergedRect.id;
+    //       mergedTable.x = mergedRect.x;
+    //       mergedTable.y = mergedRect.y;
+    //       mergedTable.width = mergedRect.width;
+    //       mergedTable.height = mergedRect.height;
+    //       mergedTable.size = mergedTable.width * mergedTable.height * 2;
+    //       mergedTable.smoking = table1.smoking && table2.smoking;
+    //       mergedTable.acceabilty = table1.acceabilty;
+    //       mergedTable.isConnectable = false;
+    //       mergedTable.pTop = mergedTable.y;
+    //       mergedTable.pLeft = mergedTable.x;
+    //       mergedTable.pRight = mergedTable.x + mergedTable.width;
+    //       mergedTable.pBottom = mergedTable.y + mergedTable.height;
+    //
+    //       this.tableService.createMergedTable(this.restId, mergedTable, table1, table2)
+    //         .then(x => alert('merged successfully'))
+    //         .catch(x => {
+    //           alert(x);
+    //           console.log(x);
+    //         });
+    //     };
+    //
+    //     const connectRectangles = new ConnectRectanglesEvent(this.getRectangle(table1), this.getRectangle(table2),
+    //       successMerging, errorMerging);
+    //     this.connectRectangelsObserver.next(connectRectangles);
+    //   })
+    //   .catch(alert);
   }
 
   private getRectangle(table: Table) {

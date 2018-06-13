@@ -6,6 +6,7 @@ import {SubMenuService} from '../../../services/sub-menu.service';
 import {MealTypeService} from '../../../services/meal-type.service';
 import {DishService} from '../../../services/dish.service';
 import {RawMaterialForMealComponent} from './raw-material-for-meal/raw-material-for-meal.component';
+import {UserInfoService} from '../../../services/user-info.service';
 
 @Component({
   selector: 'app-create-meal',
@@ -14,7 +15,7 @@ import {RawMaterialForMealComponent} from './raw-material-for-meal/raw-material-
 })
 export class CreateMealComponent implements OnInit {
 
-  @Input() restId: string;
+  restId: string;
   @ViewChildren('rawMaterials') rawMaterials: QueryList<RawMaterialForMealComponent>;
   subMenus: string[];
   mealTypes: string[] = [];
@@ -25,18 +26,22 @@ export class CreateMealComponent implements OnInit {
   image: any = null;
 
   constructor(private createMealService: CreateMealService, private subMenuService: SubMenuService,
-              private mealTypeService: MealTypeService, private dishService: DishService) {
+              private mealTypeService: MealTypeService, private dishService: DishService,
+              private userInfoService: UserInfoService) {
   }
 
   ngOnInit() {
-    this.subMenuService.getAll().subscribe(x => this.subMenus = x);
-    this.mealTypeService.getAll().subscribe(x => this.mealTypes = x);
-    this.dishService.getAll(this.restId).subscribe(x => {
-      this.dish = x;
-      this.dish.forEach(m => {
-        this.dishSelected.push(false);
+    this.userInfoService.getSelectedRestId().subscribe(x => {
+      this.restId = x;
+      this.dishService.getAll(this.restId).subscribe(x => {
+        this.dish = x;
+        this.dish.forEach(m => {
+          this.dishSelected.push(false);
+        });
       });
     });
+    this.subMenuService.getAll().subscribe(x => this.subMenus = x);
+    this.mealTypeService.getAll().subscribe(x => this.mealTypes = x);
   }
 
   uploadImage(e) {
@@ -45,7 +50,7 @@ export class CreateMealComponent implements OnInit {
 
   createMeal() {
 
-    if(this.rawMaterials.length === 0) {
+    if (this.rawMaterials.length === 0) {
       alert('You need to select at least one dish!');
       return;
     }

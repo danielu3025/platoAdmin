@@ -12,6 +12,7 @@ export class TableService {
   private setPossibleConnectionForTables;
   private unDisplayTables;
   private disconnectMergedTablesFunction;
+  private mergeTablesFunction;
 
   constructor(private afs: AngularFirestore) {
     this.functions = firebase.functions();
@@ -19,6 +20,7 @@ export class TableService {
     this.setPossibleConnectionForTables = this.functions.httpsCallable('setPossibleConnectionForTables');
     this.unDisplayTables = this.functions.httpsCallable('unDisplayTables');
     this.disconnectMergedTablesFunction = this.functions.httpsCallable('disconnectMergedTables');
+    this.mergeTablesFunction = this.functions.httpsCallable('mergeTables');
   }
 
   createTable(restId: string, table: Table) {
@@ -62,6 +64,21 @@ export class TableService {
             .catch(reject);
         })
         .catch(reject);
+    });
+  }
+
+  mergeTables(restId: string, table1: Table, table2: Table) {
+    debugger;
+    return new Promise((resolve, reject) => {
+      this.mergeTablesFunction({restId, table1, table2})
+        .then(x => {
+          console.log(x);
+          debugger;
+        })
+        .catch(x => {
+          console.log(x);
+          debugger;
+        });
     });
   }
 

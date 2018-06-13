@@ -28,8 +28,7 @@ export class ManageStockComponent implements OnInit {
 
   ngOnInit() {
     this.unitService.getAll().subscribe(x => this.units = x);
-    this.resturantID = this.userInfoService.getSelectedRestId().restId;
-    this.userInfoService.getSelectedRestId().restIdObservable.subscribe(x => this.resturantID = x);
+    this.userInfoService.getSelectedRestId().subscribe(x => this.resturantID = x);
   }
 }
 

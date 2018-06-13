@@ -1,29 +1,43 @@
 import {Injectable} from '@angular/core';
 import {Observer} from 'rxjs/internal/types';
 import {Observable} from 'rxjs/internal/Observable';
+import {AuthService} from './auth.service';
+import {AngularFirestore} from 'angularfire2/firestore';
+import {UserInfo} from './UserInfo.model';
 
 @Injectable({providedIn: 'root'})
 export class UserInfoService {
 
-  private selectedRestId = '';
-  private readonly selectedRestIdObservable: Observable<string>;
-  private selectedRestIdObserver: Observer<string>;
+  private userInfo: UserInfo;
 
-  constructor() {
-    this.selectedRestIdObservable = Observable.create(observer => {
-      this.selectedRestIdObserver = observer;
+  constructor(private authService: AuthService, private afs: AngularFirestore) {
+    this.authService.isLoggedIn().subscribe(x => {
+      if (!x) {
+        return;
+      }
+      this.authService.getUserInfo().subscribe(x => this.userInfo = x);
     });
   }
 
-  getSelectedRestId(): ({ restId: string, restIdObservable: Observable<string> }) {
-    return {
-      restId: this.selectedRestId,
-      restIdObservable: this.selectedRestIdObservable
-    };
+  getSelectedRestId(): Observable<string> {
+
+    return Observable.create(observer => {
+      this.authService.isLoggedIn().subscribe(x => {
+        if (!x) {
+          return;
+        }
+        this.authService.getUserInfo().subscribe(x => {
+          observer.next(x.lastSelectedRest);
+        });
+      });
+    });
   }
 
   setRestId(rest: string) {
-    this.selectedRestId = rest;
-    this.selectedRestIdObserver.next(rest);
+    this.afs.doc(`/GlobWorkers/${this.userInfo.fbId}`).update({lastSelectedRest: rest})
+      .catch(e => {
+        alert('failed setting last selected rest');
+        console.log(e);
+      });
   }
 }
