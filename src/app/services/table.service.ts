@@ -13,6 +13,7 @@ export class TableService {
   private unDisplayTables;
   private disconnectMergedTablesFunction;
   private mergeTablesFunction;
+  private validateTablesAreConnectableFunction;
 
   constructor(private afs: AngularFirestore) {
     this.functions = firebase.functions();
@@ -21,6 +22,7 @@ export class TableService {
     this.unDisplayTables = this.functions.httpsCallable('unDisplayTables');
     this.disconnectMergedTablesFunction = this.functions.httpsCallable('disconnectMergedTables');
     this.mergeTablesFunction = this.functions.httpsCallable('mergeTables');
+    this.validateTablesAreConnectableFunction = this.functions.httpsCallable('validateTablesAreConnectable');
   }
 
   createTable(restId: string, table: Table) {
@@ -68,23 +70,24 @@ export class TableService {
   }
 
   mergeTables(restId: string, table1: Table, table2: Table) {
-    debugger;
     return new Promise((resolve, reject) => {
       this.mergeTablesFunction({restId, table1, table2})
-        .then(x => {
-          console.log(x);
-          debugger;
-        })
-        .catch(x => {
-          console.log(x);
-          debugger;
-        });
+        .then(resolve)
+        .catch(reject);
     });
   }
 
   disconnectMergedTable(restId: string, mergedTable: Table) {
     return new Promise((resolve, reject) => {
       this.disconnectMergedTablesFunction({restId, mergedTable})
+        .then(resolve)
+        .catch(reject);
+    });
+  }
+
+  validateTablesAreConnectable(restId: string, table1: Table, table2: Table) {
+    return new Promise((resolve, reject) => {
+      this.validateTablesAreConnectableFunction({restId, table1, table2})
         .then(resolve)
         .catch(reject);
     });
