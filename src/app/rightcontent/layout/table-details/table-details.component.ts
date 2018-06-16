@@ -11,9 +11,10 @@ export class TableDetailsComponent implements OnInit {
 
   @Input() restId: string;
   @Input() table: Table;
-  isMerged: boolean = false;
+  isMerged = false;
 
-  @Output() connectTables: EventEmitter<{ table1: string, table2: string }> = new EventEmitter<{ table1: string, table2: string }>();
+  @Output() connectTables: EventEmitter<{ movedId: string, connectedToId: string }> =
+    new EventEmitter<{ movedId: string, connectedToId: string }>();
 
   connectableTables: string[] = [];
 
@@ -22,11 +23,11 @@ export class TableDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.tablesService.getConnectableTables(this.restId, this.table.id).subscribe(x => this.connectableTables = x);
-    this.isMerged = this.table.id.includes('+');
+    this.isMerged = this.table.connectedNow;
   }
 
   onConnectTables(tableId: string) {
-    this.connectTables.emit({table1: this.table.id, table2: tableId});
+    this.connectTables.emit({movedId: tableId, connectedToId: this.table.id});
   }
 
   disconnectMergedTable() {

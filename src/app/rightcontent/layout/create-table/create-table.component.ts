@@ -107,12 +107,12 @@ export class CreateTableComponent implements OnInit {
   }
 
   connectTables(e) {
-    const table1 = this.tables.filter(x => x.id === e.table1)[0];
-    const table2 = this.tables.filter(x => x.id === e.table2)[0];
+    const movedTable = this.tables.find(x => x.id === e.movedId);
+    const connectedToTable = this.tables.find(x => x.id === e.connectedToId);
 
-    this.tableService.validateTablesAreConnectable(this.restId, table1, table2)
+    this.tableService.validateTablesAreConnectable(this.restId, movedTable, connectedToTable)
       .then(x => {
-        this.tableService.mergeTables(this.restId, table1, table2)
+        this.tableService.mergeTables(this.restId, movedTable, connectedToTable)
           .then(x => {
             alert('merged');
           })

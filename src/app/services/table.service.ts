@@ -61,9 +61,9 @@ export class TableService {
     });
   }
 
-  mergeTables(restId: string, table1: Table, table2: Table) {
+  mergeTables(restId: string, movedTable: Table, connectedToTable: Table) {
     return new Promise((resolve, reject) => {
-      this.mergeTablesFunction({restId, table1, table2})
+      this.mergeTablesFunction({restId, movedTable, connectedToTable})
         .then(resolve)
         .catch(reject);
     });
@@ -77,9 +77,9 @@ export class TableService {
     });
   }
 
-  validateTablesAreConnectable(restId: string, table1: Table, table2: Table) {
+  validateTablesAreConnectable(restId: string, movedTable: Table, connectedToTable: Table) {
     return new Promise((resolve, reject) => {
-      this.validateTablesAreConnectableFunction({restId, table1, table2})
+      this.validateTablesAreConnectableFunction({restId, movedTable, connectedToTable})
         .then(resolve)
         .catch(reject);
     });
