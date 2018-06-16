@@ -1,9 +1,24 @@
-<div>
-  Selected Rest: {{selectedRest}}
-  <div *ngFor="let rest of userInfo.rests">
-    {{rest}} <button (click)="selectRest(rest)">Select</button>
+<!--<div>-->
+  <!--&lt;!&ndash;Selected Rest: {{selectedRest}}&ndash;&gt;-->
+  <!--<div *ngFor="let rest of userInfo.rests">-->
+    <!--{{rest}} <button (click)="selectRest(rest)">Select</button>-->
+  <!--</div>-->
+<!--</div>-->
+<!--<div>-->
+  <!--<button (click)="createNewRest()">Create New Rest</button>-->
+<!--</div>-->
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-4 card-container">
+      <div (click)="createNewRest()" class="card">
+        <span> + </span>
+      </div>
+    </div>
+    <div *ngFor="let rest of userInfo.rests"  class="col-4 card-container">
+      <div (click)="selectRest(rest)" class="card">{{rest}}</div>
+    </div>
+
   </div>
-</div>
-<div>
-  <button (click)="createNewRest()">Create New Rest</button>
 </div>

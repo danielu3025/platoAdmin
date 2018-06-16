@@ -5,17 +5,16 @@ export class Grocery {
   cookingTime: number;
   cookingType = 'frying';
   rawMaterial: RawMaterial[];
-  // amountInGrocery: string;
-  // redLineForMeal: string;
-  // importanceToMeal: boolean = true;
 }
 
 export class Dish {
   name: string;
   description: string;
   totalTime: number;
+  maxSecondsBeforeStartingMaking: number;
   status = 0;
   category = 'Drinks';
+  isEditable = false ;
 }
 
 export class Meal {

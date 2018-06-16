@@ -10,9 +10,7 @@ export class Rest {
   public id: string;
   public accesability = false;
   public address: string;
-
   public location: Location = new Location();
-
   public name: string;
   public phone = '';
   public predict = false;

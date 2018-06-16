@@ -1,0 +1,17 @@
+.card{
+  padding: 90px 15px;
+  margin-bottom: 15px;
+  text-align: center;
+
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -ms-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+
+.card:hover{
+  background: #f0f0f0;
+  cursor: pointer;
+}
+

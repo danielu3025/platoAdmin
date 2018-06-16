@@ -24,7 +24,7 @@
   <button (click)="setPossibleConnection()">Set</button>
 </div>
 <div>
-  <div *ngFor="let table of tables">
-    <app-table-details [restId]="restId" [table]="table" (connectTables)="connectTables($event)"></app-table-details>
-  </div>
+
+    <app-table-details *ngFor="let table of tables" [restId]="restId" [table]="table" (connectTables)="connectTables($event)"></app-table-details>
+
 </div>

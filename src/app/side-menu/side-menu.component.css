@@ -3,6 +3,7 @@
     height: 100%;
     background-color: #15212a;
     margin-left: 0;
+    position: fixed;
     float: left;
 }
 .logo{

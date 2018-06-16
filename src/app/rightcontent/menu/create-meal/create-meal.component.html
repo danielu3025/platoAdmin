@@ -1,48 +1,118 @@
 <div>
   <h3>Meal</h3>
-  <div>Name:<input [(ngModel)]="meal.name"/></div>
-  <div>Sub Menus:
-    <select [(ngModel)]="meal.subMenus">
-      <option *ngFor="let item of subMenus">
-        {{item}}
-      </option>
-    </select>
+  <!--<div>Name:<input [(ngModel)]="meal.name"/></div>-->
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Name</span>
+    </div>
+    <input type="text" class="form-control" [(ngModel)]="meal.name">
   </div>
-  <div>dairy:
-    <select [(ngModel)]="meal.dairy">
-      <option [value]="true"> Yes</option>
-      <option [value]="false"> No</option>
-    </select>
+  <!--<div>Sub Menus:-->
+    <!--<select [(ngModel)]="meal.subMenus">-->
+      <!--<option *ngFor="let item of subMenus">-->
+        <!--{{item}}-->
+      <!--</option>-->
+    <!--</select>-->
+  <!--</div>-->
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <label class="input-group-text" for="inputSubMenus">SubMenus</label>
   </div>
-  <div>vegan:
-    <select [(ngModel)]="meal.vegan">
+  <select class="custom-select" id="inputSubMenus">
+    <option *ngFor="let item of subMenus">{{item}}</option>
+  </select>
+</div>
+  <!--<div>dairy:-->
+    <!--<select [(ngModel)]="meal.dairy">-->
+      <!--<option [value]="true"> Yes</option>-->
+      <!--<option [value]="false"> No</option>-->
+    <!--</select>-->
+  <!--</div>-->
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="inputDairy">Dairy</label>
+    </div>
+    <select class="custom-select" id="inputDairy">
       <option [value]="true">Yes</option>
       <option [value]="false">No</option>
     </select>
   </div>
-  <div>
-    Description:
-    <input [(ngModel)]="meal.description"/>
-  </div>
-  <div>
-    Gloten Free:
-    <input type="checkbox" [(ngModel)]="meal.glotenFree"/>
-  </div>
-  <div>
-    Meal Type:
-    <select [(ngModel)]="meal.mealType">
-      <option *ngFor="let type of mealTypes" [value]="type">{{type}}</option>
+  <!--<div>vegan:-->
+    <!--<select [(ngModel)]="meal.vegan">-->
+      <!--<option [value]="true">Yes</option>-->
+      <!--<option [value]="false">No</option>-->
+    <!--</select>-->
+  <!--</div>-->
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="inputVegan">Vegan</label>
+    </div>
+    <select class="custom-select" id="inputVegan">
+      <option [value]="true">Yes</option>
+      <option [value]="false">No</option>
     </select>
   </div>
-  <div>
-    Price:
-    <input type="number" [(ngModel)]="meal.price" min="0" />
+  <!--<div>-->
+    <!--Description:-->
+    <!--<input [(ngModel)]="meal.description"/>-->
+  <!--</div>-->
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Description</span>
+    </div>
+    <input type="text" class="form-control" [(ngModel)]="meal.description">
   </div>
-  <div>
-    Pic:
-    <input type="file" name="pic" accept="image/*" (change)="uploadImage($event)">
+  <!--<div>-->
+    <!--Gloten Free:-->
+    <!--<input type="checkbox" [(ngModel)]="meal.glotenFree"/>-->
+  <!--</div>-->
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="inputGloten">Gloten Free</label>
+    </div>
+    <select class="custom-select" id="inputGloten">
+      <option [value]="true">Yes</option>
+      <option [value]="false">No</option>
+    </select>
   </div>
-  <div>
+  <!--<div>-->
+    <!--Meal Type:-->
+    <!--<select [(ngModel)]="meal.mealType">-->
+      <!--<option *ngFor="let type of mealTypes" [value]="type">{{type}}</option>-->
+    <!--</select>-->
+  <!--</div>-->
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="inputMealType">Meal Type</label>
+    </div>
+    <select class="custom-select" id="inputMealType">
+      <option *ngFor="let item of mealTypes">{{item}}</option>
+    </select>
+  </div>
+  <!--<div>-->
+    <!--Price:-->
+    <!--<input type="number" [(ngModel)]="meal.price" min="0" />-->
+  <!--</div>-->
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Price</span>
+    </div>
+    <input type="text" class="form-control" [(ngModel)]="meal.price">
+  </div>
+  <!--<div>-->
+    <!--Pic:-->
+    <!--<input type="file" name="pic" accept="image/*" (change)="uploadImage($event)">-->
+  <!--</div>-->
+  <!--<div>-->
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Upload</span>
+    </div>
+    <div class="custom-file">
+      <input type="file" class="custom-file-input" id="inputGroupFile01" name="pic" accept="image/*" (change)="uploadImage($event)">
+      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+    </div>
+  </div>
     <div *ngFor="let item of dish; let i = index">
       <input type="checkbox" [(ngModel)]="dishSelected[i]"/>
       <span>{{item.name}}</span>
@@ -51,8 +121,8 @@
       </div>
     </div>
   </div>
-
-  <button (click)="createMeal()">Create Meal</button>
+<div>
+  <button (click)="createMeal()" class="btn btn-success">Create Meal</button>
   <!--<button (click)="deleteGrocery()">Delete Grocery</button>-->
   <!--<button (click)="updateGrocery()">Update Grocery</button>-->
 </div>
