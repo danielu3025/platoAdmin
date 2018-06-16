@@ -4,6 +4,7 @@
     [style.backgroundColor]="cellInfo.isSelected ? cellInfo.colorWhenSelected : cellInfo.color"
     (mousedown)="onMouseDownEvent($event)"
     (mouseup)="onMouseUpEvent()"
+    (mouseenter)="onMouseEnterEvent()"
     (contextmenu)="contextMenuEvent()">
 </td>
 <span class="grid-divider" draggable="false" [style.height.px]="cellInfo.height"

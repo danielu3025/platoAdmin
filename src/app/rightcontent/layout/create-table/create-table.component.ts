@@ -127,4 +127,29 @@ export class CreateTableComponent implements OnInit {
       });
 
   }
+
+  tableIsMoving(e) {
+    const movingRectIndex = this.tablesRectangles.findIndex(x => x.id === e.id);
+    this.tablesRectangles[movingRectIndex] = e;
+    this.tablesRectanglesObserver.next(this.tablesRectangles);
+  }
+
+  tableFinishedMoving(e) {
+    this.tableService.updateTableLocation(this.restId, e.id, e.x, e.y)
+      .then(() => {
+        alert('Table location updated');
+      }).catch(x => {
+      console.log(x);
+      alert('Error updating table location');
+    });
+  }
+
+  movedRectangleConnected(e) {
+    this.tableService.mergeMovedTables(this.restId, e.movedId, e.connectedToId)
+      .then(() => alert(`Table ${e.movedId} connected to ${e.connectedToId}`))
+      .catch(x => {
+        alert('error connecting tables');
+        console.error(x);
+      });
+  }
 }

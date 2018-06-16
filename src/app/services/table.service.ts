@@ -14,6 +14,8 @@ export class TableService {
   private disconnectMergedTablesFunction;
   private mergeTablesFunction;
   private validateTablesAreConnectableFunction;
+  private updateTableLocationFunction;
+  private mergeMovedTablesFunction;
 
   constructor(private afs: AngularFirestore) {
     this.functions = firebase.functions();
@@ -23,6 +25,8 @@ export class TableService {
     this.disconnectMergedTablesFunction = this.functions.httpsCallable('disconnectMergedTables');
     this.mergeTablesFunction = this.functions.httpsCallable('mergeTables');
     this.validateTablesAreConnectableFunction = this.functions.httpsCallable('validateTablesAreConnectable');
+    this.updateTableLocationFunction = this.functions.httpsCallable('updateTableLocation');
+    this.mergeMovedTablesFunction = this.functions.httpsCallable('mergeMovedTables');
   }
 
   createTable(restId: string, table: Table) {
@@ -57,18 +61,6 @@ export class TableService {
     });
   }
 
-  createMergedTable(restId: string, mergedTable: Table, table1: Table, table2: Table) {
-    return new Promise((resolve, reject) => {
-      this.createTable(restId, mergedTable)
-        .then(x => {
-          this.unDisplayTables({restId, tables: [table1, table2]})
-            .then(resolve)
-            .catch(reject);
-        })
-        .catch(reject);
-    });
-  }
-
   mergeTables(restId: string, table1: Table, table2: Table) {
     return new Promise((resolve, reject) => {
       this.mergeTablesFunction({restId, table1, table2})
@@ -88,6 +80,22 @@ export class TableService {
   validateTablesAreConnectable(restId: string, table1: Table, table2: Table) {
     return new Promise((resolve, reject) => {
       this.validateTablesAreConnectableFunction({restId, table1, table2})
+        .then(resolve)
+        .catch(reject);
+    });
+  }
+
+  updateTableLocation(restId: string, tableId: number, newX: number, newY: number) {
+    return new Promise((resolve, reject) => {
+      this.updateTableLocationFunction({restId, tableId, newX, newY})
+        .then(resolve)
+        .catch(reject);
+    });
+  }
+
+  mergeMovedTables(restId: string, movedTableId: string, connectedToTableId: string) {
+    return new Promise((resolve, reject) => {
+      this.mergeMovedTablesFunction({restId, movedTableId, connectedToTableId})
         .then(resolve)
         .catch(reject);
     });

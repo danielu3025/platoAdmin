@@ -10,8 +10,9 @@ export class GridCellComponent implements OnInit {
 
   @Input() cellInfo: GridCell;
 
-  @Output() onMouseDown: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output() onMouseDown: EventEmitter<{ event: MouseEvent, cell: GridCell }> = new EventEmitter<{ event: MouseEvent, cell: GridCell }>();
   @Output() onMouseUp: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onMouseEnter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {
   }
@@ -21,11 +22,15 @@ export class GridCellComponent implements OnInit {
 
   onMouseDownEvent(e) {
     e.preventDefault();
-    this.onMouseDown.emit(e);
+    this.onMouseDown.emit({event: e, cell: this.cellInfo});
   }
 
   onMouseUpEvent() {
     this.onMouseUp.emit();
+  }
+
+  onMouseEnterEvent() {
+    this.onMouseEnter.emit();
   }
 
   contextMenuEvent() {

@@ -22,7 +22,6 @@ import {CreateRestComponent} from './rightcontent/rest/create-rest/create-rest.c
 import {ManageStockComponent} from './rightcontent/stock/manage-stock/manage-stock.component';
 import {RestsOptionsComponent} from './rightcontent/nav-options/rests-options/rests-options.component';
 import {CreateMealComponent} from './rightcontent/menu/create-meal/create-meal.component';
-import {RestGridComponent} from './rightcontent/rest-grid/rest-grid.component';
 import {DropZoneDirective} from './drop-zone.directive';
 import {LoginWindowComponent} from './side-menu/login-window/login-window.component';
 import {AuthService} from './services/auth.service';
@@ -88,7 +87,6 @@ const appRouts: Routes = [
     ManageStockComponent,
     RestsOptionsComponent,
     CreateMealComponent,
-    RestGridComponent,
     DropZoneDirective,
     LoginWindowComponent,
     CreateGroceryComponent,

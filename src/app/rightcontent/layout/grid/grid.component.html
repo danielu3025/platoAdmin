@@ -3,7 +3,8 @@
     <app-grid-cell *ngFor="let colIndex of objectKeys(this.grid[rowIndex])"
                    [cellInfo]="grid[rowIndex][colIndex]"
                    (onMouseDown)="selectionStarted(colIndex, rowIndex, $event)"
-                   (onMouseUp)="selectionEnded(colIndex, rowIndex)">
+                   (onMouseUp)="selectionEnded(colIndex, rowIndex)"
+                   (onMouseEnter)="mouseMoved(colIndex, rowIndex)">
     </app-grid-cell>
   </tr>
 </table>

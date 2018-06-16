@@ -20,6 +20,10 @@ export class GridComponent implements OnInit {
 
   @Output() rectangleCreated: EventEmitter<Rectangle> = new EventEmitter<Rectangle>();
   @Output() rectangleDeleted: EventEmitter<Rectangle> = new EventEmitter<Rectangle>();
+  @Output() rectangleIsMoving: EventEmitter<Rectangle> = new EventEmitter<Rectangle>();
+  @Output() rectangleFinishedMoving: EventEmitter<Rectangle> = new EventEmitter<Rectangle>();
+  @Output() movedRectangleConnected: EventEmitter<{ movedId: string, connectedToId: string }> =
+    new EventEmitter<{ movedId: string, connectedToId: string }>();
 
   grid = {};
 
@@ -28,6 +32,8 @@ export class GridComponent implements OnInit {
   selectStart: { rowIndex: number, colIndex: number } = null;
   private selectEnd: { rowIndex: number, colIndex: number } = null;
   private isDeleteEvent = false;
+  private rectMoveStarted = false;
+  private movedRectId: string = null;
 
   constructor() {
   }
@@ -36,36 +42,96 @@ export class GridComponent implements OnInit {
     this.grid = this.createEmptyGridObject();
     this.rectanglesObservable.subscribe(x => {
       this.rectangles = x;
-      this.grid = this.createEmptyGridObject();
-      this.markRectangles(this.grid, this.rectangles);
+      const grid = this.createEmptyGridObject();
+      this.markRectangles(grid, this.rectangles);
+      this.grid = grid;
     });
   }
 
-  selectionStarted(x, y, event) {
+  selectionStarted(x, y, e) {
 
-    if (event.button === 2) {
-      this.isDeleteEvent = true;
+    this.resetSelectionState();
+
+    if (e.event.button === 2) {
+      // Currently no delete
+      // this.isDeleteEvent = true;
+    }
+
+    if (this.grid[y][x].isSelected) {
+      this.rectMoveStarted = true;
+      this.movedRectId = e.cell.id;
     }
 
     this.selectStart = {
-      rowIndex: parseInt(y),
-      colIndex: parseInt(x)
+      rowIndex: parseInt(y, 10),
+      colIndex: parseInt(x, 10)
     };
   }
 
   selectionEnded(x, y) {
     this.selectEnd = {
-      rowIndex: parseInt(y),
-      colIndex: parseInt(x)
+      rowIndex: parseInt(y, 10),
+      colIndex: parseInt(x, 10)
     };
 
-    if (this.willRectangleWontOverrideOtherRectangles(this.grid, this.getRectangleInfoFromSelectionStartAndEnd())) {
+    if (this.rectMoveStarted) {
+      this.resetSelectionState();
+      this.rectangleFinishedMoving.emit(this.rectangles.find(x => x.id === this.movedRectId));
+      this.checkIfMovedRectangleConnectedToOtherRectangle();
+      return;
+    }
+
+    if (!this.rectMoveStarted
+      && this.willRectangleWontOverrideOtherRectangles(this.grid, this.getRectangleInfoFromSelectionStartAndEnd())) {
       alert('New Table Will Override Existing Tables!');
       return;
     }
 
-    this.selectGridCells();
-    this.resetSelectionState();
+    if (!this.rectMoveStarted) {
+      this.selectGridCells();
+    }
+  }
+
+  private checkIfMovedRectangleConnectedToOtherRectangle() {
+    const movedRectangle = this.rectangles.find(x => x.id === this.movedRectId);
+    const movedRow = movedRectangle.y;
+    const movedCol = movedRectangle.x;
+
+    //Checking Left Side
+    for (let row = movedRow; row < movedRow + movedRectangle.height; row++) {
+      const col = movedCol - 1;
+      if (this.grid[row] && this.grid[row][col] && this.grid[row][col].isSelected) {
+        this.movedRectangleConnected.emit({movedId: movedRectangle.id, connectedToId: this.grid[row][col].id});
+        return;
+      }
+    }
+
+    //Checking Right Side
+    for (let row = movedRow; row < movedRow + movedRectangle.height; row++) {
+      const col = movedCol + movedRectangle.width;
+      if (this.grid[row] && this.grid[row][col] && this.grid[row][col].isSelected) {
+        this.movedRectangleConnected.emit({movedId: movedRectangle.id, connectedToId: this.grid[row][col].id});
+        return;
+      }
+    }
+
+    //Checking Top
+    for (let col = movedCol; col < movedCol + movedRectangle.width; col++) {
+      const row = movedRow - 1;
+      if (this.grid[row] && this.grid[row][col] && this.grid[row][col].isSelected) {
+        this.movedRectangleConnected.emit({movedId: movedRectangle.id, connectedToId: this.grid[row][col].id});
+        return;
+      }
+    }
+
+    //Checking Bottom
+    for (let col = movedCol; col < movedCol + movedRectangle.width; col++) {
+      const row = movedRow + movedRectangle.height;
+      if (this.grid[row] && this.grid[row][col] && this.grid[row][col].isSelected) {
+        this.movedRectangleConnected.emit({movedId: movedRectangle.id, connectedToId: this.grid[row][col].id});
+        return;
+      }
+    }
   }
 
   private getRectangleInfoFromSelectionStartAndEnd() {
@@ -97,6 +163,7 @@ export class GridComponent implements OnInit {
 
   private resetSelectionState() {
     this.isDeleteEvent = false;
+    this.rectMoveStarted = false;
     this.selectStart = null;
     this.selectEnd = null;
   }
@@ -128,6 +195,11 @@ export class GridComponent implements OnInit {
   }
 
   private willRectangleWontOverrideOtherRectangles(grid, rect: Rectangle): boolean {
+
+    if ((rect.y + rect.height > this.rows) || (rect.x + rect.width > this.cols)) {
+      return true;
+    }
+
     for (let row = rect.y; row < rect.y + rect.height; row++) {
       for (let col = rect.x; col < rect.x + rect.width; col++) {
         if (grid[row][col].isSelected) {
@@ -137,5 +209,24 @@ export class GridComponent implements OnInit {
     }
 
     return false;
+  }
+
+  mouseMoved(colIndex: string, rowIndex: string) {
+    if (!this.rectMoveStarted) {
+      return;
+    }
+
+    const movingRectangle = this.rectangles.find(x => x.id === this.movedRectId);
+    movingRectangle.x = parseInt(colIndex, 10);
+    movingRectangle.y = parseInt(rowIndex, 10);
+
+    const grid = this.createEmptyGridObject();
+    const rectangles = this.rectangles.filter(x => x.id !== this.movedRectId);
+    this.markRectangles(grid, rectangles);
+    if (this.willRectangleWontOverrideOtherRectangles(grid, movingRectangle)) {
+      return;
+    }
+
+    this.rectangleIsMoving.emit(movingRectangle);
   }
 }

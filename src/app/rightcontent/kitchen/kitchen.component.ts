@@ -26,14 +26,14 @@ export class KitchenComponent implements OnInit {
   // }
 
   ngOnInit() {
-    this.kitchenStore.get(this.restId).subscribe(x => this.kitchenStations = x);
+    // this.kitchenStore.get(this.restId).subscribe(x => this.kitchenStations = x);
     // this.kitchenStation = new KitchenStation('', '');
     // console.log('start');
     // this.kitchenStation$ = this.kitchenStore.getAll(this.resturantID);
   }
 
   createKitchenStation() {
-    this.kitchenStore.CreateKitchenStation(this.restId, this.kitchenStation.id, this.kitchenStation.name);
+    // this.kitchenStore.CreateKitchenStation(this.restId, this.kitchenStation.id, this.kitchenStation.name);
   }
 
 }

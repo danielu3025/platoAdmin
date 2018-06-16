@@ -13,12 +13,12 @@ export class KitchenStoreService {
   constructor(private afs: AngularFirestore, private db: AngularFireDatabase) {
   }
 
-  getAll(restId: string): Observable<string[]> {
-    return Observable.create(observer => {
-      this.afs.collection(`/RestAlfa/${restId}/kitchenStation`).valueChanges()
-        .subscribe(x => {
-          observer.next(x.map((y: { name: string }) => y.name));
-        });
-    });
-  }
+  // getAll(restId: string): Observable<string[]> {
+  //   return Observable.create(observer => {
+  //     this.afs.collection(`/RestAlfa/${restId}/kitchenStation`).valueChanges()
+  //       .subscribe(x => {
+  //         observer.next(x.map((y: { name: string }) => y.name));
+  //       });
+  //   });
+  // }
 }
