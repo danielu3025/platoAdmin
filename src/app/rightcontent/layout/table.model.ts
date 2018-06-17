@@ -17,4 +17,5 @@ export class Table {
   pTop: number;
   pRight: number;
   pBottom: number;
+  likes = 0;
 }
