@@ -16,11 +16,6 @@ export class TableDetailsComponent implements OnInit {
   @Output() connectTables: EventEmitter<{ movedId: string, connectedToId: string }> =
     new EventEmitter<{ movedId: string, connectedToId: string }>();
   connectableTables: string[] = [];
-  movedTableConnectedNow: Object = {};
-  KeytableConnectedTo: string[] = [] ;
-  keyTable: string;
-  tableId: string;
-  connectFlag: boolean;
 
   constructor(private tablesService: TableService) {
   }
@@ -36,14 +31,7 @@ export class TableDetailsComponent implements OnInit {
   }
 
   disconnectMergedTable() {
-    this.movedTableConnectedNow = this.table.connectedTo;
-    this.KeytableConnectedTo = Object.keys(this.movedTableConnectedNow);
-    for (let i = 0; i < this.KeytableConnectedTo.length; i++) {
-      this.keyTable = Object.keys(this.KeytableConnectedTo)[i];
-      this.tableId = this.KeytableConnectedTo[i].substring(5 , 7);
-      this.connectFlag = this.movedTableConnectedNow[Object.keys(this.movedTableConnectedNow)[i]];
-    }
-    this.tablesService.disconnectMergedTable(this.restId, this.table, this.tableId)
+    this.tablesService.disconnectMergedTable(this.restId, this.table)
       .then(x => alert('disconnected'))
       .catch(x => {
         alert('Error disconnecting tables');
