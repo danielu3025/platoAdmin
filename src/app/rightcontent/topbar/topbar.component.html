@@ -1,3 +1,7 @@
 <div class="topBar" #topbar>
-    <ng-content></ng-content>
+  <div class="user-details">
+    <div>Welcome {{userInfo.name}}</div>
+    <div>{{userInfo.lastSelectedRest}}</div>
+  </div>
+  <ng-content></ng-content>
 </div>

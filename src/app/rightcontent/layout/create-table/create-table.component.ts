@@ -6,7 +6,6 @@ import {Observable} from 'rxjs/internal/Observable';
 import {Subscriber} from 'rxjs/src/internal/Subscriber';
 import {Observer} from 'rxjs/internal/types';
 import {UserInfoService} from '../../../services/user-info.service';
-import {LayoutPermissions} from '../LayoutPermissions';
 
 @Component({
   selector: 'app-create-table',
@@ -14,8 +13,6 @@ import {LayoutPermissions} from '../LayoutPermissions';
   styleUrls: ['./create-table.component.css']
 })
 export class CreateTableComponent implements OnInit {
-
-  @Input() permissionsObservable: Observable<LayoutPermissions[]>;
 
   gridWidth = 12;
   gridHeight = 12;
@@ -39,9 +36,6 @@ export class CreateTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.permissionsObservable.subscribe(x => {
-      console.log(x);
-    });
     this.tablesRectanglesObservable = Observable.create(observer => {
       this.tablesRectanglesObserver = observer;
     });

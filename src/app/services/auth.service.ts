@@ -1,19 +1,24 @@
 import {Injectable} from '@angular/core';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Router} from '@angular/router';
-import * as firebase from 'firebase/app';
+import * as firebase from 'firebase';
 import {Observable} from 'rxjs/internal/Observable';
 import {User} from 'firebase';
 import {UserInfo} from './UserInfo.model';
 import {AngularFirestore} from 'angularfire2/firestore';
+import {Worker} from '../rightcontent/workers/worker.model';
 
 @Injectable()
 export class AuthService {
 
   private user: Observable<User>;
   private userDetails: User = null;
+  private functions;
+  private createWorkerFunction;
 
   constructor(private _firebaseAuth: AngularFireAuth, private afs: AngularFirestore) {
+    this.functions = firebase.functions();
+    this.createWorkerFunction = this.functions.httpsCallable('createWorker');
     this.user = _firebaseAuth.authState;
     this.user.subscribe(
       (user) => {
@@ -24,6 +29,10 @@ export class AuthService {
         }
       }
     );
+  }
+
+  createWorker(restID, role, name, email, pass) {
+    return this.createWorkerFunction({restID, role, name, email, pass});
   }
 
   signInWithEmailAndPassword(email: string, password: string) {

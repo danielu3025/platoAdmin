@@ -1,0 +1,29 @@
+<div>
+  First Name:
+  <input [(ngModel)]="worker.firstName"/>
+</div>
+<div>
+  Last Name:
+  <input [(ngModel)]="worker.lastName"/>
+</div>
+<div>
+  Id:
+  <input [(ngModel)]="worker.id"/>
+</div>
+<div>
+  Email:
+  <input [(ngModel)]="worker.email"/>
+</div>
+<div>
+  Password:
+  <input [(ngModel)]="password"/>
+</div>
+<div>
+  Role:
+  <select [(ngModel)]="worker.role">
+    <option>Host</option>
+    <option>asdasd</option>
+    <option>asdasd</option>
+  </select>
+</div>
+<button (click)="createWorker()">Create</button>

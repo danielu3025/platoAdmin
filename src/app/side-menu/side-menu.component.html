@@ -22,7 +22,7 @@
         <a class="link" [routerLink]="['/manageStock']">Stock</a>
     </div>
     <div class="menuItem" routerLinkActive="menuItemSelected">
-        <a class="link" [routerLink]="['/manageWorkers']">Staff</a>
+        <a class="link" [routerLink]="['/manageWorkers']">Workers</a>
     </div>
     <div *ngIf="isLoggedIn" class="menuItem" routerLinkActive="menuItemSelected">
       <a class="link" (click)="logout()">Logout</a>
