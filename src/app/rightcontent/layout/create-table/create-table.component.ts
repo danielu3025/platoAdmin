@@ -23,6 +23,7 @@ export class CreateTableComponent implements OnInit {
   restId: string;
   displayNewTableForm = false;
   tables: Table[];
+  tableDetails: Table[];
   tablesRectangles: Rectangle[];
   tablesRectanglesObservable: Observable<Rectangle[]>;
   tablesRectanglesObserver: Observer<Rectangle[]>;
@@ -50,6 +51,15 @@ export class CreateTableComponent implements OnInit {
       this.restId = restId;
       this.tableService.getAllTable(restId).subscribe(x => {
         this.tables = x.filter(x => x.displayed);
+        this.tableDetails = x.filter(x => x.displayed);
+        const allConnectedTables = x.filter(x => x.connectedNow);
+        allConnectedTables.forEach(connectedTable => {
+          const connectedToId = Object.keys(connectedTable.connectedTo).find(x => connectedTable.connectedTo[x]).split('table')[1];
+          const connectedToTable = x.find(t => t.id === connectedToId);
+          this.tables.push(connectedToTable);
+        });
+
+
         this.tablesRectangles = this.tables.map(x => new Rectangle(x.x, x.y, x.width, x.height, x.id));
         this.tablesRectanglesObserver.next(this.tablesRectangles);
 
@@ -128,28 +138,6 @@ export class CreateTableComponent implements OnInit {
 
   }
 
-  // disConnectTables(e) {
-  //   const movedTable = this.tables.find(x => x.id === e.movedId);
-  //   const connectedToTable = this.tables.find(x => x.id === e.connectedToId);
-  //
-  //   this.tableService.validateTablesAreConnectable(this.restId, movedTable, connectedToTable)
-  //     .then(x => {
-  //       this.tableService.disconnectMergedTable(this.restId, movedTable, connectedToTable)
-  //         .then(x => {
-  //           alert('merged');
-  //         })
-  //         .catch(x => {
-  //           alert('Error merging');
-  //           console.log(x);
-  //         });
-  //     })
-  //     .catch(x => {
-  //       alert(x);
-  //       console.log(x);
-  //     });
-  //
-  // }
-
   tableIsMoving(e) {
     const movingRectIndex = this.tablesRectangles.findIndex(x => x.id === e.id);
     this.tablesRectangles[movingRectIndex] = e;
@@ -158,12 +146,10 @@ export class CreateTableComponent implements OnInit {
 
   tableFinishedMoving(e) {
     this.tableService.updateTableLocation(this.restId, e.id, e.x, e.y)
-      .then(() => {
-        alert('Table location updated');
-      }).catch(x => {
-      console.log(x);
-      alert('Error updating table location');
-    });
+      .catch(x => {
+        console.log(x);
+        alert('Error updating table location');
+      });
   }
 
   movedRectangleConnected(e) {
