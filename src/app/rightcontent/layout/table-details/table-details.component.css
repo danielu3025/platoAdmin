@@ -1,11 +1,18 @@
 .table-details {
   margin-top: 20px;
 }
-.table table-striped{
+.table thead-light{
   background: #00897b;
   color: #ffffff;
 }
 /*.table tbody tr{*/
   /*background: #fff;*/
 /*}*/
+
+#Header {
+  margin-bottom: 30px;
+}
+.hidden {
+  display: none;
+}
 

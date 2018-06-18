@@ -97,7 +97,7 @@ export class GridComponent implements OnInit {
     const movedRow = movedRectangle.y;
     const movedCol = movedRectangle.x;
 
-    //Checking Left Side
+    // Checking Left Side
     for (let row = movedRow; row < movedRow + movedRectangle.height; row++) {
       const col = movedCol - 1;
       if (this.grid[row] && this.grid[row][col] && this.grid[row][col].isSelected) {
@@ -106,7 +106,7 @@ export class GridComponent implements OnInit {
       }
     }
 
-    //Checking Right Side
+    // Checking Right Side
     for (let row = movedRow; row < movedRow + movedRectangle.height; row++) {
       const col = movedCol + movedRectangle.width;
       if (this.grid[row] && this.grid[row][col] && this.grid[row][col].isSelected) {
@@ -115,7 +115,7 @@ export class GridComponent implements OnInit {
       }
     }
 
-    //Checking Top
+    // Checking Top
     for (let col = movedCol; col < movedCol + movedRectangle.width; col++) {
       const row = movedRow - 1;
       if (this.grid[row] && this.grid[row][col] && this.grid[row][col].isSelected) {
@@ -124,7 +124,7 @@ export class GridComponent implements OnInit {
       }
     }
 
-    //Checking Bottom
+    // Checking Bottom
     for (let col = movedCol; col < movedCol + movedRectangle.width; col++) {
       const row = movedRow + movedRectangle.height;
       if (this.grid[row] && this.grid[row][col] && this.grid[row][col].isSelected) {

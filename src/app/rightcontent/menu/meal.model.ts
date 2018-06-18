@@ -28,4 +28,5 @@ export class Meal {
   glotenFree = false;
   mealType = 'meat';
   displayed = true;
+  likes = 0;
 }

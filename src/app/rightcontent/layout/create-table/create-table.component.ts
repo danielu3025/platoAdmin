@@ -128,6 +128,28 @@ export class CreateTableComponent implements OnInit {
 
   }
 
+  // disConnectTables(e) {
+  //   const movedTable = this.tables.find(x => x.id === e.movedId);
+  //   const connectedToTable = this.tables.find(x => x.id === e.connectedToId);
+  //
+  //   this.tableService.validateTablesAreConnectable(this.restId, movedTable, connectedToTable)
+  //     .then(x => {
+  //       this.tableService.disconnectMergedTable(this.restId, movedTable, connectedToTable)
+  //         .then(x => {
+  //           alert('merged');
+  //         })
+  //         .catch(x => {
+  //           alert('Error merging');
+  //           console.log(x);
+  //         });
+  //     })
+  //     .catch(x => {
+  //       alert(x);
+  //       console.log(x);
+  //     });
+  //
+  // }
+
   tableIsMoving(e) {
     const movingRectIndex = this.tablesRectangles.findIndex(x => x.id === e.id);
     this.tablesRectangles[movingRectIndex] = e;

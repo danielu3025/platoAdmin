@@ -3,6 +3,7 @@ import {Rectangle} from './grid/GridEvents.model';
 export class Table {
   acceabilty = false;
   isConnectable = false;
+  connectedTo = {};
   connectedNow = false;
   displayed = true;
   id: string;
@@ -17,5 +18,4 @@ export class Table {
   pTop: number;
   pRight: number;
   pBottom: number;
-  likes = 0;
 }

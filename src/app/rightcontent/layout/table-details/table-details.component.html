@@ -1,5 +1,5 @@
 <table class="table">
-  <thead class="thead-dark">
+  <thead class="thead-light">
   <tr>
     <th scope="col">Id</th>
     <th scope="col">Position</th>
@@ -23,7 +23,6 @@
         <button (click)="disconnectMergedTable()">Disconnect</button>
       </div>
       <div *ngIf="!isMerged">
-
         <div *ngIf="connectableTables">
           <div *ngFor="let tableId of connectableTables">
             {{tableId}}
@@ -38,7 +37,6 @@
   </tr>
   </tbody>
 </table>
-
 <!--<div class="table-details">-->
   <!--<div>-->
     <!--Number: {{table.id}}-->
