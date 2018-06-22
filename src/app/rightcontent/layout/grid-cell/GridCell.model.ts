@@ -5,4 +5,5 @@ export class GridCell {
   isSelected = false;
   width = 30;
   height = 30;
+  isStatic = false;
 }

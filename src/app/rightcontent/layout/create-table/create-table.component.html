@@ -10,11 +10,12 @@
           (movedRectangleConnected)="movedRectangleConnected($event)">
 
 </app-grid>
-<app-new-table-details [isDisplayed]="displayNewTableForm"
-                       [table]="newTable"
-                       (newTableCreated)="createNewTable($event)"
-                       (tableCreationCancled)="tableCreationCanceled()">
-</app-new-table-details>
+<app-new-grid-object-details [isDisplayed]="displayNewTableForm"
+                             [table]="newTable"
+                             (newTableCreated)="createNewTable($event)"
+                             (creationCancled)="creationCanceled()"
+                             (newStaticObjectCreated)="createNewStaticObject($event)">
+</app-new-grid-object-details>
 <div>
   Set
   <select [(ngModel)]="connectableFromId" (change)="connectableFromChanged($event)">

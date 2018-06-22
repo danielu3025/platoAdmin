@@ -51,11 +51,13 @@ import {RawMaterialUnitService} from './services/raw-material-unit.service';
 import {CreateTableComponent} from './rightcontent/layout/create-table/create-table.component';
 import {GridComponent} from './rightcontent/layout/grid/grid.component';
 import {GridCellComponent} from './rightcontent/layout/grid-cell/grid-cell.component';
-import {NewTableDetailsComponent} from './rightcontent/layout/new-table-details/new-table-details.component';
+import {NewTableDetailsComponent} from './rightcontent/layout/new-grid-object-details/new-table-details/new-table-details.component';
 import {TableDetailsComponent} from './rightcontent/layout/table-details/table-details.component';
 import {ManageRestsComponent} from './rightcontent/rest/manage-rests/manage-rests.component';
 import {ManageWorkersComponent} from './rightcontent/workers/manage-workers/manage-workers.component';
 import { CreateWorkerComponent } from './rightcontent/workers/create-worker/create-worker.component';
+import { NewGridObjectDetailsComponent } from './rightcontent/layout/new-grid-object-details/new-grid-object-details.component';
+import { NewStaticObjectDetailsComponent } from './rightcontent/layout/new-grid-object-details/new-static-object-details/new-static-object-details.component';
 
 firebase.initializeApp(environment.config);
 
@@ -104,6 +106,8 @@ const appRouts: Routes = [
     ManageRestsComponent,
     ManageWorkersComponent,
     CreateWorkerComponent,
+    NewGridObjectDetailsComponent,
+    NewStaticObjectDetailsComponent,
   ],
   imports: [
     BrowserModule,

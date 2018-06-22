@@ -1,0 +1,24 @@
+<div class="object-details-modal" [style.display]="isDisplayed ? 'block' : 'none'">
+  <div>
+    New Grid Object Type
+    <select [(ngModel)]="newObjectType">
+      <option value="table">Table</option>
+      <option value="static-object">Static Object</option>
+    </select>
+  </div>
+  <div *ngIf="newObjectType === 'table'">
+    <app-new-table-details [table]="table"
+                           [creationCanceledEvent]="creationCanceledObservable"
+                           (newTableCreated)="newTableCreatedEvent($event)">
+
+    </app-new-table-details>
+  </div>
+  <div *ngIf="newObjectType === 'static-object'">
+    <app-new-static-object-details [creationCanceledEvent]="creationCanceledObservable"
+                                   (newStaticObjectCreated)="newStaticObjectCreatedEvent($event)">
+    </app-new-static-object-details>
+  </div>
+  <div>
+    <button (click)="creationCancledEvent()">Cancel</button>
+  </div>
+</div>

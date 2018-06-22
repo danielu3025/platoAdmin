@@ -41,6 +41,7 @@ export class GridComponent implements OnInit {
   ngOnInit() {
     this.grid = this.createEmptyGridObject();
     this.rectanglesObservable.subscribe(x => {
+      debugger;
       this.rectangles = x;
       const grid = this.createEmptyGridObject();
       this.markRectangles(grid, this.rectangles);
@@ -140,7 +141,8 @@ export class GridComponent implements OnInit {
       y: this.selectEnd.rowIndex > this.selectStart.rowIndex ? this.selectStart.rowIndex : this.selectEnd.rowIndex,
       width: Math.abs(this.selectEnd.colIndex - this.selectStart.colIndex) + 1,
       height: Math.abs(this.selectEnd.rowIndex - this.selectStart.rowIndex) + 1,
-      id: ''
+      id: '',
+      isStatic: false
     };
 
   }
@@ -186,6 +188,7 @@ export class GridComponent implements OnInit {
       for (let row = rect.y; row < rect.y + rect.height; row++) {
         for (let col = rect.x; col < rect.x + rect.width; col++) {
           grid[row][col].isSelected = true;
+          grid[row][col].isStatic = rect.isStatic;
           if (rect.id.length > 0) {
             grid[row][col].id = rect.id;
           }
@@ -212,6 +215,13 @@ export class GridComponent implements OnInit {
   }
 
   mouseMoved(colIndex: string, rowIndex: string) {
+    if (this.grid[colIndex][rowIndex].isStatic) {
+      debugger;
+      return;
+    }
+    else {
+      debugger;
+    }
     if (!this.rectMoveStarted) {
       return;
     }

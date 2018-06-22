@@ -4,13 +4,15 @@ export class Rectangle {
   y: number;
   width: number;
   height: number;
+  isStatic = false;
 
-  constructor(x, y, width, height, id) {
+  constructor(x, y, width, height, id, isStatic) {
     this.id = id || '';
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
+    this.isStatic = isStatic;
   }
 }
 

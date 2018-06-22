@@ -6,6 +6,7 @@ import {Observable} from 'rxjs/internal/Observable';
 import {Subscriber} from 'rxjs/src/internal/Subscriber';
 import {Observer} from 'rxjs/internal/types';
 import {UserInfoService} from '../../../services/user-info.service';
+import {StaticObjectsService} from '../../../services/static-objects.service';
 
 @Component({
   selector: 'app-create-table',
@@ -32,7 +33,8 @@ export class CreateTableComponent implements OnInit {
   connectableTables: Table[];
   connectableToTables: Table[];
 
-  constructor(private tableService: TableService, private userInfoService: UserInfoService) {
+  constructor(private tableService: TableService, private staticObjectsService: StaticObjectsService,
+              private userInfoService: UserInfoService) {
   }
 
   ngOnInit() {
@@ -43,23 +45,27 @@ export class CreateTableComponent implements OnInit {
 
     this.userInfoService.getSelectedRestId().subscribe(restId => {
       this.restId = restId;
-      this.tableService.getAllTable(restId).subscribe(x => {
-        this.tables = x.filter(x => x.displayed);
-        this.tableDetails = x.filter(x => x.displayed);
-        const allConnectedTables = x.filter(x => x.connectedNow);
-        allConnectedTables.forEach(connectedTable => {
-          const connectedToId = Object.keys(connectedTable.connectedTo).find(x => connectedTable.connectedTo[x]).split('table')[1];
-          const connectedToTable = x.find(t => t.id === connectedToId);
-          this.tables.push(connectedToTable);
+      this.staticObjectsService.getAll(restId).subscribe(staticObjects => {
+
+        this.tableService.getAllTable(restId).subscribe(x => {
+          this.tables = x.filter(x => x.displayed);
+          this.tableDetails = x.filter(x => x.displayed);
+          const allConnectedTables = x.filter(x => x.connectedNow);
+          allConnectedTables.forEach(connectedTable => {
+            const connectedToId = Object.keys(connectedTable.connectedTo).find(x => connectedTable.connectedTo[x]).split('table')[1];
+            const connectedToTable = x.find(t => t.id === connectedToId);
+            this.tables.push(connectedToTable);
+          });
+
+          this.tablesRectangles = this.tables.map(x => new Rectangle(x.x, x.y, x.width, x.height, x.id, false));
+          staticObjects.forEach(obj => this.tablesRectangles.push(new Rectangle(obj.x, obj.y, obj.width, obj.height, '', true)));
+          this.tablesRectanglesObserver.next(this.tablesRectangles);
+
+          this.connectableTables = this.tables.filter(table => table.isConnectable);
         });
-
-
-        this.tablesRectangles = this.tables.map(x => new Rectangle(x.x, x.y, x.width, x.height, x.id));
-        this.tablesRectanglesObserver.next(this.tablesRectangles);
-
-        this.connectableTables = this.tables.filter(table => table.isConnectable);
       });
     });
+
   }
 
   addNewTable(e) {
@@ -76,19 +82,43 @@ export class CreateTableComponent implements OnInit {
     this.newTable.pBottom = e.y + e.height;
   }
 
-  tableCreationCanceled() {
+  creationCanceled() {
     this.displayNewTableForm = false;
     this.tablesRectanglesObserver.next(this.tablesRectangles);
   }
 
   createNewTable(table) {
     console.log(table);
-    this.displayNewTableForm = false;
     this.tableService.createTable(this.restId, table)
-      .then(x => alert('table created'))
+      .then(x => {
+        this.displayNewTableForm = false;
+        alert('table created');
+      })
       .catch(x => {
+        this.displayNewTableForm = false;
         alert('error when uploading');
         console.log(x);
+      });
+  }
+
+  createNewStaticObject(e) {
+    e.x = this.newTable.x;
+    e.y = this.newTable.y;
+    e.width = this.newTable.width;
+    e.height = this.newTable.height;
+    e.pBottom = this.newTable.pBottom;
+    e.pTop = this.newTable.pTop;
+    e.pRight = this.newTable.pRight;
+    e.pLeft = this.newTable.pLeft;
+    this.staticObjectsService.create(this.restId, e)
+      .then(x => {
+        this.displayNewTableForm = false;
+        alert('Static Object Created');
+      })
+      .catch(x => {
+        this.displayNewTableForm = false;
+        console.log(x);
+        alert('Failed creating static object');
       });
   }
 

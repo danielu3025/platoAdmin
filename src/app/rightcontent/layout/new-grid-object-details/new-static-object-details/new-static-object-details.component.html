@@ -1,0 +1,11 @@
+<div class="new-static-object-content">
+  <div>
+    Type
+    <select [(ngModel)]="obj.type">
+      <option *ngFor="let type of types" [value]="type">{{type}}</option>
+    </select>
+  </div>
+  <div>
+    <button (click)="create()">Create</button>
+  </div>
+</div>

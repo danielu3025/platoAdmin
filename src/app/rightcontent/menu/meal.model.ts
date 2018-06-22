@@ -5,6 +5,7 @@ export class Grocery {
   cookingTime: number;
   cookingType = 'frying';
   rawMaterial: RawMaterial[];
+  isEditable = false ;
 }
 
 export class Dish {

@@ -1,4 +1,4 @@
-<div class="create-table-modal" [style.display]="isDisplayed ? 'block' : 'none'">
+<div class="create-grid-object-modal">
   <div class="create-table-content">
     <div>
       Id:<input [(ngModel)]="table.id"/>
@@ -26,8 +26,7 @@
     </div>
     <div>
       <button (click)="createTable()">Create Table</button>
-      <button (click)="cancel()">Cancel</button>
     </div>
   </div>
-</div>
 
+</div>

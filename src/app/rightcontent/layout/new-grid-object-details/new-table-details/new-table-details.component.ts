@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Table} from '../table.model';
-import {TableService} from '../../../services/table.service';
+import {Table} from '../../table.model';
+import {TableService} from '../../../../services/table.service';
+import {Observable} from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-new-table-details',
@@ -9,17 +10,18 @@ import {TableService} from '../../../services/table.service';
 })
 export class NewTableDetailsComponent implements OnInit {
 
-  @Input() isDisplayed = false;
   @Input() table: Table;
+  @Input() creationCanceledEvent: Observable<any>;
 
   @Output() newTableCreated: EventEmitter<Table> = new EventEmitter<Table>();
-  @Output() tableCreationCancled: EventEmitter<any> = new EventEmitter<any>();
-
 
   constructor() {
   }
 
   ngOnInit() {
+    this.creationCanceledEvent.subscribe(x => {
+      this.table = new Table();
+    });
   }
 
   createTable() {
@@ -27,10 +29,5 @@ export class NewTableDetailsComponent implements OnInit {
     this.table.isConnectable = this.table.isConnectable.toString() === 'true';
     this.table.smoking = this.table.smoking.toString() === 'true';
     this.newTableCreated.emit(this.table);
-  }
-
-  cancel() {
-    this.table = new Table();
-    this.tableCreationCancled.emit();
   }
 }
