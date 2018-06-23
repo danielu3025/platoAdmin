@@ -74,12 +74,11 @@ export class CreateTableComponent implements OnInit {
     this.newTable.height = e.height;
     this.newTable.x = e.x;
     this.newTable.y = e.y;
-    this.newTable.size = e.width * e.height * 2;
-    this.displayNewTableForm = true;
     this.newTable.pLeft = e.x;
     this.newTable.pTop = e.y;
     this.newTable.pRight = e.x + e.width;
     this.newTable.pBottom = e.y + e.height;
+    this.displayNewTableForm = true;
   }
 
   creationCanceled() {

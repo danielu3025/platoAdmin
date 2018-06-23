@@ -41,7 +41,6 @@ export class GridComponent implements OnInit {
   ngOnInit() {
     this.grid = this.createEmptyGridObject();
     this.rectanglesObservable.subscribe(x => {
-      debugger;
       this.rectangles = x;
       const grid = this.createEmptyGridObject();
       this.markRectangles(grid, this.rectangles);

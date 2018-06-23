@@ -31,6 +31,9 @@ export class GridCellComponent implements OnInit, OnChanges {
   }
 
   onMouseUpEvent() {
+    if (this.cellInfo.isStatic) {
+      return;
+    }
     this.onMouseUp.emit();
   }
 

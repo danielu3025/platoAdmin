@@ -15,6 +15,8 @@ export class NewTableDetailsComponent implements OnInit {
 
   @Output() newTableCreated: EventEmitter<Table> = new EventEmitter<Table>();
 
+  size = '';
+
   constructor() {
   }
 
@@ -28,6 +30,9 @@ export class NewTableDetailsComponent implements OnInit {
     this.table.acceabilty = this.table.acceabilty.toString() === 'true';
     this.table.isConnectable = this.table.isConnectable.toString() === 'true';
     this.table.smoking = this.table.smoking.toString() === 'true';
+    this.table.size = parseInt(this.size, 10);
     this.newTableCreated.emit(this.table);
+
+    this.size = '';
   }
 }
