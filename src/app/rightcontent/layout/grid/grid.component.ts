@@ -215,13 +215,7 @@ export class GridComponent implements OnInit {
   }
 
   mouseMoved(colIndex: string, rowIndex: string) {
-    if (this.grid[colIndex][rowIndex].isStatic) {
-      debugger;
-      return;
-    }
-    else {
-      debugger;
-    }
+
     if (!this.rectMoveStarted) {
       return;
     }

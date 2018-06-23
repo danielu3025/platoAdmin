@@ -1,7 +1,7 @@
 <td class="grid-cell" draggable="false"
     [style.width.px]="cellInfo.width"
     [style.height.px]="cellInfo.height"
-    [style.backgroundColor]="cellInfo.isSelected ? cellInfo.colorWhenSelected : cellInfo.color"
+    [style.backgroundColor]="cellColor"
     (mousedown)="onMouseDownEvent($event)"
     (mouseup)="onMouseUpEvent()"
     (mouseenter)="onMouseEnterEvent()"
