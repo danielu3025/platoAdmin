@@ -1,40 +1,26 @@
-
-<div>
-  <div>
-    Id:<input [(ngModel)]="rawMaterial.id"/>
-  </div>
-  <div>
-    Name:<input [(ngModel)]="rawMaterial.name"/>
-  </div>
-  <div>
-    Amount:<input  type="number" [(ngModel)]="rawMaterial.amount"/>
-  </div>
-  <div>
-    Type:<input  type="number" [(ngModel)]="rawMaterial.type"/>
-  </div>
-  <div>
-    Red Line:<input  type="number" [(ngModel)]="rawMaterial.redLine"/>
-  </div>
-  <div>
-    Units:
-    <select [(ngModel)]="rawMaterial.units">
-      <option *ngFor="let unit of units" [value]="unit">{{unit}}</option>
-    </select>
-  </div>
-</div>
+<app-create-stock-item-form></app-create-stock-item-form>
 
 <div>
   <table>
-      <thead>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Amount</th>
-      <th>Type</th>
-      <th>Red Line</th>
-      <th>Units</th>
-      <!--<tr *ngFor="let rawMaterial of rawMaterials; let i = index">-->
-        <!--<td>{{rawMaterials[i].id}}</td>-->
-      <!--</tr>-->
-      </thead>
+    <thead>
+    <th></th>
+    <th>Name</th>
+    <th>Amount</th>
+    <th>Type</th>
+    <th>Units</th>
+    <th></th>
+    <th></th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let rawMaterial of rawMaterials" appStockItem [rawMaterial]="rawMaterial" [restId]="resturantID"></tr>
+    <!--<tr>-->
+    <!--<td></td>-->
+    <!--<td>123</td>-->
+    <!--<td>123</td>-->
+    <!--<td>123</td>-->
+    <!--<td>123</td>-->
+    <!--<td></td>-->
+    <!--</tr>-->
+    </tbody>
   </table>
 </div>

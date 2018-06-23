@@ -1,0 +1,24 @@
+<td>
+  <img class="stock-item-action" *ngIf="!inEditMode" src="assets/edit.png" (click)="edit()"/>
+</td>
+<td>{{rawMaterial.name}}</td>
+<td>
+  <span *ngIf="!inEditMode">{{rawMaterial.amount}}</span>
+  <input *ngIf="inEditMode" type="number" [(ngModel)]="rawMaterial.amount"/>
+</td>
+<td>
+  <span *ngIf="!inEditMode">{{rawMaterial.type}}</span>
+  <input *ngIf="inEditMode" type="text" [(ngModel)]="rawMaterial.type"/>
+</td>
+<td>
+  <span *ngIf="!inEditMode">{{rawMaterial.units}}</span>
+  <select *ngIf="inEditMode" [(ngModel)]="rawMaterial.units">
+    <option *ngFor="let unit of units">{{unit}}</option>
+  </select>
+<td>
+  <img class="stock-item-action" *ngIf="!inEditMode" (click)="delete()" src="assets/delete.png"/>
+  <img class="stock-item-action" *ngIf="inEditMode" (click)="ok()" src="assets/ok.png"/>
+</td>
+<td>
+  <img class="stock-item-action" *ngIf="inEditMode" (click)="cancel()" src="assets/cancel.png"/>
+</td>

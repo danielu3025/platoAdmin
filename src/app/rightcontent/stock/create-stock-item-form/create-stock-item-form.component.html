@@ -1,0 +1,20 @@
+<div>
+  <div>
+    Name:<input [(ngModel)]="rawMaterial.name"/>
+  </div>
+  <div>
+    Amount:<input type="number" [(ngModel)]="rawMaterial.amount"/>
+  </div>
+  <div>
+    Type:<input type="text" [(ngModel)]="rawMaterial.type"/>
+  </div>
+  <div>
+    Units:
+    <select [(ngModel)]="rawMaterial.units">
+      <option *ngFor="let unit of units" [value]="unit">{{unit}}</option>
+    </select>
+  </div>
+  <div>
+    <button (click)="create()">Create</button>
+  </div>
+</div>

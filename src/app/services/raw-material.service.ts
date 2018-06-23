@@ -3,22 +3,30 @@ import {AngularFireDatabase} from 'angularfire2/database';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {RawMaterial} from '../rightcontent/stock/stock.model';
 import {Observable} from 'rxjs/internal/Observable';
+import * as firebase from 'firebase';
 
 @Injectable()
 export class RawMaterialService {
 
+  private functions;
+  private addRawMaterialFunction;
+
   constructor(private afs: AngularFirestore, private db: AngularFireDatabase) {
+    this.functions = firebase.functions();
+    this.addRawMaterialFunction = this.functions.httpsCallable('addRawMaterial');
   }
 
   get(restId: string): Observable<RawMaterial[]> {
     return Observable.create(observer => {
-      this.afs.collection('RestAlfa').doc(restId).collection<{ value: RawMaterial }>('WarehouseStock').valueChanges()
+      this.afs.collection<{ value: RawMaterial }>(`/RestAlfa/${restId}/WarehouseStock`).valueChanges()
         .subscribe(x => {
           observer.next(x.map(x => x.value));
         });
     });
   }
 
-  CreateRawMaterial(restId: string, rawMaterial: RawMaterial): void{
+  createRawMaterial(restId: string, rawMaterial: RawMaterial) {
+    return this.addRawMaterialFunction({restId, rawMaterial});
   }
+
 }

@@ -18,8 +18,6 @@ import {UserInfoService} from '../../../services/user-info.service';
 export class ManageStockComponent implements OnInit {
 
   resturantID = '';
-  rawMaterial: RawMaterial = new RawMaterial();
-  units: string[];
   rawMaterials: RawMaterial[] = [];
 
   constructor(private unitService: RawMaterialUnitService, private rawMaterialService: RawMaterialService,
@@ -27,8 +25,10 @@ export class ManageStockComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.unitService.getAll().subscribe(x => this.units = x);
-    this.userInfoService.getSelectedRestId().subscribe(x => this.resturantID = x);
+    this.userInfoService.getSelectedRestId().subscribe(x => {
+      this.resturantID = x;
+      this.rawMaterialService.get(this.resturantID).subscribe(x => this.rawMaterials = x);
+    });
   }
 }
 

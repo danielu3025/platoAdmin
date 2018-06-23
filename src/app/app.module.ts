@@ -9,7 +9,6 @@ import {SideMenuComponent} from './side-menu/side-menu.component';
 import {RightcontentComponent} from './rightcontent/rightcontent.component';
 import {TopbarComponent} from './rightcontent/topbar/topbar.component';
 import {StaffOptionsComponent} from './rightcontent/nav-options/staff-options/staff-options.component';
-import {StockComponent} from './rightcontent/stock/stock.component';
 import {LayoutComponent} from './rightcontent/layout/layout.component';
 import {KitchenComponent} from './rightcontent/kitchen/kitchen.component';
 import {Router, RouterModule, Routes} from '@angular/router';
@@ -58,13 +57,14 @@ import {ManageWorkersComponent} from './rightcontent/workers/manage-workers/mana
 import { CreateWorkerComponent } from './rightcontent/workers/create-worker/create-worker.component';
 import { NewGridObjectDetailsComponent } from './rightcontent/layout/new-grid-object-details/new-grid-object-details.component';
 import { NewStaticObjectDetailsComponent } from './rightcontent/layout/new-grid-object-details/new-static-object-details/new-static-object-details.component';
+import { CreateStockItemFormComponent } from './rightcontent/stock/create-stock-item-form/create-stock-item-form.component';
+import { StockItemComponent } from './rightcontent/stock/stock-item/stock-item.component';
 
 firebase.initializeApp(environment.config);
 
 const appRouts: Routes = [
   {path: 'login', component: LoginWindowComponent},
   {path: 'rests', component: RestsOptionsComponent},
-  {path: 'stock', component: StockComponent},
   {path: 'kitchen', component: KitchenComponent},
   {path: 'layout', component: LayoutComponent},
   {path: 'manageRests', component: ManageRestsComponent},
@@ -81,7 +81,6 @@ const appRouts: Routes = [
     RightcontentComponent,
     TopbarComponent,
     StaffOptionsComponent,
-    StockComponent,
     LayoutComponent,
     KitchenComponent,
     LayoutOptionsComponent,
@@ -108,6 +107,8 @@ const appRouts: Routes = [
     CreateWorkerComponent,
     NewGridObjectDetailsComponent,
     NewStaticObjectDetailsComponent,
+    CreateStockItemFormComponent,
+    StockItemComponent,
   ],
   imports: [
     BrowserModule,
