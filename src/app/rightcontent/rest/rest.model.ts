@@ -26,8 +26,8 @@ export class Rest {
 }
 
 export class WorkingDay {
-  public startingTime = '00:00';
-  public endTime = '23:59';
+  public startingHour = '00:00';
+  public endHour = '23:59';
   public isBusy = false;
   public busyHourStart = '00:00';
   public busyHourEnd = '23:59';

@@ -53,8 +53,8 @@ export class CreateRestComponent implements OnInit {
   }
 
   insertAllDayBusyHours(i) {
-    this.rest.workingDays[i].busyHourStart = this.rest.workingDays[i].startingTime;
-    this.rest.workingDays[i].busyHourEnd = this.rest.workingDays[i].endTime;
+    this.rest.workingDays[i].busyHourStart = this.rest.workingDays[i].startingHour;
+    this.rest.workingDays[i].busyHourEnd = this.rest.workingDays[i].endHour;
   }
 
   createRest() {

@@ -130,8 +130,8 @@
       <tbody>
       <tr *ngFor="let workingDay of rest.workingDays; let i = index">
         <td>{{days[i]}}</td>
-        <td><input class="start-time" type="time" [(ngModel)]="rest.workingDays[i].startingTime"/></td>
-        <td><input class="end-time" type="time" [(ngModel)]="rest.workingDays[i].endTime"/></td>
+        <td><input class="start-time" type="time" [(ngModel)]="rest.workingDays[i].startingHour"/></td>
+        <td><input class="end-time" type="time" [(ngModel)]="rest.workingDays[i].endHour"/></td>
         <td align="center">
           <input type="checkbox" [(ngModel)]="rest.workingDays[i].isBusy">
         </td>

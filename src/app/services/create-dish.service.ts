@@ -28,7 +28,8 @@ export class CreateDishService {
         category: dish.category,
         status: 0,
         totalTime: dish.totalTime,
-        pic: ''
+        pic: '',
+        maxSecondsBeforeStartingMaking: dish.maxSecondsBeforeStartingMaking
       },
       groceries,
       update

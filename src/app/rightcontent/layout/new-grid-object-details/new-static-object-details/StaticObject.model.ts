@@ -1,5 +1,5 @@
 export class StaticObject {
-  type = '';
+  status = '';
   x: number;
   y: number;
   width: number;

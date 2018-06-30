@@ -19,7 +19,7 @@
     <div class="input-group-prepend">
       <span class="input-group-text">Total Time</span>
     </div>
-    <input type="number" class="form-control" [(ngModel)]="dish.totalTime">
+    <input type="text" class="form-control" [(ngModel)]="dish.totalTime">
   </div>
   <!--<div>Max Time:<input type="number" [(ngModel)]="dish.maxSecondsBeforeStartingMaking"/></div>-->
   <div class="input-group mb-3">
@@ -33,7 +33,7 @@
     <div class="input-group-prepend">
       <label class="input-group-text" for="inputCategories">Category</label>
     </div>
-    <select class="custom-select" id="inputCategories">
+    <select class="custom-select" id="inputCategories" [(ngModel)]="dish.category">
       <option *ngFor="let item of categories">{{item}}</option>
     </select>
   </div>

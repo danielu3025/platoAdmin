@@ -28,7 +28,7 @@
       <div class="input-group-prepend">
         <label class="input-group-text" for="inputCokingType">Cooking Type</label>
       </div>
-      <select class="custom-select" id="inputCokingType">
+      <select class="custom-select" id="inputCokingType" [(ngModel)]="grocery.cookingType">
         <option *ngFor="let item of cookingTypes">{{item}}</option>
       </select>
     </div>

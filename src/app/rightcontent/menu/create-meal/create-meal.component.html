@@ -18,7 +18,7 @@
   <div class="input-group-prepend">
     <label class="input-group-text" for="inputSubMenus">SubMenus</label>
   </div>
-  <select class="custom-select" id="inputSubMenus">
+  <select class="custom-select" id="inputSubMenus" [(ngModel)]="meal.subMenus">
     <option *ngFor="let item of subMenus">{{item}}</option>
   </select>
 </div>
@@ -32,7 +32,7 @@
     <div class="input-group-prepend">
       <label class="input-group-text" for="inputDairy">Dairy</label>
     </div>
-    <select class="custom-select" id="inputDairy">
+    <select class="custom-select" id="inputDairy" [(ngModel)]="meal.dairy">
       <option [value]="true">Yes</option>
       <option [value]="false">No</option>
     </select>
@@ -47,7 +47,7 @@
     <div class="input-group-prepend">
       <label class="input-group-text" for="inputVegan">Vegan</label>
     </div>
-    <select class="custom-select" id="inputVegan">
+    <select class="custom-select" id="inputVegan" [(ngModel)]="meal.vegan">
       <option [value]="true">Yes</option>
       <option [value]="false">No</option>
     </select>
@@ -70,7 +70,7 @@
     <div class="input-group-prepend">
       <label class="input-group-text" for="inputGloten">Gloten Free</label>
     </div>
-    <select class="custom-select" id="inputGloten">
+    <select class="custom-select" id="inputGloten" [(ngModel)]="meal.glotenFree">
       <option [value]="true">Yes</option>
       <option [value]="false">No</option>
     </select>
@@ -85,7 +85,7 @@
     <div class="input-group-prepend">
       <label class="input-group-text" for="inputMealType">Meal Type</label>
     </div>
-    <select class="custom-select" id="inputMealType">
+    <select class="custom-select" id="inputMealType" [(ngModel)]="meal.mealType">
       <option *ngFor="let item of mealTypes">{{item}}</option>
     </select>
   </div>
@@ -97,7 +97,7 @@
     <div class="input-group-prepend">
       <span class="input-group-text">Price</span>
     </div>
-    <input type="text" class="form-control" [(ngModel)]="meal.price">
+    <input type="text" class="form-control" [(ngModel)]="meal.price" min="0">
   </div>
   <!--<div>-->
     <!--Pic:-->

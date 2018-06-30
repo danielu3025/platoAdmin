@@ -14,7 +14,7 @@ export class NewStaticObjectDetailsComponent implements OnInit {
   @Input() creationCanceledEvent: Observable<any>;
 
   obj: StaticObject = new StaticObject();
-  types = ['wc', 'bar', 'kitchen', 'wall', 'other'];
+  status = ['wc', 'bar', 'kitchen', 'wall', 'other'];
 
   constructor() {
   }
