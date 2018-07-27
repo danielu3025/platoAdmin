@@ -59,6 +59,7 @@ import {NewGridObjectDetailsComponent} from './rightcontent/layout/new-grid-obje
 import {NewStaticObjectDetailsComponent} from './rightcontent/layout/new-grid-object-details/new-static-object-details/new-static-object-details.component';
 import {CreateStockItemFormComponent} from './rightcontent/stock/create-stock-item-form/create-stock-item-form.component';
 import {StockItemComponent} from './rightcontent/stock/stock-item/stock-item.component';
+import { WorkerItemComponent } from './rightcontent/workers/worker-item/worker-item.component';
 
 firebase.initializeApp(environment.config);
 
@@ -109,6 +110,7 @@ const appRouts: Routes = [
     NewStaticObjectDetailsComponent,
     CreateStockItemFormComponent,
     StockItemComponent,
+    WorkerItemComponent,
   ],
   imports: [
     BrowserModule,

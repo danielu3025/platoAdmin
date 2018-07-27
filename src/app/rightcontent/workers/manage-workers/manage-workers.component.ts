@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Worker} from '../worker.model';
+import {WorkersService} from '../../../services/workers.service';
+import {UserInfoService} from '../../../services/user-info.service';
 
 @Component({
   selector: 'app-manage-workers',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageWorkersComponent implements OnInit {
 
-  constructor() { }
+  restId: string;
+  workers: Worker[];
+
+  constructor(private workersService: WorkersService, private userInfoService: UserInfoService) {
+  }
 
   ngOnInit() {
+    this.userInfoService.getSelectedRestId().subscribe(x => {
+      this.restId = x;
+      this.workersService.getAll(this.restId).subscribe(x => this.workers = x);
+    });
   }
 
 }

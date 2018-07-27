@@ -68,9 +68,9 @@ export class AuthService {
     });
   }
 
-  getUserInfo(): Observable<UserInfo> {
+  getUserInfo(userEmail?: string): Observable<UserInfo> {
     return Observable.create((observer) => {
-      const email = this.userDetails.email;
+      const email = userEmail || this.userDetails.email;
 
       this.afs.collection<UserInfo>('/GlobWorkers', ref => ref.where('email', '==', email)).snapshotChanges().subscribe(x => {
         const id = x[0].payload.doc.id;

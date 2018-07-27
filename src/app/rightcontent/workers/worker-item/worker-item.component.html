@@ -1,0 +1,29 @@
+<td>
+  <img class="stock-item-action" *ngIf="!inEditMode" src="assets/edit.png" (click)="edit()"/>
+</td>
+<td>
+  <input *ngIf="inEditMode" [(ngModel)]="worker.name"/>
+  <span *ngIf="!inEditMode">{{worker.name}}</span>
+</td>
+<td>{{worker.id}}</td>
+<td>
+  <select *ngIf="inEditMode" [(ngModel)]="worker.role">
+    <option>Host</option>
+    <option>asdasd</option>
+    <option>asdasd</option>
+  </select>
+  <span *ngIf="!inEditMode">{{worker.role}}</span>
+</td>
+<td>
+  <ul>
+    <li *ngFor="let rest of rests">{{rest}}</li>
+  </ul>
+</td>
+<td>{{worker.email}}</td>
+<td>
+  <img class="stock-item-action" *ngIf="!inEditMode" (click)="delete()" src="assets/delete.png"/>
+  <img class="stock-item-action" *ngIf="inEditMode" (click)="ok()" src="assets/ok.png"/>
+</td>
+<td>
+  <img class="stock-item-action" *ngIf="inEditMode" (click)="cancel()" src="assets/cancel.png"/>
+</td>

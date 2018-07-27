@@ -4,5 +4,6 @@ export class Worker {
   public lastName: string;
   public role: string;
   email: string;
+  name: string;
 }
 
