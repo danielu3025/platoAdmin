@@ -47,11 +47,11 @@
     </select>
   </div>
   <!--<div>Category:-->
-    <!--<select [(ngModel)]="dish.category">-->
-      <!--<option *ngFor="let item of categories">-->
-        <!--{{item}}-->
-      <!--</option>-->
-    <!--</select>-->
+  <!--<select [(ngModel)]="dish.category">-->
+  <!--<option *ngFor="let item of categories">-->
+  <!--{{item}}-->
+  <!--</option>-->
+  <!--</select>-->
   <!--</div>-->
 
   <div class="input-group mb-3" *ngFor="let item of grocery; let i = index">
@@ -63,11 +63,22 @@
     </div>
   </div>
   <!--<div>-->
-    <!--<div *ngFor="let item of grocery; let i = index">-->
-      <!--<input type="checkbox" [(ngModel)]="grocerySelected[i]"/>-->
-      <!--<span>{{item.name}}</span>-->
-    <!--</div>-->
+  <!--<div *ngFor="let item of grocery; let i = index">-->
+  <!--<input type="checkbox" [(ngModel)]="grocerySelected[i]"/>-->
+  <!--<span>{{item.name}}</span>-->
   <!--</div>-->
+  <!--</div>-->
+
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Upload</span>
+    </div>
+    <div class="custom-file">
+      <input type="file" class="custom-file-input" id="inputGroupFile01" name="pic" accept="image/*"
+             (change)="uploadImage($event)">
+      <label class="custom-file-label" for="inputGroupFile01">{{picText}}</label>
+    </div>
+  </div>
 
   <button (click)="createDish()" class="btn btn-success">Create Dish</button>
   <!--<button (click)="deleteGrocery()">Delete Grocery</button>-->

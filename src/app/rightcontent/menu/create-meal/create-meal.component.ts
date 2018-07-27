@@ -23,7 +23,8 @@ export class CreateMealComponent implements OnInit {
   meal: Meal = new Meal();
   dishSelected: boolean[] = [];
   dishesForMeal = {};
-  image: any = null;
+  image: File = null;
+  picText = 'Choose File';
 
   constructor(private createMealService: CreateMealService, private subMenuService: SubMenuService,
               private mealTypeService: MealTypeService, private dishService: DishService,
@@ -46,6 +47,12 @@ export class CreateMealComponent implements OnInit {
 
   uploadImage(e) {
     this.image = e.target.files[0];
+    const name = this.image.name;
+    if (name.length >= 10) {
+      this.picText = `${name.substr(0, 10)}...`;
+    } else {
+      this.picText = name;
+    }
   }
 
   createMeal() {

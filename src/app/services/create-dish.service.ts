@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 import * as firebaseFunctions from 'firebase/functions';
 import {Dish} from '../rightcontent/menu/meal.model';
 import {environment} from '../../environments/environment';
+import {AngularFireStorage} from 'angularfire2/storage';
 
 @Injectable()
 export class CreateDishService {
@@ -12,10 +13,24 @@ export class CreateDishService {
   private addDishFunction;
 
 
-  constructor() {
+  constructor(private storage: AngularFireStorage) {
 
     this.functions = firebase.functions();
     this.addDishFunction = this.functions.httpsCallable('addDish');
+  }
+
+  UploadDishImage(restId: string, file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const id = Math.random().toString(36).substring(2);
+      const ref = this.storage.ref(`/dishesPics/${id}`);
+      ref.put(file)
+        .then(x => {
+          ref.getDownloadURL().subscribe(url => {
+            resolve(url);
+          });
+        })
+        .catch(reject);
+    });
   }
 
   CreateDish(restId: string, dish: Dish, groceries: string[], update: boolean = false) {
@@ -28,7 +43,7 @@ export class CreateDishService {
         category: dish.category,
         status: 0,
         totalTime: dish.totalTime,
-        pic: '',
+        pic: dish.pic,
         maxSecondsBeforeStartingMaking: dish.maxSecondsBeforeStartingMaking
       },
       groceries,

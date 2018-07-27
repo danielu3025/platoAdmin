@@ -10,10 +10,14 @@ export class RawMaterialService {
 
   private functions;
   private addRawMaterialFunction;
+  private deleteRawMaterialFunction;
+  private preCheckForDeletingRawMaterialFunction;
 
   constructor(private afs: AngularFirestore, private db: AngularFireDatabase) {
     this.functions = firebase.functions();
     this.addRawMaterialFunction = this.functions.httpsCallable('addRawMaterial');
+    this.deleteRawMaterialFunction = this.functions.httpsCallable('deleteRawMaterial');
+    this.preCheckForDeletingRawMaterialFunction = this.functions.httpsCallable('preCheckForDeletingRawMaterial');
   }
 
   get(restId: string): Observable<RawMaterial[]> {
@@ -29,4 +33,11 @@ export class RawMaterialService {
     return this.addRawMaterialFunction({restId, rawMaterial});
   }
 
+  preCheckBeforeDeletingRawMaterial(restId: string, name: string) {
+    return this.preCheckForDeletingRawMaterialFunction({restId, name});
+  }
+
+  deleteRawMaterial(restId: string, name: string) {
+    return this.deleteRawMaterialFunction({restId, name});
+  }
 }

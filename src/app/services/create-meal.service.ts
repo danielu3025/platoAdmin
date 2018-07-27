@@ -29,7 +29,7 @@ export class CreateMealService {
     });
   }
 
-  UploadMealImage(restId: string, file: string) {
+  UploadMealImage(restId: string, file: File) {
     return new Promise((resolve, reject) => {
       const id = Math.random().toString(36).substring(2);
       const ref = this.storage.ref(`/mealsPics/${id}`);

@@ -18,6 +18,8 @@ export class CreateDishComponent implements OnInit {
   dish: Dish = new Dish();
   grocerySelected: boolean[] = [];
   categories: string[] = [];
+  pic: File;
+  picText = 'Choose File';
 
   constructor(private categoryService: CategoryService, private groceryService: GroceryService,
               private createDishService: CreateDishService, private userInfoService: UserInfoService) {
@@ -36,6 +38,16 @@ export class CreateDishComponent implements OnInit {
     this.categoryService.getAll().subscribe(x => this.categories = x);
   }
 
+  uploadImage(e: any) {
+    this.pic = e.target.files[0];
+    const name = this.pic.name;
+    if (name.length >= 10) {
+      this.picText = `${name.substr(0, 10)}...`;
+    } else {
+      this.picText = name;
+    }
+  }
+
   createDish() {
     const groceryForDish = [];
     for (let i = 0; i < this.grocerySelected.length; i++) {
@@ -44,26 +56,30 @@ export class CreateDishComponent implements OnInit {
       }
     }
 
-    this.createDishService.CreateDish(this.restId, this.dish, groceryForDish)
+    this.createDishService.UploadDishImage(this.restId, this.pic)
       .then(x => {
-        alert('dish created');
-      })
-      .catch(e => {
-        if (e.alreadyExists) {
-          if (confirm('Dish exists, do you want to update it?')) {
-            this.createDishService.CreateDish(this.restId, this.dish, groceryForDish, true)
-              .then(x => {
-                alert('dish updated');
-              })
-              .catch(x => {
-                alert(x.message);
-              });
-          } else {
-            alert('no dish created');
-          }
-        } else {
-          alert(e.message);
-        }
+        this.dish.pic = x;
+        this.createDishService.CreateDish(this.restId, this.dish, groceryForDish)
+          .then(x => {
+            alert('dish created');
+          })
+          .catch(e => {
+            if (e.alreadyExists) {
+              if (confirm('Dish exists, do you want to update it?')) {
+                this.createDishService.CreateDish(this.restId, this.dish, groceryForDish, true)
+                  .then(x => {
+                    alert('dish updated');
+                  })
+                  .catch(x => {
+                    alert(x.message);
+                  });
+              } else {
+                alert('no dish created');
+              }
+            } else {
+              alert(e.message);
+            }
+          });
       });
   }
 

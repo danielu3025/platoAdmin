@@ -5,7 +5,7 @@ export class Grocery {
   cookingTime: number;
   cookingType = 'frying';
   rawMaterial: RawMaterial[];
-  isEditable = false ;
+  isEditable = false;
 }
 
 export class Dish {
@@ -15,7 +15,8 @@ export class Dish {
   maxSecondsBeforeStartingMaking: number;
   status = 0;
   category = 'Drinks';
-  isEditable = false ;
+  isEditable = false;
+  pic = '';
 }
 
 export class Meal {

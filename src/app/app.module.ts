@@ -54,11 +54,11 @@ import {NewTableDetailsComponent} from './rightcontent/layout/new-grid-object-de
 import {TableDetailsComponent} from './rightcontent/layout/table-details/table-details.component';
 import {ManageRestsComponent} from './rightcontent/rest/manage-rests/manage-rests.component';
 import {ManageWorkersComponent} from './rightcontent/workers/manage-workers/manage-workers.component';
-import { CreateWorkerComponent } from './rightcontent/workers/create-worker/create-worker.component';
-import { NewGridObjectDetailsComponent } from './rightcontent/layout/new-grid-object-details/new-grid-object-details.component';
-import { NewStaticObjectDetailsComponent } from './rightcontent/layout/new-grid-object-details/new-static-object-details/new-static-object-details.component';
-import { CreateStockItemFormComponent } from './rightcontent/stock/create-stock-item-form/create-stock-item-form.component';
-import { StockItemComponent } from './rightcontent/stock/stock-item/stock-item.component';
+import {CreateWorkerComponent} from './rightcontent/workers/create-worker/create-worker.component';
+import {NewGridObjectDetailsComponent} from './rightcontent/layout/new-grid-object-details/new-grid-object-details.component';
+import {NewStaticObjectDetailsComponent} from './rightcontent/layout/new-grid-object-details/new-static-object-details/new-static-object-details.component';
+import {CreateStockItemFormComponent} from './rightcontent/stock/create-stock-item-form/create-stock-item-form.component';
+import {StockItemComponent} from './rightcontent/stock/stock-item/stock-item.component';
 
 firebase.initializeApp(environment.config);
 
