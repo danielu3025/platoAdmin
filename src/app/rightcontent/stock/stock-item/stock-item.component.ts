@@ -46,17 +46,21 @@ export class StockItemComponent implements OnInit {
     if (confirm(`Are You Sure You Want To Delete '${this.rawMaterial.name}'?`)) {
       this.rawMaterialService.preCheckBeforeDeletingRawMaterial(this.restId, this.rawMaterial.name)
         .then((x: { data: { mealsAboutToDelete: string[] } }) => {
-          if (confirm(`If You Delete ${this.rawMaterial.name} You Will Also Delete ${x.data.mealsAboutToDelete.join(', ')},
+          if (x.data.mealsAboutToDelete.length > 0) {
+            if (!confirm(`If You Delete ${this.rawMaterial.name} You Will Also Delete ${x.data.mealsAboutToDelete.join(', ')},
            Are You Sure?`)) {
-            this.rawMaterialService.deleteRawMaterial(this.restId, this.rawMaterial.name)
-              .then(x => {
-                alert('Raw Material Deleted Successfully');
-              })
-              .catch(x => {
-                console.log(x);
-                alert('Error deleting raw material');
-              });
+              return;
+            }
           }
+
+          this.rawMaterialService.deleteRawMaterial(this.restId, this.rawMaterial.name)
+            .then(x => {
+              alert('Raw Material Deleted Successfully');
+            })
+            .catch(x => {
+              console.log(x);
+              alert('Error deleting raw material');
+            });
         })
         .catch(x => {
           console.log(x);

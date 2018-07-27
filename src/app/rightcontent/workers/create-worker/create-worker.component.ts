@@ -24,7 +24,7 @@ export class CreateWorkerComponent implements OnInit {
 
   createWorker() {
     this.authService.createWorker(this.restId, this.worker.role,
-      `${this.worker.firstName} ${this.worker.lastName}`, this.worker.email, this.password)
+      this.worker.firstName, this.worker.lastName, this.worker.id, this.password)
       .then(x => alert('created'))
       .catch(e => {
         console.log(e);

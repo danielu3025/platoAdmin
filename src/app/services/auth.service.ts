@@ -31,8 +31,11 @@ export class AuthService {
     );
   }
 
-  createWorker(restID, role, name, email, pass) {
-    return this.createWorkerFunction({restID, role, name, email, pass});
+  createWorker(restId, role, firstName, lastName, id, password) {
+    return this.createWorkerFunction({
+      restId,
+      worker: {role, firstName, lastName, id, password}
+    });
   }
 
   signInWithEmailAndPassword(email: string, password: string) {
