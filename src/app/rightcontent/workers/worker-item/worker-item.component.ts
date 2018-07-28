@@ -40,4 +40,16 @@ export class WorkerItemComponent implements OnInit {
         console.log(x);
       });
   }
+
+  delete() {
+    if (!confirm(`Are you sure you want to delete ${this.worker.name}?`)) {
+      return;
+    }
+    this.workersService.deleteWorker(this.restId, this.worker.email)
+      .then(x => alert('deleted'))
+      .catch(x => {
+        alert('error');
+        console.log(x);
+      });
+  }
 }
