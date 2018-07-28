@@ -1,5 +1,5 @@
 export class Worker {
-  public id: string;
+  public id = '';
   public firstName: string;
   public lastName: string;
   public role: string;

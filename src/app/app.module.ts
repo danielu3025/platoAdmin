@@ -59,7 +59,9 @@ import {NewGridObjectDetailsComponent} from './rightcontent/layout/new-grid-obje
 import {NewStaticObjectDetailsComponent} from './rightcontent/layout/new-grid-object-details/new-static-object-details/new-static-object-details.component';
 import {CreateStockItemFormComponent} from './rightcontent/stock/create-stock-item-form/create-stock-item-form.component';
 import {StockItemComponent} from './rightcontent/stock/stock-item/stock-item.component';
-import { WorkerItemComponent } from './rightcontent/workers/worker-item/worker-item.component';
+import {WorkerItemComponent} from './rightcontent/workers/worker-item/worker-item.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/material';
 
 firebase.initializeApp(environment.config);
 
@@ -116,6 +118,7 @@ const appRouts: Routes = [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(appRouts),
     AngularFireModule.initializeApp(environment.config, 'angular-auth-firebase'),
     AngularFireDatabaseModule,
@@ -124,6 +127,9 @@ const appRouts: Routes = [
     AngularFireStorageModule,
     HttpClientModule,
     AgmCoreModule.forRoot({apiKey: 'AIzaSyC17LboYF2DtS34_J_FCKGEhPL5ozf3CHo'}),
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   providers: [AuthService, KitchenStoreService, CookingTypesService, RawMaterialService,
     CreateGroceryService, HttpClientModule, DeleteGroceryService, UpdateGroceryService,

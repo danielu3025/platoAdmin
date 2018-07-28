@@ -1,25 +1,40 @@
-<div>
-  First Name:
-  <input [(ngModel)]="worker.firstName"/>
-</div>
-<div>
-  Last Name:
-  <input [(ngModel)]="worker.lastName"/>
-</div>
-<div>
-  Id:
-  <input [(ngModel)]="worker.id"/>
-</div>
-<div>
-  Password:
-  <input [(ngModel)]="password"/>
-</div>
-<div>
-  Role:
-  <select [(ngModel)]="worker.role">
-    <option>Host</option>
-    <option>asdasd</option>
-    <option>asdasd</option>
-  </select>
-</div>
-<button (click)="createWorker()">Create</button>
+<form>
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="First Name" [(ngModel)]="worker.firstName" [ngModelOptions]="{standalone: true}"
+             required/>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Last Name" [(ngModel)]="worker.lastName" [ngModelOptions]="{standalone: true}"
+             required/>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput #userId placeholder="Id" [(ngModel)]="worker.id" type="number" value="" maxlength="9"
+             [errorStateMatcher]="idMatcher"
+             [ngModelOptions]="{standalone: true}" required/>
+      <mat-hint align="end">{{userId.value.length}} / 9</mat-hint>
+      <mat-error align="end">{{userId.value.length}} / 9</mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Password" [(ngModel)]="password" type="password"
+             [ngModelOptions]="{standalone: true}" [errorStateMatcher]="passwordMatcher" required/>
+      <mat-error>Password must contain at least 6 characters</mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-select placeholder="Role" [(ngModel)]="worker.role" [ngModelOptions]="{standalone: true}">
+        <mat-option value="Host">Host</mat-option>
+        <mat-option value="asdasd">asdasd</mat-option>
+        <mat-option value="asdas">asdasd</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <button (click)="createWorker()">Create</button>
+</form>
