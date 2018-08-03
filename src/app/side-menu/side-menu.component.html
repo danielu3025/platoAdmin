@@ -1,28 +1,28 @@
 <div class="sideBar">
-    <div class="logo">
-        <a href="#" class="logoPic"></a>
-    </div>
+  <div class="logo">
+    <a href="#" class="logoPic"></a>
+  </div>
   <div *ngIf="!isLoggedIn" class="menuItem" routerLinkActive="menuItemSelected">
-    <a class="link"  [routerLink]="['/login']">Login</a>
+    <a class="link" [routerLink]="['/login']">Login</a>
   </div>
   <div *ngIf="isLoggedIn">
-    <div class="menuItem" routerLinkActive="menuItemSelected">
-        <a class="link"  [routerLink]="['/manageRests']">Rests</a>
+    <div class="menuItem" routerLinkActive="menuItemSelected" *ngIf="isAdmin">
+      <a class="link" [routerLink]="['/manageRests']">Rests</a>
     </div>
-    <div class="menuItem" routerLinkActive="menuItemSelected">
-        <a class="link"  [routerLink]="['/layout']">Layout</a>
+    <div class="menuItem" routerLinkActive="menuItemSelected" *ngIf="isAdmin || isHost">
+      <a class="link" [routerLink]="['/layout']">Layout</a>
     </div>
-    <div class="menuItem" routerLinkActive="menuItemSelected">
-        <a class="link"[routerLink]="['/createMeal']">Meal</a>
+    <div class="menuItem" routerLinkActive="menuItemSelected" *ngIf="isAdmin">
+      <a class="link" [routerLink]="['/createMeal']">Meal</a>
     </div>
-    <div class="menuItem" routerLinkActive="menuItemSelected">
-        <a class="link" [routerLink]="['/kitchen']">Kitchen</a>
+    <div class="menuItem" routerLinkActive="menuItemSelected" *ngIf="isAdmin">
+      <a class="link" [routerLink]="['/kitchen']">Kitchen</a>
     </div>
-    <div class="menuItem" routerLinkActive="menuItemSelected">
-        <a class="link" [routerLink]="['/manageStock']">Stock</a>
+    <div class="menuItem" routerLinkActive="menuItemSelected" *ngIf="isAdmin">
+      <a class="link" [routerLink]="['/manageStock']">Stock</a>
     </div>
-    <div class="menuItem" routerLinkActive="menuItemSelected">
-        <a class="link" [routerLink]="['/manageWorkers']">Workers</a>
+    <div class="menuItem" routerLinkActive="menuItemSelected" *ngIf="isAdmin">
+      <a class="link" [routerLink]="['/manageWorkers']">Workers</a>
     </div>
     <div *ngIf="isLoggedIn" class="menuItem" routerLinkActive="menuItemSelected">
       <a class="link" (click)="logout()">Logout</a>

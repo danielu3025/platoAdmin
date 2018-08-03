@@ -1,25 +1,23 @@
-<app-create-stock-item-form></app-create-stock-item-form>
-
-<div>
-  <table>
-    <thead>
-    <th></th>
-    <th>Name</th>
-    <th>Amount</th>
-    <th>Units</th>
-    <th></th>
-    <th></th>
-    </thead>
-    <tbody>
-    <tr *ngFor="let rawMaterial of rawMaterials" appStockItem [rawMaterial]="rawMaterial" [restId]="resturantID"></tr>
-    <!--<tr>-->
-    <!--<td></td>-->
-    <!--<td>123</td>-->
-    <!--<td>123</td>-->
-    <!--<td>123</td>-->
-    <!--<td>123</td>-->
-    <!--<td></td>-->
-    <!--</tr>-->
-    </tbody>
-  </table>
-</div>
+<mat-tab-group>
+  <mat-tab label="Create">
+    <app-create-stock-item-form></app-create-stock-item-form>
+  </mat-tab>
+  <mat-tab label="Manage">
+    <div>
+      <table>
+        <thead>
+        <th></th>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Units</th>
+        <th></th>
+        <th></th>
+        </thead>
+        <tbody>
+        <tr *ngFor="let rawMaterial of rawMaterials" appStockItem [rawMaterial]="rawMaterial"
+            [restId]="resturantID"></tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-tab>
+</mat-tab-group>

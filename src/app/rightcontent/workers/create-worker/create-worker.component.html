@@ -22,9 +22,9 @@
   </div>
   <div>
     <mat-form-field>
-      <input matInput placeholder="Password" [(ngModel)]="password" type="password"
+      <input matInput #passwordRef placeholder="Password" [(ngModel)]="password" type="password"
              [ngModelOptions]="{standalone: true}" [errorStateMatcher]="passwordMatcher" required/>
-      <mat-error>Password must contain at least 6 characters</mat-error>
+      <mat-error align="start">Password must contain at least 6 characters with lower and capital letters and numbers</mat-error>
     </mat-form-field>
   </div>
   <div>
@@ -36,5 +36,5 @@
       </mat-select>
     </mat-form-field>
   </div>
-  <button (click)="createWorker()">Create</button>
+  <button class="btn-create-worker" mat-stroked-button (click)="createWorker()">Create</button>
 </form>

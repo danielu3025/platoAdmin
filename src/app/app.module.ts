@@ -61,7 +61,15 @@ import {CreateStockItemFormComponent} from './rightcontent/stock/create-stock-it
 import {StockItemComponent} from './rightcontent/stock/stock-item/stock-item.component';
 import {WorkerItemComponent} from './rightcontent/workers/worker-item/worker-item.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSelectModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatTabsModule
+} from '@angular/material';
 
 firebase.initializeApp(environment.config);
 
@@ -129,7 +137,11 @@ const appRouts: Routes = [
     AgmCoreModule.forRoot({apiKey: 'AIzaSyC17LboYF2DtS34_J_FCKGEhPL5ozf3CHo'}),
     MatInputModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatButtonModule,
+    MatSlideToggleModule,
+    MatTabsModule,
+    MatSnackBarModule
   ],
   providers: [AuthService, KitchenStoreService, CookingTypesService, RawMaterialService,
     CreateGroceryService, HttpClientModule, DeleteGroceryService, UpdateGroceryService,

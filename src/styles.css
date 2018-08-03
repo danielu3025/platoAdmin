@@ -1,11 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
-
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-html, body{
-    height:100%;
-}
-#formContainer{
-    margin-left: 200px;
+html, body {
+  height: 100%;
 }
 
+#formContainer {
+  margin-left: 200px;
+}
+
+.plato-alert {
+  color: white;
+  background-color: green;
+}
+
+.plato-alert-error {
+  background-color: red;
+  color: white;
+}
