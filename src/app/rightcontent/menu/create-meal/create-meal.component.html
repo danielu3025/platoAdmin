@@ -1,109 +1,64 @@
-<div>
-  <h3>Meal</h3>
-  <!--<div>Name:<input [(ngModel)]="meal.name"/></div>-->
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text">Name</span>
-    </div>
-    <input type="text" class="form-control" [(ngModel)]="meal.name">
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Name" type="text" [(ngModel)]="meal.name" [ngModelOptions]="{standalone: true}"
+             required>
+    </mat-form-field>
   </div>
-  <!--<div>Sub Menus:-->
-    <!--<select [(ngModel)]="meal.subMenus">-->
-      <!--<option *ngFor="let item of subMenus">-->
-        <!--{{item}}-->
-      <!--</option>-->
-    <!--</select>-->
-  <!--</div>-->
-<div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <label class="input-group-text" for="inputSubMenus">SubMenus</label>
+    <div>
+      <mat-form-field>
+    <mat-select placeholder="Sub Menus"[(ngModel)]="meal.subMenus" [ngModelOptions]="{standalone: true}"
+                required>
+      <mat-option *ngFor="let item of subMenus">{{item}}</mat-option>
+    </mat-select>
+        </mat-form-field>
   </div>
-  <select class="custom-select" id="inputSubMenus" [(ngModel)]="meal.subMenus">
-    <option *ngFor="let item of subMenus">{{item}}</option>
-  </select>
-</div>
-  <!--<div>dairy:-->
-    <!--<select [(ngModel)]="meal.dairy">-->
-      <!--<option [value]="true"> Yes</option>-->
-      <!--<option [value]="false"> No</option>-->
-    <!--</select>-->
-  <!--</div>-->
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <label class="input-group-text" for="inputDairy">Dairy</label>
-    </div>
-    <select class="custom-select" id="inputDairy" [(ngModel)]="meal.dairy">
-      <option [value]="true">Yes</option>
-      <option [value]="false">No</option>
-    </select>
+  <div>
+    <mat-form-field>
+      <mat-select placeholder="Dairy" [(ngModel)]="meal.dairy" [ngModelOptions]="{standalone: true}"
+                  required>
+        <mat-option  [value]="true">Yes</mat-option>
+        <mat-option  [value]="false">No</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
-  <!--<div>vegan:-->
-    <!--<select [(ngModel)]="meal.vegan">-->
-      <!--<option [value]="true">Yes</option>-->
-      <!--<option [value]="false">No</option>-->
-    <!--</select>-->
-  <!--</div>-->
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <label class="input-group-text" for="inputVegan">Vegan</label>
-    </div>
-    <select class="custom-select" id="inputVegan" [(ngModel)]="meal.vegan">
-      <option [value]="true">Yes</option>
-      <option [value]="false">No</option>
-    </select>
+    <div>
+      <mat-form-field>
+    <mat-select placeholder="Vegan" [(ngModel)]="meal.vegan" [ngModelOptions]="{standalone: true}"
+                required>
+      <mat-option [value]="true">Yes</mat-option>
+      <mat-option [value]="false">No</mat-option>
+    </mat-select>
+      </mat-form-field>
   </div>
-  <!--<div>-->
-    <!--Description:-->
-    <!--<input [(ngModel)]="meal.description"/>-->
-  <!--</div>-->
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text">Description</span>
-    </div>
-    <input type="text" class="form-control" [(ngModel)]="meal.description">
+  <div>
+    <mat-form-field>
+    <input matInput placeholder="Description" type="text" [(ngModel)]="meal.description" [ngModelOptions]="{standalone: true}"
+           required>
+    </mat-form-field>
   </div>
-  <!--<div>-->
-    <!--Gloten Free:-->
-    <!--<input type="checkbox" [(ngModel)]="meal.glotenFree"/>-->
-  <!--</div>-->
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <label class="input-group-text" for="inputGloten">Gloten Free</label>
-    </div>
-    <select class="custom-select" id="inputGloten" [(ngModel)]="meal.glotenFree">
-      <option [value]="true">Yes</option>
-      <option [value]="false">No</option>
-    </select>
+  <div>
+    <mat-form-field>
+    <mat-select placeholder="Gloten Free" [(ngModel)]="meal.glotenFree" [ngModelOptions]="{standalone: true}"
+                required>
+      <mat-option [value]="true">Yes</mat-option>
+      <mat-option [value]="false">No</mat-option>
+    </mat-select>
+      </mat-form-field>
   </div>
-  <!--<div>-->
-    <!--Meal Type:-->
-    <!--<select [(ngModel)]="meal.mealType">-->
-      <!--<option *ngFor="let type of mealTypes" [value]="type">{{type}}</option>-->
-    <!--</select>-->
-  <!--</div>-->
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <label class="input-group-text" for="inputMealType">Meal Type</label>
-    </div>
-    <select class="custom-select" id="inputMealType" [(ngModel)]="meal.mealType">
-      <option *ngFor="let item of mealTypes">{{item}}</option>
-    </select>
+  <div>
+  <mat-form-field>
+    <mat-select placeholder="Meal Type" [(ngModel)]="meal.mealType" [ngModelOptions]="{standalone: true}"
+                required>
+      <mat-option *ngFor="let item of mealTypes">{{item}}</mat-option>
+    </mat-select>
+  </mat-form-field>
   </div>
-  <!--<div>-->
-    <!--Price:-->
-    <!--<input type="number" [(ngModel)]="meal.price" min="0" />-->
-  <!--</div>-->
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text">Price</span>
-    </div>
-    <input type="text" class="form-control" [(ngModel)]="meal.price" min="0">
+  <div>
+    <mat-form-field>
+    <input matInput placeholder="Price" type="text" [(ngModel)]="meal.price" min="0" [ngModelOptions]="{standalone: true}"
+           required>
+    </mat-form-field>
   </div>
-  <!--<div>-->
-    <!--Pic:-->
-    <!--<input type="file" name="pic" accept="image/*" (change)="uploadImage($event)">-->
-  <!--</div>-->
-  <!--<div>-->
   <div class="input-group mb-3">
     <div class="input-group-prepend">
       <span class="input-group-text">Upload</span>
@@ -120,9 +75,6 @@
         <app-raw-material-for-meal #rawMaterials [dishName]="item.name" [restId]="restId" (rawMaterial)="rawMaterials[item.name]"></app-raw-material-for-meal>
       </div>
     </div>
-  </div>
 <div>
-  <button (click)="createMeal()" class="btn btn-success">Create Meal</button>
-  <!--<button (click)="deleteGrocery()">Delete Grocery</button>-->
-  <!--<button (click)="updateGrocery()">Update Grocery</button>-->
+  <button mat-stroked-button (click)="createMeal()">Create Meal</button>
 </div>

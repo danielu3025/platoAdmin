@@ -1,59 +1,43 @@
 <div>
-  <h3>Dish</h3>
-  <!--<div>Name:<input [(ngModel)]="dish.name"/></div>-->
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text">Name</span>
-    </div>
-    <input type="text" class="form-control" [(ngModel)]="dish.name">
+<div>
+  <mat-form-field>
+    <input matInput placeholder="Name" type="text" [(ngModel)]="dish.name" [ngModelOptions]="{standalone: true}"
+           required>
+  </mat-form-field>
+</div>
+<div>
+<mat-form-field>
+    <input matInput placeholder="Description" type="text" [(ngModel)]="dish.description" [ngModelOptions]="{standalone: true}"
+           required>
+</mat-form-field>
+</div>
+<div>
+  <mat-form-field>
+    <input matInput placeholder="Total Time" type="text" [(ngModel)]="dish.totalTime" [ngModelOptions]="{standalone: true}"
+           required>
+  </mat-form-field>
   </div>
-  <!--<div>Description:<input type="text" [(ngModel)]="dish.description"/></div>-->
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text">Description</span>
-    </div>
-    <input type="text" class="form-control" [(ngModel)]="dish.description">
+    <div>
+      <mat-form-field>
+    <input  matInput placeholder="Max Time" type="number" [(ngModel)]="dish.maxSecondsBeforeStartingMaking" [ngModelOptions]="{standalone: true}"
+           required>
+      </mat-form-field>
   </div>
-  <!--<div>Total Time:<input type="number" [(ngModel)]="dish.totalTime"/></div>-->
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text">Total Time</span>
-    </div>
-    <input type="text" class="form-control" [(ngModel)]="dish.totalTime">
+    <div>
+      <mat-form-field>
+    <mat-select [(ngModel)]="dish.category" [ngModelOptions]="{standalone: true}">
+      <mat-option *ngFor="let item of categories">{{item}}</mat-option>
+    </mat-select>
+      </mat-form-field>
   </div>
-  <!--<div>Max Time:<input type="number" [(ngModel)]="dish.maxSecondsBeforeStartingMaking"/></div>-->
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text">Max Time</span>
-    </div>
-    <input type="number" class="form-control" [(ngModel)]="dish.maxSecondsBeforeStartingMaking">
+    <div>
+      <mat-form-field>
+    <mat-select [(ngModel)]="dish.isEditable" [ngModelOptions]="{standalone: true}">
+      <mat-option [value]="true">Yes</mat-option>
+      <mat-option [value]="false">No</mat-option>
+    </mat-select>
+        </mat-form-field>
   </div>
-
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <label class="input-group-text" for="inputCategories">Category</label>
-    </div>
-    <select class="custom-select" id="inputCategories" [(ngModel)]="dish.category">
-      <option *ngFor="let item of categories">{{item}}</option>
-    </select>
-  </div>
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <label class="input-group-text" for="inputEditableDish">Editable</label>
-    </div>
-    <select class="custom-select" id="inputEditableDish">
-      <option [value]="true">Yes</option>
-      <option [value]="false">No</option>
-    </select>
-  </div>
-  <!--<div>Category:-->
-  <!--<select [(ngModel)]="dish.category">-->
-  <!--<option *ngFor="let item of categories">-->
-  <!--{{item}}-->
-  <!--</option>-->
-  <!--</select>-->
-  <!--</div>-->
-
   <div class="input-group mb-3" *ngFor="let item of grocery; let i = index">
     <div class="input-group-prepend">
       <div class="input-group-text">
@@ -62,13 +46,6 @@
       </div>
     </div>
   </div>
-  <!--<div>-->
-  <!--<div *ngFor="let item of grocery; let i = index">-->
-  <!--<input type="checkbox" [(ngModel)]="grocerySelected[i]"/>-->
-  <!--<span>{{item.name}}</span>-->
-  <!--</div>-->
-  <!--</div>-->
-
   <div class="input-group mb-3">
     <div class="input-group-prepend">
       <span class="input-group-text">Upload</span>
@@ -79,8 +56,6 @@
       <label class="custom-file-label" for="inputGroupFile01">{{picText}}</label>
     </div>
   </div>
+  <button mat-stroked-button (click)="createDish()">Create Dish</button>
 
-  <button (click)="createDish()" class="btn btn-success">Create Dish</button>
-  <!--<button (click)="deleteGrocery()">Delete Grocery</button>-->
-  <!--<button (click)="updateGrocery()">Update Grocery</button>-->
 </div>

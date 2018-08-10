@@ -18,3 +18,7 @@ html, body {
   background-color: red;
   color: white;
 }
+
+.dark-checkbox.mat-checkbox-checked .mat-checkbox-background {
+  background-color: black;
+}

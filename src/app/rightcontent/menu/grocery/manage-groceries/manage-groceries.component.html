@@ -1,0 +1,15 @@
+<table>
+  <thead>
+    <th></th>
+    <th>Name</th>
+    <th>Cooking Type</th>
+    <th>Cooking Time</th>
+    <th>Raw Materials</th>
+    <th></th>
+    <th></th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let grocery of groceries" appGroceryItem [grocery]="grocery">
+    </tr>
+  </tbody>
+</table>

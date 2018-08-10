@@ -1,0 +1,37 @@
+<div>
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Name" [(ngModel)]="grocery.name" [ngModelOptions]="{standalone: true}" required>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Cooking Time" type="number" [(ngModel)]="grocery.cookingTime" [ngModelOptions]="{standalone: true}"
+        required>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-select placeholder="Cooking Type" [(ngModel)]="grocery.cookingType" [ngModelOptions]="{standalone: true}">
+        <mat-option *ngFor="let item of cookingTypes" [value]="item">{{item}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div>
+    <div class="" *ngFor="let item of rawMaterial; let i = index">
+      <div class="">
+        <div class="">
+          <mat-checkbox class="dark-checkbox" id="checkbox-{{i}}" [(ngModel)]="rawMaterialSelected[i]">
+            <mat-label>{{item.name}}</mat-label>
+          </mat-checkbox>
+        </div>
+      </div>
+      <div *ngIf="rawMaterialSelected[i]">
+        <mat-form-field>
+          <input matInput placeholder="Amount" type="number" min="0" [(ngModel)]="rawMaterialAmount[i]" required>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <button mat-stroked-button (click)="createGrocery()">Create Grocery</button>
+</div>

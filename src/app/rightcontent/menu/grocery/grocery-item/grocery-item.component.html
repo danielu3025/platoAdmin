@@ -1,0 +1,27 @@
+<td>
+  <img class="stock-item-action" *ngIf="!inEditMode" src="assets/edit.png" (click)="edit()" />
+</td>
+<td>{{grocery.name}}</td>
+<td>{{grocery.cookingType}}</td>
+<td>
+  <span *ngIf="inEditMode">
+    <mat-form-field>
+      <input matInput type="number" [(ngModel)]="grocery.cookingTime" />
+    </mat-form-field>
+  </span>
+  <span *ngIf="!inEditMode">{{grocery.cookingTime}}</span>
+</td>
+<td>
+  <ul>
+    <li *ngFor="let rawMaterial of objectKeys(grocery.rawMaterial)">
+      {{rawMaterial}}: {{grocery.rawMaterial[rawMaterial]}}
+    </li>
+  </ul>
+</td>
+<td>
+  <img class="stock-item-action" *ngIf="!inEditMode" (click)="delete()" src="assets/delete.png" />
+  <img class="stock-item-action" *ngIf="inEditMode" (click)="ok()" src="assets/ok.png" />
+</td>
+<td>
+  <img class="stock-item-action" *ngIf="inEditMode" (click)="cancel()" src="assets/cancel.png" />
+</td>

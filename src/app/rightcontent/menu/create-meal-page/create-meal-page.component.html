@@ -1,13 +1,28 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-4">
-      <app-create-grocery class="card"></app-create-grocery>
-    </div>
-    <div class="col-4">
-      <app-create-dish class="card"></app-create-dish>
-    </div>
-    <div class="col-4">
-      <app-create-meal class="card"></app-create-meal>
+<mat-tab-group>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-4">
+        <mat-tab label="Grocery">
+          <mat-tab-group>
+            <mat-tab label="Create">
+              <app-create-grocery class="card"></app-create-grocery>
+            </mat-tab>
+            <mat-tab label="Manage">
+              <app-manage-groceries></app-manage-groceries>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-tab>
+      </div>
+      <div class="col-4">
+        <mat-tab label="Dish">
+          <app-create-dish class="card"></app-create-dish>
+        </mat-tab>
+      </div>
+      <div class="col-4">
+        <mat-tab label="Meal">
+          <app-create-meal class="card"></app-create-meal>
+        </mat-tab>
+      </div>
     </div>
   </div>
-</div>
+</mat-tab-group>

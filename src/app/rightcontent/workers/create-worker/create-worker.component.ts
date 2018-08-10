@@ -1,9 +1,10 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Worker} from '../worker.model';
-import {AuthService} from '../../../services/auth.service';
-import {UserInfoService} from '../../../services/user-info.service';
-import {ErrorStateMatcher, MatSnackBar} from '@angular/material';
-import {FormControl, FormGroupDirective, NgForm} from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Worker } from '../worker.model';
+import { AuthService } from '../../../services/auth.service';
+import { UserInfoService } from '../../../services/user-info.service';
+import { ErrorStateMatcher, MatSnackBar } from '@angular/material';
+import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
+import { AlertsService } from '../../../services/alerts.service';
 
 @Component({
   selector: 'app-create-worker',
@@ -22,7 +23,7 @@ export class CreateWorkerComponent implements OnInit {
   @ViewChild('userId') userId: ElementRef;
   @ViewChild('passwordRef') passwordElement: ElementRef;
 
-  constructor(private authService: AuthService, private userInfoService: UserInfoService, public snackBar: MatSnackBar) {
+  constructor(private authService: AuthService, private userInfoService: UserInfoService, private alertsService: AlertsService) {
   }
 
   ngOnInit() {
@@ -32,25 +33,16 @@ export class CreateWorkerComponent implements OnInit {
   createWorker() {
 
     if (!this.isNewWorkerValid()) {
-      this.snackBar.open('Make sure all fields are correct!', null, {
-        duration: 1500,
-        panelClass: 'plato-alert-error'
-      });
+      this.alertsService.alertError('Make sure all fields are correct!');
       return;
     }
 
     this.authService.createWorker(this.restId, this.worker.role,
       this.worker.firstName, this.worker.lastName, this.worker.id, this.password)
-      .then(x => this.snackBar.open('Worker Created', null, {
-        duration: 1500,
-        panelClass: 'plato-alert'
-      }))
+      .then(x => this.alertsService.alert('Worker Created'))
       .catch(e => {
         console.log(e);
-        this.snackBar.open('Error when creating worker', null, {
-          duration: 1500,
-          panelClass: 'plato-alert-error'
-        });
+        this.alertsService.alertError('Error when creating worker');
       });
   }
 

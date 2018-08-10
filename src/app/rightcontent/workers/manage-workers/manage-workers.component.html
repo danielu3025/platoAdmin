@@ -5,17 +5,17 @@
   <mat-tab label="Manage">
     <table>
       <thead>
-      <th></th>
-      <th>Name</th>
-      <th>Id</th>
-      <th>Role</th>
-      <th>Rests</th>
-      <th>Email</th>
-      <th></th>
-      <th></th>
+        <th></th>
+        <th>Name</th>
+        <th>Id</th>
+        <th>Role</th>
+        <th>Rests</th>
+        <th>Email</th>
+        <th></th>
+        <th></th>
       </thead>
       <tbody>
-      <tr *ngFor="let worker of workers" appWorkerItem [worker]="worker" [restId]="restId"></tr>
+        <tr *ngFor="let worker of workers" appWorkerItem [worker]="worker" [restId]="restId"></tr>
       </tbody>
     </table>
   </mat-tab>

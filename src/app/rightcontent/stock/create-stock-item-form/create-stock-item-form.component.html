@@ -1,17 +1,27 @@
 <div>
   <div>
-    Name:<input [(ngModel)]="rawMaterial.name"/>
+    <mat-form-field>
+      <input matInput placeholder="Name" [(ngModel)]="rawMaterial.name" [ngModelOptions]="{standalone: true}"
+                  required/>
+    </mat-form-field>
   </div>
   <div>
-    Amount:<input type="number" [(ngModel)]="rawMaterial.amount"/>
+    <mat-form-field>
+      <input matInput placeholder="Amount" type="number" [(ngModel)]="rawMaterial.amount" required/>
+    </mat-form-field>
   </div>
   <div>
-    Units:
-    <select [(ngModel)]="rawMaterial.units">
-      <option *ngFor="let unit of units" [value]="unit">{{unit}}</option>
-    </select>
+    <mat-form-field>
+      <mat-select placeholder="Units" [(ngModel)]="rawMaterial.units" [ngModelOptions]="{standalone: true}"
+                  required>
+        <mat-option *ngFor="let unit of units" [value]="unit">{{unit}}</mat-option>
+      <!--<select [(ngModel)]="rawMaterial.units">-->
+        <!--<option *ngFor="let unit of units" [value]="unit">{{unit}}</option>-->
+      <!--</select>-->
+      </mat-select>
+    </mat-form-field>
   </div>
   <div>
-    <button (click)="create()">Create</button>
+    <button mat-stroked-button (click)="create()">Create</button>
   </div>
 </div>

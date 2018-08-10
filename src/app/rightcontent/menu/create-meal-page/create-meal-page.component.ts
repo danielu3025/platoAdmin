@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {UserInfoService} from '../../../services/user-info.service';
+import { Component, OnInit } from '@angular/core';
+import { UserInfoService } from '../../../services/user-info.service';
 
 @Component({
   selector: 'app-create-meal-page',
