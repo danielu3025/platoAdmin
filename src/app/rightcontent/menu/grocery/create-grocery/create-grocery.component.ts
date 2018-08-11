@@ -58,7 +58,7 @@ export class CreateGroceryComponent implements OnInit {
     }
 
     this.creatGroceryService.CreateGrocery(
-      this.restId, this.grocery.name, this.grocery.cookingTime, this.grocery.cookingType, rawMaterialForGrocery)
+      this.restId, this.grocery.name, this.grocery.cookingTime, this.grocery.cookingType, this.grocery.isEditable, rawMaterialForGrocery)
       .then(x => {
         this.alertsService.alert('Grocery Created');
       })

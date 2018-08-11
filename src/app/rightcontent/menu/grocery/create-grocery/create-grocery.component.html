@@ -18,6 +18,14 @@
     </mat-form-field>
   </div>
   <div>
+      <mat-form-field>
+        <mat-select placeholder="Is Editable" [(ngModel)]="grocery.isEditable" [ngModelOptions]="{standalone: true}">
+          <mat-option [value]="true">Yes</mat-option>
+          <mat-option [value]="false">No</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  <div>
     <div class="" *ngFor="let item of rawMaterial; let i = index">
       <div class="">
         <div class="">

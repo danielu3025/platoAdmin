@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class CreateGroceryService {
@@ -7,7 +7,7 @@ export class CreateGroceryService {
   constructor(private http: HttpClient) {
   }
 
-  CreateGrocery(restId: string, groName: string, cookingTime: number, cookingType: string, rawMaterial: object) {
+  CreateGrocery(restId: string, groName: string, cookingTime: number, cookingType: string, isEditable: boolean, rawMaterial: object) {
     return this.http.post('https://us-central1-plato-9a79e.cloudfunctions.net/addGrocery',
       {
         data: {
@@ -16,6 +16,7 @@ export class CreateGroceryService {
             name: groName,
             cookingTime: cookingTime,
             cookingType: cookingType,
+            isEditable,
             rawMaterial
           }
         }

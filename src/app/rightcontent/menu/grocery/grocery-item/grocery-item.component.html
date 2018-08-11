@@ -2,19 +2,35 @@
   <img class="stock-item-action" *ngIf="!inEditMode" src="assets/edit.png" (click)="edit()" />
 </td>
 <td>{{grocery.name}}</td>
-<td>{{grocery.cookingType}}</td>
+<td>
+  <span *ngIf="!inEditMode">{{grocery.cookingType}}</span>
+  <select *ngIf="inEditMode" [(ngModel)]="newGrocery.cookingType">
+    <option *ngFor="let cookingType of cookingTypes" [value]="cookingType">{{cookingType}}</option>
+  </select>
+</td>
 <td>
   <span *ngIf="inEditMode">
     <mat-form-field>
-      <input matInput type="number" [(ngModel)]="grocery.cookingTime" />
+      <input matInput type="number" [(ngModel)]="newGrocery.cookingTime" />
     </mat-form-field>
   </span>
   <span *ngIf="!inEditMode">{{grocery.cookingTime}}</span>
 </td>
 <td>
+  <span *ngIf="!inEditMode">{{grocery.isEditable ? 'Yes' : 'No'}}</span>
+  <select *ngIf="inEditMode" [(ngModel)]="newGrocery.isEditable">
+    <option [value]="true">Yes</option>
+    <option [value]="false">No</option>
+  </select>
+</td>
+<td>
   <ul>
     <li *ngFor="let rawMaterial of objectKeys(grocery.rawMaterial)">
-      {{rawMaterial}}: {{grocery.rawMaterial[rawMaterial]}}
+      <img class="stock-item-action" *ngIf="inEditMode" (click)="deleteRawMaterial(rawMaterial)" src="assets/delete.png" /> {{rawMaterial}}:
+      <span *ngIf="!inEditMode"> {{grocery.rawMaterial[rawMaterial]}}</span>
+      <mat-form-field *ngIf="inEditMode">
+        <input matInput type="number" [(ngModel)]="newGrocery.rawMaterial[rawMaterial]" />
+      </mat-form-field>
     </li>
   </ul>
 </td>
