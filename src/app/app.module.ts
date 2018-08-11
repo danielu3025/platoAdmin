@@ -31,7 +31,6 @@ import { RawMaterialService } from './services/raw-material.service';
 import { CreateGroceryService } from './services/create-grocery.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DeleteGroceryService } from './services/delete-grocery.service';
-import { CreateDishComponent } from './rightcontent/menu/create-dish/create-dish.component';
 import { GroceryService } from './services/grocery.service';
 import { UpdateGroceryService } from './services/update-grocery.service';
 import { CategoryService } from './services/category.service';
@@ -72,6 +71,9 @@ import {
 import { CreateGroceryComponent } from './rightcontent/menu/grocery/create-grocery/create-grocery.component';
 import { ManageGroceriesComponent } from './rightcontent/menu/grocery/manage-groceries/manage-groceries.component';
 import { GroceryItemComponent } from './rightcontent/menu/grocery/grocery-item/grocery-item.component';
+import { CreateDishComponent } from './rightcontent/menu/dish/create-dish/create-dish.component';
+import { ManageDishesComponent } from './rightcontent/menu/dish/manage-dishes/manage-dishes.component';
+import { DishItemComponent } from './rightcontent/menu/dish/dish-item/dish-item.component';
 
 firebase.initializeApp(environment.config);
 
@@ -125,6 +127,8 @@ const appRouts: Routes = [
     WorkerItemComponent,
     ManageGroceriesComponent,
     GroceryItemComponent,
+    ManageDishesComponent,
+    DishItemComponent,
   ],
   imports: [
     BrowserModule,

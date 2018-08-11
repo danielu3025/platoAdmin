@@ -1,0 +1,43 @@
+<td>
+  <img class="stock-item-action" *ngIf="!inEditMode" src="assets/edit.png" (click)="edit()" />
+</td>
+<td>
+  <img class="dish-pic" [src]="dish.pic" />
+</td>
+<td>
+  {{dish.name}}
+</td>
+<td>
+  <span>{{dish.totalTime}}</span>
+</td>
+<td>
+  <span *ngIf="!inEditMode">{{dish.maxSecondsBeforeStartingMaking}}</span>
+  <mat-form-field *ngIf="inEditMode">
+    <input matInput [(ngModel)]="newDish.maxSecondsBeforeStartingMaking" />
+  </mat-form-field>
+</td>
+<td>
+  <span *ngIf="!inEditMode">{{dish.category}}</span>
+  <select *ngIf="inEditMode" [(ngModel)]="newDish.category">
+    <option>123123</option>
+  </select>
+</td>
+<td>
+  <span *ngIf="!inEditMode">{{dish.isEditable}}</span>
+  <select *ngIf="inEditMode" [(ngModel)]="newDish.isEditable">
+    <option [value]="true">Yes</option>
+    <option [value]="false">No</option>
+  </select>
+</td>
+<td>
+  <ul>
+    <li *ngFor="let grocery of groceries">{{grocery}}</li>
+  </ul>
+</td>
+<td>
+  <img class="stock-item-action" *ngIf="!inEditMode" (click)="delete()" src="assets/delete.png" />
+  <img class="stock-item-action" *ngIf="inEditMode" (click)="ok()" src="assets/ok.png" />
+</td>
+<td>
+  <img class="stock-item-action" *ngIf="inEditMode" (click)="cancel()" src="assets/cancel.png" />
+</td>

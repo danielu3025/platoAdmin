@@ -15,7 +15,14 @@
       </div>
       <div class="col-4">
         <mat-tab label="Dish">
-          <app-create-dish class="card"></app-create-dish>
+          <mat-tab-group>
+            <mat-tab label="Create">
+              <app-create-dish class="card"></app-create-dish>
+            </mat-tab>
+            <mat-tab label="Manage">
+              <app-manage-dishes></app-manage-dishes>
+            </mat-tab>
+          </mat-tab-group>
         </mat-tab>
       </div>
       <div class="col-4">

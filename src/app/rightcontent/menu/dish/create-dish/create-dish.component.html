@@ -1,0 +1,58 @@
+<div>
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Name" type="text" [(ngModel)]="dish.name" [ngModelOptions]="{standalone: true}" required>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Description" type="text" [(ngModel)]="dish.description" [ngModelOptions]="{standalone: true}"
+        required>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Total Time" type="text" [(ngModel)]="dish.totalTime" [ngModelOptions]="{standalone: true}" required>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Max Time" type="number" [(ngModel)]="dish.maxSecondsBeforeStartingMaking" [ngModelOptions]="{standalone: true}"
+        required>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-select [(ngModel)]="dish.category"  placeholder="Category" [ngModelOptions]="{standalone: true}">
+        <mat-option *ngFor="let item of categories" [value]="item">{{item}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-select [(ngModel)]="dish.isEditable" placeholder="Is Editable" [ngModelOptions]="{standalone: true}">
+        <mat-option [value]="true">Yes</mat-option>
+        <mat-option [value]="false">No</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="input-group mb-3" *ngFor="let item of grocery; let i = index">
+    <div class="input-group-prepend">
+      <div class="input-group-text">
+        <input id="checkbox-{{i}}" type="checkbox" [(ngModel)]="grocerySelected[i]">
+        <label for="checkbox-{{i}}">{{item.name}}</label>
+      </div>
+    </div>
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Upload</span>
+    </div>
+    <div class="custom-file">
+      <input type="file" class="custom-file-input" id="inputGroupFile01" name="pic" accept="image/*" (change)="uploadImage($event)">
+      <label class="custom-file-label" for="inputGroupFile01">{{picText}}</label>
+    </div>
+  </div>
+  <button mat-stroked-button (click)="createDish()">Create Dish</button>
+
+</div>

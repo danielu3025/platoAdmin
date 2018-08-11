@@ -1,0 +1,18 @@
+<table>
+  <thead>
+    <th></th>
+    <th></th>
+    <th>Name</th>
+    <th>Total Time</th>
+    <th>Max Time</th>
+    <th>Category</th>
+    <th>Is Editable</th>
+    <th>Groceries</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dish of dishes" appDishItem  [restId]="restId" [dish]="dish"></tr>
+  </tbody>
+</table>

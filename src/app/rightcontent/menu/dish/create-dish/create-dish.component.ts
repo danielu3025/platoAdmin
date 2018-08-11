@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Dish, Grocery} from '../meal.model';
-import {GroceryService} from '../../../services/grocery.service';
-import {CreateDishService} from '../../../services/create-dish.service';
-import {CategoryService} from '../../../services/category.service';
-import {UserInfoService} from '../../../services/user-info.service';
+import { Grocery, Dish } from '../../meal.model';
+import { GroceryService } from '../../../../services/grocery.service';
+import { UserInfoService } from '../../../../services/user-info.service';
+import { CreateDishService } from '../../../../services/create-dish.service';
+import { CategoryService } from '../../../../services/category.service';
 
 @Component({
   selector: 'app-create-dish',
