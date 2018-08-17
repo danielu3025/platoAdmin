@@ -55,7 +55,7 @@ export class GroceryItemComponent implements OnInit {
         .then(x => this.alertsService.alert('Grocery Deleted'))
         .catch(x => {
           console.log(x);
-          this.alertsService.alertError('Failed to delete grocery');
+          this.alertsService.alertError(`Failed to delete grocery. ${x.message}`);
         });
     }
   }

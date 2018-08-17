@@ -1,13 +1,21 @@
-import {Injectable} from '@angular/core';
-import {Dish} from '../rightcontent/menu/meal.model';
-import {AngularFirestore} from 'angularfire2/firestore';
-import {AngularFireDatabase} from 'angularfire2/database';
-import {Observable} from 'rxjs/internal/Observable';
+import { Injectable } from '@angular/core';
+import { Dish } from '../rightcontent/menu/meal.model';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs/internal/Observable';
+import * as firebase from 'firebase';
 
 @Injectable()
 export class DishService {
 
+  private functions;
+  private deleteDishFunction;
+  private updateDishFunction;
+
   constructor(private afs: AngularFirestore, private db: AngularFireDatabase) {
+    this.functions = firebase.functions();
+    this.deleteDishFunction = this.functions.httpsCallable('deleteDish');
+    this.updateDishFunction = this.functions.httpsCallable('updateDish');
   }
 
   getAll(restId: string): Observable<Dish[]> {
@@ -26,5 +34,13 @@ export class DishService {
           observer.next(data.map(x => x.id));
         });
     });
+  }
+
+  delete(restId: string, dish: Dish) {
+    return this.deleteDishFunction({ restId, dish });
+  }
+
+  update(restId: string, dish: Dish) {
+    return this.updateDishFunction({ restId, dish });
   }
 }

@@ -19,19 +19,22 @@
 <td>
   <span *ngIf="!inEditMode">{{dish.category}}</span>
   <select *ngIf="inEditMode" [(ngModel)]="newDish.category">
-    <option>123123</option>
+    <option *ngFor="let category of categories">{{category}}</option>
   </select>
 </td>
 <td>
-  <span *ngIf="!inEditMode">{{dish.isEditable}}</span>
+  <span *ngIf="!inEditMode">{{dish.isEditable ? "Yes" : "No"}}</span>
   <select *ngIf="inEditMode" [(ngModel)]="newDish.isEditable">
-    <option [value]="true">Yes</option>
-    <option [value]="false">No</option>
+    <option [value]="yes">Yes</option>
+    <option [value]="no">No</option>
   </select>
 </td>
 <td>
   <ul>
-    <li *ngFor="let grocery of groceries">{{grocery}}</li>
+    <li *ngFor="let grocery of groceries">
+      <img class="" *ngIf="inEditMode" (click)="deleteGrocery(grocery)" src="assets/delete.png" />
+      <span>{{grocery}}</span>
+    </li>
   </ul>
 </td>
 <td>

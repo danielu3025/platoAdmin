@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Dish, Grocery } from '../../meal.model';
 import { DishService } from '../../../../services/dish.service';
+import { AlertsService } from '../../../../services/alerts.service';
 
 @Component({
   selector: '[appDishItem]',
@@ -11,11 +12,12 @@ export class DishItemComponent implements OnInit {
 
   @Input() dish: Dish;
   @Input() restId: string;
-  newDish: Dish = new Dish();
+  @Input() categories: string[];
+  newDish: any = {};
   groceries: string[];
   inEditMode = false;
 
-  constructor(private dishService: DishService) { }
+  constructor(private dishService: DishService, private alertsService: AlertsService) { }
 
   ngOnInit() {
     this.dishService.getGroceryForDish(this.restId, this.dish.name)
@@ -25,7 +27,7 @@ export class DishItemComponent implements OnInit {
   edit() {
     this.newDish.name = this.dish.name;
     this.newDish.category = this.dish.category;
-    this.newDish.isEditable = this.dish.isEditable;
+    this.newDish.isEditable = this.dish.isEditable ? true : false;
     this.newDish.maxSecondsBeforeStartingMaking = this.dish.maxSecondsBeforeStartingMaking;
     this.inEditMode = true;
   }
@@ -34,4 +36,30 @@ export class DishItemComponent implements OnInit {
     this.inEditMode = false;
   }
 
+  delete() {
+    if (!confirm(`Are you sure you want to delete ${this.dish.name}?`)) {
+      return;
+    }
+
+    this.dishService.delete(this.restId, this.dish)
+      .then(x => this.alertsService.alert(`Dish deleted successfully`))
+      .catch(x => {
+        this.alertsService.alertError('Error when deleting dish.' + x.message, 5000);
+        console.log(x);
+      });
+  }
+
+  ok() {
+    this.newDish.isEditable = this.newDish.isEditable === 'yes' ? true : false;
+    debugger;
+    this.dishService.update(this.restId, this.newDish)
+      .then(x => {
+        this.alertsService.alert('Dish updated');
+        this.inEditMode = false;
+      })
+      .catch(x => {
+        this.alertsService.alertError('Error when updating dish');
+        console.log(x);
+      });
+  }
 }
