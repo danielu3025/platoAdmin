@@ -27,7 +27,14 @@
       </div>
       <div class="col-4">
         <mat-tab label="Meal">
-          <app-create-meal class="card"></app-create-meal>
+          <mat-tab-group>
+            <mat-tab label="Create">
+              <app-create-meal class="card"></app-create-meal>
+            </mat-tab>
+            <mat-tab label="Manage">
+              <app-manage-meals></app-manage-meals>
+            </mat-tab>
+          </mat-tab-group>
         </mat-tab>
       </div>
     </div>

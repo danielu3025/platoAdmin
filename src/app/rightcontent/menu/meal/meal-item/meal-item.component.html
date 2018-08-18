@@ -1,0 +1,63 @@
+<td>
+  <img class="stock-item-action" *ngIf="!inEditMode" src="assets/edit.png" (click)="edit()" />
+</td>
+<td>
+  <img class="meal-pic" [src]="meal.pic" />
+</td>
+<td>
+  <span>{{meal.name}}</span>
+</td>
+<td>
+  <span *ngIf="!inEditMode">{{meal.subMenus}}</span>
+  <select *ngIf="inEditMode" [(ngModel)]="newMeal.subMenus">
+    <option *ngFor="let subMenu of subMenus">{{subMenu}}</option>
+  </select>
+</td>
+<td>
+  <span *ngIf="!inEditMode">{{meal.dairy}}</span>
+  <select *ngIf="inEditMode" [(ngModel)]="newMeal.dairy">
+    <option [value]="true">Yes</option>
+    <option [value]="false">No</option>
+  </select>
+</td>
+<td>
+  <span *ngIf="!inEditMode">{{meal.vegan}}</span>
+  <select *ngIf="inEditMode" [(ngModel)]="newMeal.vegan">
+    <option [value]="true">Yes</option>
+    <option [value]="false">No</option>
+  </select>
+</td>
+<td>
+  <span *ngIf="!inEditMode">{{meal.glotenFree}}</span>
+  <select *ngIf="inEditMode" [(ngModel)]="newMeal.glotenFree">
+    <option [value]="true">Yes</option>
+    <option [value]="false">No</option>
+  </select>
+</td>
+<td>
+  <span *ngIf="!inEditMode">{{meal.mealType}}</span>
+  <select *ngIf="inEditMode" [(ngModel)]="newMeal.mealType">
+    <option *ngFor="let mealType of mealTypes">{{mealType}}</option>
+  </select>
+</td>
+<td>
+  <span *ngIf="!inEditMode">{{meal.price}}</span>
+  <mat-form-field *ngIf="inEditMode">
+    <input matInput [(ngModel)]="newMeal.price" />
+  </mat-form-field>
+</td>
+<td>
+  <ul>
+    <li *ngFor="let dish of dishes">
+      <img class="" *ngIf="inEditMode" (click)="deleteDish(dish)" src="assets/delete.png" />
+      <span>{{dish}}</span>
+    </li>
+  </ul>
+</td>
+<td>
+  <img class="stock-item-action" *ngIf="!inEditMode" (click)="delete()" src="assets/delete.png" />
+  <img class="stock-item-action" *ngIf="inEditMode" (click)="ok()" src="assets/ok.png" />
+</td>
+<td>
+  <img class="stock-item-action" *ngIf="inEditMode" (click)="cancel()" src="assets/cancel.png" />
+</td>

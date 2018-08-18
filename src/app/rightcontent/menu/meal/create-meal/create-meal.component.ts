@@ -1,12 +1,11 @@
-import {Component, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {Dish, Meal} from '../meal.model';
-import {forEach} from '@angular/router/src/utils/collection';
-import {CreateMealService} from '../../../services/create-meal.service';
-import {SubMenuService} from '../../../services/sub-menu.service';
-import {MealTypeService} from '../../../services/meal-type.service';
-import {DishService} from '../../../services/dish.service';
-import {RawMaterialForMealComponent} from './raw-material-for-meal/raw-material-for-meal.component';
-import {UserInfoService} from '../../../services/user-info.service';
+import { Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { RawMaterialForMealComponent } from './raw-material-for-meal/raw-material-for-meal.component';
+import { Dish, Meal } from '../../meal.model';
+import { CreateMealService } from '../../../../services/create-meal.service';
+import { SubMenuService } from '../../../../services/sub-menu.service';
+import { DishService } from '../../../../services/dish.service';
+import { MealTypeService } from '../../../../services/meal-type.service';
+import { UserInfoService } from '../../../../services/user-info.service';
 
 @Component({
   selector: 'app-create-meal',
@@ -27,8 +26,8 @@ export class CreateMealComponent implements OnInit {
   picText = 'Choose File';
 
   constructor(private createMealService: CreateMealService, private subMenuService: SubMenuService,
-              private mealTypeService: MealTypeService, private dishService: DishService,
-              private userInfoService: UserInfoService) {
+    private mealTypeService: MealTypeService, private dishService: DishService,
+    private userInfoService: UserInfoService) {
   }
 
   ngOnInit() {

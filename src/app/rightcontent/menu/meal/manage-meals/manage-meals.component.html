@@ -1,0 +1,19 @@
+<table>
+  <thead>
+    <th></th>
+    <th></th>
+    <th>Name</th>
+    <th>Submenus</th>
+    <th>Diary</th>
+    <th>Vegan</th>
+    <th>Gloten Free</th>
+    <th>Meal Type</th>
+    <th>Price</th>
+    <th>Dishes</th>
+    <th></th>
+    <th></th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let meal of meals" appMealItem [restId]="restId" [meal]="meal" [subMenus]="subMenus" [mealTypes]="mealTypes"></tr>
+  </tbody>
+</table>

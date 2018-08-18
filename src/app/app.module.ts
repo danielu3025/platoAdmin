@@ -20,7 +20,6 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { CreateRestComponent } from './rightcontent/rest/create-rest/create-rest.component';
 import { ManageStockComponent } from './rightcontent/stock/manage-stock/manage-stock.component';
 import { RestsOptionsComponent } from './rightcontent/nav-options/rests-options/rests-options.component';
-import { CreateMealComponent } from './rightcontent/menu/create-meal/create-meal.component';
 import { DropZoneDirective } from './drop-zone.directive';
 import { LoginWindowComponent } from './side-menu/login-window/login-window.component';
 import { AuthService } from './services/auth.service';
@@ -40,7 +39,6 @@ import { DishService } from './services/dish.service';
 import { SubMenuService } from './services/sub-menu.service';
 import { MealTypeService } from './services/meal-type.service';
 import { CreateMealPageComponent } from './rightcontent/menu/create-meal-page/create-meal-page.component';
-import { RawMaterialForMealComponent } from './rightcontent/menu/create-meal/raw-material-for-meal/raw-material-for-meal.component';
 import * as firebase from 'firebase';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AgmCoreModule } from '@agm/core';
@@ -74,6 +72,10 @@ import { GroceryItemComponent } from './rightcontent/menu/grocery/grocery-item/g
 import { CreateDishComponent } from './rightcontent/menu/dish/create-dish/create-dish.component';
 import { ManageDishesComponent } from './rightcontent/menu/dish/manage-dishes/manage-dishes.component';
 import { DishItemComponent } from './rightcontent/menu/dish/dish-item/dish-item.component';
+import { CreateMealComponent } from './rightcontent/menu/meal/create-meal/create-meal.component';
+import { RawMaterialForMealComponent } from './rightcontent/menu/meal/create-meal/raw-material-for-meal/raw-material-for-meal.component';
+import { ManageMealsComponent } from './rightcontent/menu/meal/manage-meals/manage-meals.component';
+import { MealItemComponent } from './rightcontent/menu/meal/meal-item/meal-item.component';
 
 firebase.initializeApp(environment.config);
 
@@ -129,6 +131,8 @@ const appRouts: Routes = [
     GroceryItemComponent,
     ManageDishesComponent,
     DishItemComponent,
+    ManageMealsComponent,
+    MealItemComponent,
   ],
   imports: [
     BrowserModule,

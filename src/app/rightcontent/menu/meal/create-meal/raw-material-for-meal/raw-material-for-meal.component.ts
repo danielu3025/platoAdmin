@@ -1,8 +1,6 @@
 import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
-import {Dish} from '../../meal.model';
-import {DishService} from '../../../../services/dish.service';
-import {RawMaterial} from '../../../stock/stock.model';
-import {GroceryService} from '../../../../services/grocery.service';
+import { DishService } from '../../../../../services/dish.service';
+import { GroceryService } from '../../../../../services/grocery.service';
 
 @Component({
   selector: 'app-raw-material-for-meal',

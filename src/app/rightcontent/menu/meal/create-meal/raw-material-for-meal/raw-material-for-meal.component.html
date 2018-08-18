@@ -1,0 +1,24 @@
+<div class="raw-material-container">
+  <table>
+    <thead>
+      <th>Important To Meal</th>
+      <th>Name</th>
+      <th>Redline</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rawMaterial of objectKeys(rawMaterials)">
+        <td>
+          <mat-checkbox class="dark-checkbox" [(ngModel)]="rawMaterials[rawMaterial].isImportant">
+          </mat-checkbox>
+        </td>
+        <td>{{rawMaterial}}</td>
+        <td>
+          <mat-form-field>
+            <input matInput type="number" min="0" (change)="onRedLineChange($event, rawMaterials[rawMaterial])" [(ngModel)]="rawMaterials[rawMaterial].redLine"
+            />
+          </mat-form-field>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
