@@ -1,9 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Grocery, Dish } from '../../meal.model';
 import { GroceryService } from '../../../../services/grocery.service';
 import { UserInfoService } from '../../../../services/user-info.service';
 import { CreateDishService } from '../../../../services/create-dish.service';
 import { CategoryService } from '../../../../services/category.service';
+import { AlertsService } from '../../../../services/alerts.service';
+import { DishService } from '../../../../services/dish.service';
 
 @Component({
   selector: 'app-create-dish',
@@ -15,6 +17,7 @@ export class CreateDishComponent implements OnInit {
   restId: string;
 
   grocery: Grocery[] = [];
+  dishes: Dish[];
   dish: Dish = new Dish();
   grocerySelected: boolean[] = [];
   categories: string[] = [];
@@ -22,7 +25,8 @@ export class CreateDishComponent implements OnInit {
   picText = 'Choose File';
 
   constructor(private categoryService: CategoryService, private groceryService: GroceryService,
-              private createDishService: CreateDishService, private userInfoService: UserInfoService) {
+    private createDishService: CreateDishService, private userInfoService: UserInfoService,
+    private alertsService: AlertsService, private dishService: DishService) {
   }
 
   ngOnInit() {
@@ -34,6 +38,7 @@ export class CreateDishComponent implements OnInit {
           this.grocerySelected.push(false);
         });
       });
+      this.dishService.getAll(this.restId).subscribe(x => this.dishes = x);
     });
     this.categoryService.getAll().subscribe(x => this.categories = x);
   }
@@ -49,11 +54,24 @@ export class CreateDishComponent implements OnInit {
   }
 
   createDish() {
+
+    if (this.dishes.find(x => x.name === this.dish.name)) {
+      this.alertsService.alertError('Dish already exists');
+      return;
+    }
+
     const groceryForDish = [];
+    this.dish.totalTime = 0;
     for (let i = 0; i < this.grocerySelected.length; i++) {
       if (this.grocerySelected[i]) {
         groceryForDish.push(this.grocery[i].name);
+        this.dish.totalTime += this.grocery[i].cookingTime;
       }
+    }
+
+    if (!this.validateNewDish() || groceryForDish.length < 1) {
+      this.alertsService.alertError('Not all fields were filled');
+      return;
     }
 
     this.createDishService.UploadDishImage(this.restId, this.pic)
@@ -61,26 +79,35 @@ export class CreateDishComponent implements OnInit {
         this.dish.pic = x;
         this.createDishService.CreateDish(this.restId, this.dish, groceryForDish)
           .then(x => {
-            alert('dish created');
+            this.alertsService.alert('dish created');
           })
           .catch(e => {
             if (e.alreadyExists) {
               if (confirm('Dish exists, do you want to update it?')) {
                 this.createDishService.CreateDish(this.restId, this.dish, groceryForDish, true)
                   .then(x => {
-                    alert('dish updated');
+                    this.alertsService.alert('dish updated');
                   })
                   .catch(x => {
-                    alert(x.message);
+                    this.alertsService.alertError(x.message);
                   });
               } else {
-                alert('no dish created');
+                this.alertsService.alertError('no dish created');
               }
             } else {
-              alert(e.message);
+              this.alertsService.alertError(e.message);
             }
           });
       });
+  }
+
+  private validateNewDish(): boolean {
+    if (!this.dish.name || !this.dish.description || !this.dish.maxSecondsBeforeStartingMaking
+      || !this.dish.category || this.dish.isEditable === undefined || !this.pic) {
+      return false;
+    }
+
+    return true;
   }
 
 }

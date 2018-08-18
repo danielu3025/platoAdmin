@@ -11,7 +11,7 @@ export class Grocery {
 export class Dish {
   name: string;
   description: string;
-  totalTime: string;
+  totalTime: number;
   maxSecondsBeforeStartingMaking: number;
   status = 0;
   category = 'Drinks';

@@ -50,8 +50,7 @@ export class DishItemComponent implements OnInit {
   }
 
   ok() {
-    this.newDish.isEditable = this.newDish.isEditable === 'yes' ? true : false;
-    debugger;
+    this.newDish.isEditable = this.newDish.isEditable === 'true' ? true : false;
     this.dishService.update(this.restId, this.newDish)
       .then(x => {
         this.alertsService.alert('Dish updated');
@@ -60,6 +59,25 @@ export class DishItemComponent implements OnInit {
       .catch(x => {
         this.alertsService.alertError('Error when updating dish');
         console.log(x);
+      });
+  }
+
+  deleteGrocery(groceryName: string) {
+    if (this.groceries.length === 1) {
+      this.alertsService.alertError('Dish must contain at least 1 grocery');
+      return;
+    }
+
+    if (!confirm(`Are you sure you want to delete ${groceryName} from ${this.dish.name}?`)) {
+      return;
+    }
+
+    this.dishService.deleteGroceryFromDish(this.restId, this.dish.name, groceryName)
+      .then(x => {
+        this.alertsService.alert('Grocery deleted from dish');
+      }).catch(x => {
+        console.log(x);
+        this.alertsService.alertError('Failed to delete grocery from dish');
       });
   }
 }

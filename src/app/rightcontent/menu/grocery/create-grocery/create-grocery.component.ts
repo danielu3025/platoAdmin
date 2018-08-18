@@ -8,6 +8,7 @@ import { UserInfoService } from '../../../../services/user-info.service';
 import { UpdateGroceryService } from '../../../../services/update-grocery.service';
 import { CreateGroceryService } from '../../../../services/create-grocery.service';
 import { AlertsService } from '../../../../services/alerts.service';
+import { GroceryService } from '../../../../services/grocery.service';
 
 @Component({
   selector: 'app-create-grocery',
@@ -22,12 +23,13 @@ export class CreateGroceryComponent implements OnInit {
   rawMaterialAmount: number[] = [];
   rawMaterialSelected: boolean[] = [];
   grocery: Grocery = new Grocery();
+  allGroceries: Grocery[];
   cookingTypes: string[] = [];
 
   constructor(private cookingTypesService: CookingTypesService, private rawMaterialService: RawMaterialService,
     private creatGroceryService: CreateGroceryService, private deleteGroceryService: DeleteGroceryService,
     private updateGroceryService: UpdateGroceryService, private userInfoService: UserInfoService,
-    public alertsService: AlertsService) {
+    public alertsService: AlertsService, private groceryService: GroceryService) {
   }
 
   ngOnInit() {
@@ -40,11 +42,18 @@ export class CreateGroceryComponent implements OnInit {
           this.rawMaterialSelected.push(false);
         });
       });
+      this.groceryService.getAll(this.restId).subscribe(x => this.allGroceries = x);
     });
     this.cookingTypesService.getAll().subscribe(x => this.cookingTypes = x);
   }
 
   createGrocery() {
+
+    if (this.allGroceries.find(x => x.name === this.grocery.name)) {
+      this.alertsService.alertError('Grocery already exists');
+      return;
+    }
+
     const rawMaterialForGrocery = {};
     for (let i = 0; i < this.rawMaterialSelected.length; i++) {
       if (this.rawMaterialSelected[i]) {

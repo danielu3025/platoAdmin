@@ -11,11 +11,13 @@ export class DishService {
   private functions;
   private deleteDishFunction;
   private updateDishFunction;
+  private deleteGroceryFromDishFunction;
 
   constructor(private afs: AngularFirestore, private db: AngularFireDatabase) {
     this.functions = firebase.functions();
     this.deleteDishFunction = this.functions.httpsCallable('deleteDish');
     this.updateDishFunction = this.functions.httpsCallable('updateDish');
+    this.deleteGroceryFromDishFunction = this.functions.httpsCallable('deleteGroceryFromDish');
   }
 
   getAll(restId: string): Observable<Dish[]> {
@@ -42,5 +44,9 @@ export class DishService {
 
   update(restId: string, dish: Dish) {
     return this.updateDishFunction({ restId, dish });
+  }
+
+  deleteGroceryFromDish(restId: string, dishName: string, groceryName: string) {
+    return this.deleteGroceryFromDishFunction({ restId, dishName, groceryName });
   }
 }
