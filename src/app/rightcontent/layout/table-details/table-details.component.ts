@@ -33,9 +33,9 @@ export class TableDetailsComponent implements OnInit {
 
   disconnectMergedTable() {
     this.tablesService.disconnectMergedTable(this.restId, this.table)
-      .then(x => alert('disconnected'))
+      .then(x => this.alertsService.alert('disconnected'))
       .catch(x => {
-        alert('Error disconnecting tables');
+        this.alertsService.alertError('Error disconnecting tables');
         console.log(x);
       });
   }

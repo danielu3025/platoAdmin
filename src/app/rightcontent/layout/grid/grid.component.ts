@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {GridCell} from '../grid-cell/GridCell.model';
 import {ConnectRectanglesEvent, Rectangle} from './GridEvents.model';
 import {Observable} from 'rxjs/internal/Observable';
+import { AlertsService } from '../../../services/alerts.service';
 
 @Component({
   selector: 'app-grid',
@@ -35,7 +36,7 @@ export class GridComponent implements OnInit {
   private rectMoveStarted = false;
   private movedRectId: string = null;
 
-  constructor() {
+  constructor(private alertsService: AlertsService) {
   }
 
   ngOnInit() {
@@ -83,7 +84,7 @@ export class GridComponent implements OnInit {
 
     if (!this.rectMoveStarted
       && this.willRectangleWontOverrideOtherRectangles(this.grid, this.getRectangleInfoFromSelectionStartAndEnd())) {
-      alert('New Table Will Override Existing Tables!');
+        this.alertsService.alertError('New Table Will Override Existing Tables!');
       return;
     }
 

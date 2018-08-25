@@ -42,9 +42,9 @@ export class DishItemComponent implements OnInit {
     }
 
     this.dishService.delete(this.restId, this.dish)
-      .then(x => this.alertsService.alert(`Dish deleted successfully`))
+      .then(x => this.alertsService.alert(`Dish ${this.dish.name} deleted successfully`))
       .catch(x => {
-        this.alertsService.alertError('Error when deleting dish.' + x.message, 5000);
+        this.alertsService.alertError(`Error when deleting dish ${this.dish.name}` + x.message, 5000);
         console.log(x);
       });
   }
@@ -53,11 +53,11 @@ export class DishItemComponent implements OnInit {
     this.newDish.isEditable = this.newDish.isEditable === 'true' ? true : false;
     this.dishService.update(this.restId, this.newDish)
       .then(x => {
-        this.alertsService.alert('Dish updated');
+        this.alertsService.alert(`Dish ${this.newDish.name} updated`);
         this.inEditMode = false;
       })
       .catch(x => {
-        this.alertsService.alertError('Error when updating dish');
+        this.alertsService.alertError(`Error when updating dish ${this.newdish.name}`);
         console.log(x);
       });
   }
@@ -74,10 +74,10 @@ export class DishItemComponent implements OnInit {
 
     this.dishService.deleteGroceryFromDish(this.restId, this.dish.name, groceryName)
       .then(x => {
-        this.alertsService.alert('Grocery deleted from dish');
+        this.alertsService.alert(`Grocery ${groceryName} deleted from dish ${this.dish.name}`);
       }).catch(x => {
         console.log(x);
-        this.alertsService.alertError('Failed to delete grocery from dish');
+        this.alertsService.alertError(`Failed to delete grocery ${groceryName} from dish ${this.dish.name}`);
       });
   }
 }

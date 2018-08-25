@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import { DishService } from '../../../../../services/dish.service';
 import { GroceryService } from '../../../../../services/grocery.service';
+import { AlertsService } from '../../../../../services/alerts.service';
 
 @Component({
   selector: 'app-raw-material-for-meal',
@@ -17,7 +18,8 @@ export class RawMaterialForMealComponent implements OnInit, AfterViewInit {
   objectKeys = Object.keys;
   menu: boolean;
 
-  constructor(private dishService: DishService, private groceryService: GroceryService) {
+  constructor(private dishService: DishService, private groceryService: GroceryService, 
+    private alertsService: AlertsService) {
   }
 
   ngOnInit() {
@@ -49,7 +51,7 @@ export class RawMaterialForMealComponent implements OnInit, AfterViewInit {
 
   onRedLineChange($event, model) {
     if (model.redLine < 0) {
-      alert('Redline must be 0 or greater!');
+      this.alertsService.alertError('Redline must be 0 or greater!');
       model.redLine = 0;
     }
   }

@@ -92,7 +92,7 @@ export class CreateTableComponent implements OnInit {
     this.tableService.createTable(this.restId, table)
       .then(x => {
         this.displayNewTableForm = false;
-        this.alertsService.alert('table ${table.id} created');
+        this.alertsService.alert(`table ${table.id} created`);
       })
       .catch(x => {
         this.displayNewTableForm = false;

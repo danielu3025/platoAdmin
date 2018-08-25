@@ -50,7 +50,7 @@ export class CreateGroceryComponent implements OnInit {
   createGrocery() {
 
     if (this.allGroceries.find(x => x.name === this.grocery.name)) {
-      this.alertsService.alertError('Grocery already exists');
+      this.alertsService.alertError(`Grocery ${this.grocery.name} already exists`);
       return;
     }
 
@@ -69,11 +69,11 @@ export class CreateGroceryComponent implements OnInit {
     this.creatGroceryService.CreateGrocery(
       this.restId, this.grocery.name, this.grocery.cookingTime, this.grocery.cookingType, this.grocery.isEditable, rawMaterialForGrocery)
       .then(x => {
-        this.alertsService.alert('Grocery Created');
+        this.alertsService.alert(`Grocery ${this.grocery.name} Created`);
       })
       .catch(e => {
         console.log(e);
-        this.alertsService.alertError('Error when creating grocery');
+        this.alertsService.alertError(`Error when creating grocery ${this.grocery.name}`);
       });
   }
 

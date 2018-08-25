@@ -56,7 +56,7 @@ export class CreateDishComponent implements OnInit {
   createDish() {
 
     if (this.dishes.find(x => x.name === this.dish.name)) {
-      this.alertsService.alertError('Dish already exists');
+      this.alertsService.alertError(`Dish ${this.dish.name} already exists`);
       return;
     }
 
@@ -79,14 +79,14 @@ export class CreateDishComponent implements OnInit {
         this.dish.pic = x;
         this.createDishService.CreateDish(this.restId, this.dish, groceryForDish)
           .then(x => {
-            this.alertsService.alert('dish created');
+            this.alertsService.alert(`dish ${this.dish.name} created`);
           })
           .catch(e => {
             if (e.alreadyExists) {
               if (confirm('Dish exists, do you want to update it?')) {
                 this.createDishService.CreateDish(this.restId, this.dish, groceryForDish, true)
                   .then(x => {
-                    this.alertsService.alert('dish updated');
+                    this.alertsService.alert(`dish ${this.dish.name} updated`);
                   })
                   .catch(x => {
                     this.alertsService.alertError(x.message);
