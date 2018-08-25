@@ -1,74 +1,22 @@
-<table class="table">
-  <thead class="thead-light">
-  <tr>
-    <th scope="col">Id</th>
-    <th scope="col">Position</th>
-    <th scope="col">Accessabillity</th>
-    <th scope="col">Smoking</th>
-    <th scope="col">Connectable</th>
-    <th scope="col">Size</th>
-    <th scope="col">Connectable Tables</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <th scope="row">{{table.id}}</th>
-    <td> X: {{table.x}} Y:{{table.y}}</td>
-    <td>{{table.acceabilty}}</td>
-    <td>{{table.smoking}}</td>
-    <td>{{table.isConnectable}}</td>
-    <td>{{table.size}}</td>
-    <td>
-      <div *ngIf="isMerged">
-        <button (click)="disconnectMergedTable()">Disconnect</button>
+<td scope="row">{{table.id}}</td>
+<td> X: {{table.x}} Y:{{table.y}}</td>
+<td>{{table.acceabilty}}</td>
+<td>{{table.smoking}}</td>
+<td>{{table.isConnectable}}</td>
+<td>{{table.size}}</td>
+<td>
+  <div *ngIf="isMerged">
+    <button (click)="disconnectMergedTable()">Disconnect</button>
+  </div>
+  <div *ngIf="!isMerged">
+    <div *ngIf="connectableTables">
+      <div *ngFor="let tableId of connectableTables">
+        {{tableId}}
+        <button (click)="onConnectTables(tableId)">Connect</button>
       </div>
-      <div *ngIf="!isMerged">
-        <div *ngIf="connectableTables">
-          <div *ngFor="let tableId of connectableTables">
-            {{tableId}}
-            <button (click)="onConnectTables(tableId)">Connect</button>
-          </div>
-        </div>
-        <div *ngIf="connectableTables.length === 0">
-          No Connectable Tables
-        </div>
-      </div>
-    </td>
-  </tr>
-  </tbody>
-</table>
-<!--<div class="table-details">-->
-  <!--<div>-->
-    <!--Number: {{table.id}}-->
-  <!--</div>-->
-  <!--<div>-->
-    <!--X: {{table.x}} Y:{{table.y}}-->
-  <!--</div>-->
-  <!--<div>-->
-    <!--Accessabillity: {{table.acceabilty}}-->
-  <!--</div>-->
-  <!--<div>-->
-    <!--Smoking: {{table.smoking}}-->
-  <!--</div>-->
-  <!--<div>-->
-    <!--Connectable: {{table.isConnectable}}-->
-  <!--</div>-->
-  <!--<div>-->
-    <!--Size: {{table.size}}-->
-  <!--</div>-->
-  <!--<div *ngIf="isMerged">-->
-    <!--<button (click)="disconnectMergedTable()">Disconnect</button>-->
-  <!--</div>-->
-  <!--<div *ngIf="!isMerged">-->
-    <!--Connectable Tables:-->
-    <!--<div *ngIf="connectableTables">-->
-      <!--<div *ngFor="let tableId of connectableTables">-->
-        <!--{{tableId}}-->
-        <!--<button (click)="onConnectTables(tableId)">Connect</button>-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div *ngIf="connectableTables.length === 0">-->
-      <!--No Connectable Tables-->
-    <!--</div>-->
-  <!--</div>-->
-<!--</div>-->
+    </div>
+    <div *ngIf="connectableTables.length === 0">
+      No Connectable Tables
+    </div>
+  </div>
+</td>

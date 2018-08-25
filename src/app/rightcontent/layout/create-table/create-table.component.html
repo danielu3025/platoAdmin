@@ -1,20 +1,11 @@
 <div>Mark Your Table</div>
-<app-grid [rows]="gridHeight"
-          [cols]="gridWidth"
-          [cellWidth]="30"
-          [cellHeight]="30"
-          [rectanglesObservable]="tablesRectanglesObservable"
-          (rectangleCreated)="addNewTable($event)"
-          (rectangleIsMoving)="tableIsMoving($event)"
-          (rectangleFinishedMoving)="tableFinishedMoving($event)"
-          (movedRectangleConnected)="movedRectangleConnected($event)">
+<app-grid [rows]="gridHeight" [cols]="gridWidth" [cellWidth]="30" [cellHeight]="30" [rectanglesObservable]="tablesRectanglesObservable"
+  (rectangleCreated)="addNewTable($event)" (rectangleIsMoving)="tableIsMoving($event)" (rectangleFinishedMoving)="tableFinishedMoving($event)"
+  (movedRectangleConnected)="movedRectangleConnected($event)">
 
 </app-grid>
-<app-new-grid-object-details [isDisplayed]="displayNewTableForm"
-                             [table]="newTable"
-                             (newTableCreated)="createNewTable($event)"
-                             (creationCancled)="creationCanceled()"
-                             (newStaticObjectCreated)="createNewStaticObject($event)">
+<app-new-grid-object-details [isDisplayed]="displayNewTableForm" [table]="newTable" (newTableCreated)="createNewTable($event)"
+  (creationCancled)="creationCanceled()" (newStaticObjectCreated)="createNewStaticObject($event)">
 </app-new-grid-object-details>
 <div>
   Set
@@ -28,7 +19,19 @@
   <button (click)="setPossibleConnection()">Set</button>
 </div>
 <div>
-  <app-table-details *ngFor="let table of tableDetails" [restId]="restId" [table]="table"
-                     (connectTables)="connectTables($event)">
-  </app-table-details>
+  <table class="table">
+    <thead class="thead-light">
+      <th scope="col">Id</th>
+      <th scope="col">Position</th>
+      <th scope="col">Accessabillity</th>
+      <th scope="col">Smoking</th>
+      <th scope="col">Connectable</th>
+      <th scope="col">Size</th>
+      <th scope="col">Connectable Tables</th>
+    </thead>
+    <tbody>
+      <tr appTableDetails *ngFor="let table of tableDetails" [restId]="restId" [table]="table" (connectTables)="connectTables($event)">
+      </tr>
+    </tbody>
+  </table>
 </div>

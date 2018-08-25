@@ -4,7 +4,7 @@ import {TableService} from '../../../services/table.service';
 import { AlertsService } from '../../../services/alerts.service';
 
 @Component({
-  selector: 'app-table-details',
+  selector: '[appTableDetails]',
   templateUrl: './table-details.component.html',
   styleUrls: ['./table-details.component.css']
 })

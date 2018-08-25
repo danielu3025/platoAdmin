@@ -1,14 +1,14 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
-import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
-import {Rest, WorkingDay} from '../rest.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Rest, WorkingDay } from '../rest.model';
 import * as $ from 'jquery';
-import {RestService} from '../../../services/rest.service';
-import {RestTypeService} from '../../../services/rest-type.service';
-import {SubMenuService} from '../../../services/sub-menu.service';
-import {isBoolean} from 'util';
-import {UserInfo} from '../../../services/UserInfo.model';
-import {AuthService} from '../../../services/auth.service';
+import { RestService } from '../../../services/rest.service';
+import { RestTypeService } from '../../../services/rest-type.service';
+import { SubMenuService } from '../../../services/sub-menu.service';
+import { isBoolean } from 'util';
+import { UserInfo } from '../../../services/UserInfo.model';
+import { AuthService } from '../../../services/auth.service';
 import { AlertsService } from '../../../services/alerts.service';
 
 @Component({
@@ -19,15 +19,14 @@ import { AlertsService } from '../../../services/alerts.service';
 export class CreateRestComponent implements OnInit {
 
   rest: Rest = new Rest();
-  // image: any = null;
   types: string[];
   userInfo: UserInfo;
-  subMenus: [{ value: string, isSelected: boolean }] = [({value: '', isSelected: false})];
+  subMenus: [{ value: string, isSelected: boolean }] = [({ value: '', isSelected: false })];
   days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   image: File;
   imageText = 'Choose File';
 
-  constructor(private restService: RestService, private authService: AuthService, 
+  constructor(private restService: RestService, private authService: AuthService,
     private restType: RestTypeService, private subMenu: SubMenuService, private alertsService: AlertsService) {
   }
 
@@ -41,7 +40,7 @@ export class CreateRestComponent implements OnInit {
     this.restType.getAll().subscribe(x => this.types = x);
     this.subMenu.getAll().subscribe(x => {
       this.subMenus.splice(0, 1);
-      x.forEach(value => this.subMenus.push({value, isSelected: false}));
+      x.forEach(value => this.subMenus.push({ value, isSelected: false }));
     });
     for (let i = 0; i < 7; i++) {
       this.rest.workingDays.push(new WorkingDay());
@@ -67,7 +66,24 @@ export class CreateRestComponent implements OnInit {
     this.rest.workingDays[i].busyHourEnd = this.rest.workingDays[i].endHour;
   }
 
+  validateNewRest(): boolean {
+    if (this.subMenus.filter(x => x.isSelected).length === 0) {
+      return false;
+    }
+
+    if (!this.rest.id || !this.rest.name || !this.rest.address || !this.rest.phone || !this.image) {
+      return false;
+    }
+    return true;
+  }
+
   createRest() {
+
+    if (!this.validateNewRest()) {
+      this.alertsService.alertError('You must fill all the fields before creating rest');
+      return;
+    }
+
     console.log(this.rest);
     this.restService.UploadRestImage(this.image)
       .then((imageUrl: string) => {
