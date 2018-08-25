@@ -40,22 +40,22 @@ export class GroceryItemComponent implements OnInit {
     this.newGrocery.isEditable = Boolean(this.newGrocery.isEditable);
     this.groceriesService.update(this.restId, this.newGrocery)
       .then(x => {
-        this.alertsService.alert('Grocery Updated');
+        this.alertsService.alert(`Grocery ${this.newGrocery.name} Updated`);
         this.inEditMode = false;
       })
       .catch(x => {
         console.log(x);
-        this.alertsService.alertError('Failed to update grocery');
+        this.alertsService.alertError(`Failed to update grocery ${this.newGrocery.name}`);
       });
   }
 
   delete() {
     if (confirm('Are You Sure You Want To Delete ' + this.grocery.name + '?')) {
       this.groceriesService.delete(this.restId, this.grocery)
-        .then(x => this.alertsService.alert('Grocery Deleted'))
+        .then(x => this.alertsService.alert(`Grocery ${this.newGrocery.name} Deleted`))
         .catch(x => {
           console.log(x);
-          this.alertsService.alertError(`Failed to delete grocery. ${x.message}`);
+          this.alertsService.alertError(`Failed to delete grocery ${this.newGrocery.name}, ${x.message}`);
         });
     }
   }
@@ -69,11 +69,11 @@ export class GroceryItemComponent implements OnInit {
       delete this.newGrocery.rawMaterial[rawMaterial];
       this.groceriesService.update(this.restId, this.newGrocery)
         .then(x => {
-          this.alertsService.alert('Raw Material Deleted');
+          this.alertsService.alert(`Raw Material ${this.newGrocery.rawMaterial[rawMaterial]} Deleted`);
         })
         .catch(x => {
           console.log(x);
-          this.alertsService.alertError('Failed to delete raw material');
+          this.alertsService.alertError(`Failed to delete raw material ${this.newGrocery.rawMaterial[rawMaterial]}`);
         });
     }
   }

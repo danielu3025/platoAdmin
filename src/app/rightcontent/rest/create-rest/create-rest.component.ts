@@ -9,6 +9,7 @@ import {SubMenuService} from '../../../services/sub-menu.service';
 import {isBoolean} from 'util';
 import {UserInfo} from '../../../services/UserInfo.model';
 import {AuthService} from '../../../services/auth.service';
+import { AlertsService } from '../../../services/alerts.service';
 
 @Component({
   selector: 'app-create-rest',
@@ -18,13 +19,16 @@ import {AuthService} from '../../../services/auth.service';
 export class CreateRestComponent implements OnInit {
 
   rest: Rest = new Rest();
-  image: any = null;
+  // image: any = null;
   types: string[];
   userInfo: UserInfo;
   subMenus: [{ value: string, isSelected: boolean }] = [({value: '', isSelected: false})];
   days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  image: File;
+  imageText = 'Choose File';
 
-  constructor(private restService: RestService, private authService: AuthService, private restType: RestTypeService, private subMenu: SubMenuService) {
+  constructor(private restService: RestService, private authService: AuthService, 
+    private restType: RestTypeService, private subMenu: SubMenuService, private alertsService: AlertsService) {
   }
 
   ngOnInit() {
@@ -46,6 +50,12 @@ export class CreateRestComponent implements OnInit {
 
   uploadImage(e) {
     this.image = e.target.files[0];
+    const name = this.image.name;
+    if (name.length >= 10) {
+      this.imageText = `${name.substr(0, 10)}...`;
+    } else {
+      this.imageText = name;
+    }
   }
 
   areThereBusyHours() {
@@ -63,15 +73,14 @@ export class CreateRestComponent implements OnInit {
       .then((imageUrl: string) => {
         this.rest.picture = imageUrl;
         this.restService.create(this.rest, this.subMenus.filter(x => x.isSelected).map(x => x.value), this.userInfo.fbId)
-          .then(x => alert('Restaurant Created'))
+          .then(x => this.alertsService.alert(`Restaurant ${this.rest.name} Created`))
           .catch(x => {
-            alert('Error when creating restaurant');
+            this.alertsService.alertError(`Error when creating restaurant ${this.rest.name}`);
             console.log(x);
           });
       })
       .catch(x => {
-        alert('Error when uploading restaurant image');
-        console.log(x);
+        this.alertsService.alertError('Error when uploading restaurant image');
       });
   }
 

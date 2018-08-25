@@ -6,6 +6,7 @@ import { SubMenuService } from '../../../../services/sub-menu.service';
 import { DishService } from '../../../../services/dish.service';
 import { MealTypeService } from '../../../../services/meal-type.service';
 import { UserInfoService } from '../../../../services/user-info.service';
+import { AlertsService } from '../../../../services/alerts.service';
 
 @Component({
   selector: 'app-create-meal',
@@ -27,7 +28,7 @@ export class CreateMealComponent implements OnInit {
 
   constructor(private createMealService: CreateMealService, private subMenuService: SubMenuService,
     private mealTypeService: MealTypeService, private dishService: DishService,
-    private userInfoService: UserInfoService) {
+    private userInfoService: UserInfoService, private alertsService: AlertsService) {
   }
 
   ngOnInit() {
@@ -57,7 +58,7 @@ export class CreateMealComponent implements OnInit {
   createMeal() {
 
     if (this.rawMaterials.length === 0) {
-      alert('You need to select at least one dish!');
+      this.alertsService.alertError('You need to select at least one dish!');
       return;
     }
 
@@ -74,10 +75,10 @@ export class CreateMealComponent implements OnInit {
         const dishes: string[] = this.rawMaterials.map(x => x.dishName);
         this.createMealService.CreateMeal(this.restId, this.meal, dishes, rawMaterials)
           .then(x => {
-            alert('meal created successfully');
+            this.alertsService.alert(`meal ${this.meal.name} created successfully`);
           })
           .catch(x => {
-            alert('error when creating a meal');
+            this.alertsService.alertError(`error when creating meal ${this.meal.name}`);
             console.log(x);
           });
 

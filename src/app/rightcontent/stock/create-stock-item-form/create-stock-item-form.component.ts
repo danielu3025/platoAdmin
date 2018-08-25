@@ -3,6 +3,7 @@ import {RawMaterial} from '../stock.model';
 import {UserInfoService} from '../../../services/user-info.service';
 import {RawMaterialService} from '../../../services/raw-material.service';
 import {RawMaterialUnitService} from '../../../services/raw-material-unit.service';
+import { AlertsService } from '../../../services/alerts.service';
 
 @Component({
   selector: 'app-create-stock-item-form',
@@ -16,7 +17,7 @@ export class CreateStockItemFormComponent implements OnInit {
   units: string[];
 
   constructor(private unitService: RawMaterialUnitService, private rawMaterialService: RawMaterialService,
-              private userInfoService: UserInfoService) {
+              private userInfoService: UserInfoService, private alertsService: AlertsService) {
   }
 
   ngOnInit() {
@@ -26,9 +27,9 @@ export class CreateStockItemFormComponent implements OnInit {
 
   create() {
     this.rawMaterialService.createRawMaterial(this.resturantID, this.rawMaterial)
-      .then(x => alert('Raw Material Created'))
+      .then(x => this.alertsService.alert(`Raw Material ${this.rawMaterial.name} Created`))
       .catch(x => {
-        alert('Error creating raw material');
+        this.alertsService.alertError(`Error creating raw material ${this.rawMaterial.name}`);
         console.log(x);
       });
   }

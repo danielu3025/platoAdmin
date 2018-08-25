@@ -1,18 +1,18 @@
 <div>
   <mat-form-field>
-    <input matInput placeholder="Name" type="text" [(ngModel)]="meal.name" [ngModelOptions]="{standalone: true}" required>
+    <input matInput placeholder="Name" type="text" [(ngModel)]="meal.name" required>
   </mat-form-field>
 </div>
 <div>
   <mat-form-field>
-    <mat-select placeholder="Sub Menus" [(ngModel)]="meal.subMenus" [ngModelOptions]="{standalone: true}" required>
+    <mat-select placeholder="Sub Menus" [(ngModel)]="meal.subMenus" required>
       <mat-option *ngFor="let item of subMenus" [value]="item">{{item}}</mat-option>
     </mat-select>
   </mat-form-field>
 </div>
 <div>
   <mat-form-field>
-    <mat-select placeholder="Dairy" [(ngModel)]="meal.dairy" [ngModelOptions]="{standalone: true}" required>
+    <mat-select placeholder="Dairy" [(ngModel)]="meal.dairy" required>
       <mat-option [value]="true">Yes</mat-option>
       <mat-option [value]="false">No</mat-option>
     </mat-select>
@@ -20,7 +20,7 @@
 </div>
 <div>
   <mat-form-field>
-    <mat-select placeholder="Vegan" [(ngModel)]="meal.vegan" [ngModelOptions]="{standalone: true}" required>
+    <mat-select placeholder="Vegan" [(ngModel)]="meal.vegan" required>
       <mat-option [value]="true">Yes</mat-option>
       <mat-option [value]="false">No</mat-option>
     </mat-select>
@@ -28,13 +28,12 @@
 </div>
 <div>
   <mat-form-field>
-    <input matInput placeholder="Description" type="text" [(ngModel)]="meal.description" [ngModelOptions]="{standalone: true}"
-      required>
+    <input matInput placeholder="Description" type="text" [(ngModel)]="meal.description" required>
   </mat-form-field>
 </div>
 <div>
   <mat-form-field>
-    <mat-select placeholder="Gloten Free" [(ngModel)]="meal.glotenFree" [ngModelOptions]="{standalone: true}" required>
+    <mat-select placeholder="Gloten Free" [(ngModel)]="meal.glotenFree" required>
       <mat-option [value]="true">Yes</mat-option>
       <mat-option [value]="false">No</mat-option>
     </mat-select>
@@ -42,14 +41,14 @@
 </div>
 <div>
   <mat-form-field>
-    <mat-select placeholder="Meal Type" [(ngModel)]="meal.mealType" [ngModelOptions]="{standalone: true}" required>
+    <mat-select placeholder="Meal Type" [(ngModel)]="meal.mealType" required>
       <mat-option *ngFor="let item of mealTypes" [value]="item">{{item}}</mat-option>
     </mat-select>
   </mat-form-field>
 </div>
 <div>
   <mat-form-field>
-    <input matInput placeholder="Price" type="number" [(ngModel)]="meal.price" min="0" [ngModelOptions]="{standalone: true}" required>
+    <input matInput placeholder="Price" type="number" [(ngModel)]="meal.price" min="0" required>
   </mat-form-field>
 </div>
 <div class="input-group mb-3 image-input">

@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Table} from '../table.model';
 import {TableService} from '../../../services/table.service';
+import { AlertsService } from '../../../services/alerts.service';
 
 @Component({
   selector: 'app-table-details',
@@ -17,7 +18,7 @@ export class TableDetailsComponent implements OnInit {
     new EventEmitter<{ movedId: string, connectedToId: string }>();
   connectableTables: string[] = [];
 
-  constructor(private tablesService: TableService) {
+  constructor(private tablesService: TableService, private alertsService: AlertsService) {
   }
 
   ngOnInit() {

@@ -7,6 +7,7 @@ import {Subscriber} from 'rxjs/src/internal/Subscriber';
 import {Observer} from 'rxjs/internal/types';
 import {UserInfoService} from '../../../services/user-info.service';
 import {StaticObjectsService} from '../../../services/static-objects.service';
+import { AlertsService } from '../../../services/alerts.service';
 
 @Component({
   selector: 'app-create-table',
@@ -34,7 +35,7 @@ export class CreateTableComponent implements OnInit {
   connectableToTables: Table[];
 
   constructor(private tableService: TableService, private staticObjectsService: StaticObjectsService,
-              private userInfoService: UserInfoService) {
+              private userInfoService: UserInfoService, private alertsService: AlertsService) {
   }
 
   ngOnInit() {
@@ -91,11 +92,11 @@ export class CreateTableComponent implements OnInit {
     this.tableService.createTable(this.restId, table)
       .then(x => {
         this.displayNewTableForm = false;
-        alert('table created');
+        this.alertsService.alert('table ${table.id} created');
       })
       .catch(x => {
         this.displayNewTableForm = false;
-        alert('error when uploading');
+        this.alertsService.alertError('error when uploading');
         console.log(x);
       });
   }
@@ -112,12 +113,12 @@ export class CreateTableComponent implements OnInit {
     this.staticObjectsService.create(this.restId, e)
       .then(x => {
         this.displayNewTableForm = false;
-        alert('Static Object Created');
+        this.alertsService.alert('Static Object Created');
       })
       .catch(x => {
         this.displayNewTableForm = false;
         console.log(x);
-        alert('Failed creating static object');
+        this.alertsService.alertError('Failed creating static object');
       });
   }
 
@@ -132,9 +133,9 @@ export class CreateTableComponent implements OnInit {
 
   setPossibleConnection() {
     this.tableService.setPossibleConnection(this.restId, this.connectableFromId, this.connectableToId)
-      .then(x => alert('possible connection set'))
+      .then(x => this.alertsService.alert('possible connection set'))
       .catch(x => {
-        alert('setting possible connection failed');
+        this.alertsService.alertError('setting possible connection failed');
         console.log(x);
       });
   }
@@ -147,15 +148,15 @@ export class CreateTableComponent implements OnInit {
       .then(x => {
         this.tableService.mergeTables(this.restId, movedTable, connectedToTable)
           .then(x => {
-            alert('merged');
+            this.alertsService.alert('tables merged');
           })
           .catch(x => {
-            alert('Error merging');
+            this.alertsService.alertError('Error merging');
             console.log(x);
           });
       })
       .catch(x => {
-        alert(x);
+        this.alertsService.alertError(x);
         console.log(x);
       });
 
@@ -171,15 +172,15 @@ export class CreateTableComponent implements OnInit {
     this.tableService.updateTableLocation(this.restId, e.id, e.x, e.y)
       .catch(x => {
         console.log(x);
-        alert('Error updating table location');
+        this.alertsService.alertError('Error updating table location');
       });
   }
 
   movedRectangleConnected(e) {
     this.tableService.mergeMovedTables(this.restId, e.movedId, e.connectedToId)
-      .then(() => alert(`Table ${e.movedId} connected to ${e.connectedToId}`))
+      .then(() => this.alertsService.alert(`Table ${e.movedId} connected to ${e.connectedToId}`))
       .catch(x => {
-        alert('error connecting tables');
+        this.alertsService.alertError('error connecting tables');
         console.error(x);
       });
   }

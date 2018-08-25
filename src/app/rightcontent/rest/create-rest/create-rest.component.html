@@ -1,31 +1,19 @@
 
 <div>
-  <!--<div>-->
-    <!--Id:<input [(ngModel)]="rest.id"/>-->
-  <!--</div>-->
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text">Id</span>
-    </div>
-    <input type="text" class="form-control" [(ngModel)]="rest.id">
+  <div>
+    <mat-form-field>
+    <input matInput placeholder="Id" type="text" [(ngModel)]="rest.id">
+  </mat-form-field>
   </div>
-  <!--<div>-->
-    <!--Name:<input [(ngModel)]="rest.name"/>-->
-  <!--</div>-->
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text">Name</span>
-    </div>
-    <input type="text" class="form-control" [(ngModel)]="rest.name">
+  <div>
+    <mat-form-field>
+    <input matInput placeholder="Name" type="text" [(ngModel)]="rest.name">
+  </mat-form-field>
   </div>
-  <!--<div>-->
-    <!--Address:<input [(ngModel)]="rest.address"/>-->
-  <!--</div>-->
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text">Address</span>
-    </div>
-    <input type="text" class="form-control" [(ngModel)]="rest.address">
+  <div>
+    <mat-form-field>
+    <input matInput placeholder="Address" type="text" [(ngModel)]="rest.address">
+    </mat-form-field>
   </div>
   <div>
     <agm-map [latitude]="rest.location.latitude" [longitude]="rest.location.longitude">
@@ -33,88 +21,47 @@
                   (dragEnd)="markerChanged($event)"></agm-marker>
     </agm-map>
   </div>
-  <!--<div>-->
-    <!--Phone:<input type="tel" [(ngModel)]="rest.phone"/>-->
-  <!--</div>-->
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text">Phone</span>
-    </div>
-    <input type="tel" class="form-control" [(ngModel)]="rest.phone">
+    <div>
+    <mat-form-field>
+    <input matInput placeholder="Phone" type="tel" [(ngModel)]="rest.phone">
+    </mat-form-field>
   </div>
-  <!--<div>-->
-    <!--Picture: <input type="file" name="pic" accept="image/*" (change)="uploadImage($event)">-->
-  <!--</div>-->
-  <div class="input-group mb-3">
+  <div class="input-group mb-3" image-input>
     <div class="input-group-prepend">
       <span class="input-group-text">Upload</span>
     </div>
-    <div class="custom-file">
+    <div>
       <input type="file" name="pic" accept="image/*" (change)="uploadImage($event)" class="custom-file-input" id="inputGroupFile01">
-      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+      <label class="custom-file-label" for="inputGroupFile01">{{picText}}</label>
     </div>
   </div>
-  <!--<div>-->
-    <!--Accesability:-->
-    <!--<select [(ngModel)]="rest.accesability">-->
-      <!--<option [value]="true">Yes</option>-->
-      <!--<option [value]="false">No</option>-->
-    <!--</select>-->
-  <!--</div>-->
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <label class="input-group-text" for="inputAccesability">Accesability</label>
-    </div>
-    <select class="custom-select" id="inputAccesability">
-      <option [value]="true">Yes</option>
-      <option [value]="false">No</option>
-    </select>
+    <div>
+    <mat-form-field>
+    <mat-select placeholder="Acessability" [(ngModel)]="rest.accesability" required>
+      <mat-option [value]="true">Yes</mat-option>
+      <mat-option [value]="false">No</mat-option>
+    </mat-select>
+    </mat-form-field>
   </div>
-  <!--<div>-->
-    <!--Smoking:-->
-    <!--<select [(ngModel)]="rest.smoking">-->
-      <!--<option [value]="true">Yes</option>-->
-      <!--<option [value]="false">No</option>-->
-    <!--</select>-->
-  <!--</div>-->
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <label class="input-group-text" for="inputSmoking">Smoking</label>
-    </div>
-    <select class="custom-select" id="inputSmoking">
-      <option [value]="true">Yes</option>
-      <option [value]="false">No</option>
-    </select>
+    <div> 
+    <mat-form-field>
+    <mat-select placeholder="Smoking" [(ngModel)]="rest.smoking" required>
+      <mat-option [value]="true">Yes</mat-option>
+      <mat-option [value]="false">No</mat-option>
+    </mat-select>
+    </mat-form-field>
   </div>
-  <!--<div>-->
-    <!--Type:-->
-    <!--<select [(ngModel)]="rest.type">-->
-      <!--<option *ngFor="let type of types" [value]="type">{{type}}</option>-->
-    <!--</select>-->
-  <!--</div>-->
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <label class="input-group-text" for="inputRestType">Rest Type</label>
-    </div>
-    <select class="custom-select" id="inputRestType">
-      <option *ngFor="let item of types">{{item}}</option>
-    </select>
+    <div>
+    <mat-form-field>
+    <mat-select placeholder="Rest Type" [(ngModel)]="rest.type" required>
+      <mat-option *ngFor="let item of types"[value]="item">{{item}}</mat-option>
+    </mat-select>
+  </mat-form-field>
   </div>
-  <!--<div>-->
-    <!--Sub Menus:-->
-    <!--<div *ngFor="let item of subMenus">-->
-      <!--<input type="checkbox" [(ngModel)]="item.isSelected"/>-->
-      <!--{{item.value}}-->
-    <!--</div>-->
-  <!--</div>-->
-  <span class="input-group-text">Sub Menus</span>
-  <div class="input-group mb-3" *ngFor="let item of subMenus;">
-    <div class="input-group-prepend">
-      <div class="input-group-text">
-        <input type="checkbox" [(ngModel)]="item.isSelected">
+  <div placeholder="subMenus" *ngFor="let item of subMenus;">
+        <mat-checkbox class="dark-checkbox" [(ngModel)]="item.isSelected">
         <label>{{item.value}}</label>
-      </div>
-    </div>
+      </mat-checkbox>
   </div>
 
 
@@ -127,19 +74,23 @@
       <th>Is Busy</th>
       <th *ngIf="areThereBusyHours()">Busy Hours</th>
       </thead>
-      <tbody>
-      <tr *ngFor="let workingDay of rest.workingDays; let i = index">
-        <td>{{days[i]}}</td>
-        <td><input class="start-time" type="time" [(ngModel)]="rest.workingDays[i].startingHour"/></td>
-        <td><input class="end-time" type="time" [(ngModel)]="rest.workingDays[i].endHour"/></td>
+      <tbody>    
+      <tr *ngFor="let workingDay of rest.workingDays; let i = index">       
+        <td>{{days[i]}}</td> 
+        <td><mat-form-field><input matInput class="start-time" type="time" [(ngModel)]="rest.workingDays[i].startingHour"/></mat-form-field></td>      
+        <td><mat-form-field><input matInput class="end-time" type="time" [(ngModel)]="rest.workingDays[i].endHour"/></mat-form-field></td>
         <td align="center">
-          <input type="checkbox" [(ngModel)]="rest.workingDays[i].isBusy">
+          <mat-checkbox type="checkbox" class="dark-checkbox" [(ngModel)]="rest.workingDays[i].isBusy"></mat-checkbox>
         </td>
         <td>
           <span *ngIf="rest.workingDays[i].isBusy">
-            <span>All Day: <input type="checkbox" (change)="insertAllDayBusyHours(i)"></span>
-            <input type="time" [(ngModel)]="rest.workingDays[i].busyHourStart"/>
-            <input type="time" [(ngModel)]="rest.workingDays[i].busyHourEnd"/>
+            <span>All Day: <mat-checkbox type="checkbox" class="dark-checkbox" (change)="insertAllDayBusyHours(i)"></mat-checkbox></span>
+        <mat-form-field>
+            <input matInput placeholder="Starting Time" type="time" [(ngModel)]="rest.workingDays[i].busyHourStart"/>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="End Time" type="time" [(ngModel)]="rest.workingDays[i].busyHourEnd"/>
+        </mat-form-field>
           </span>
         </td>
       </tr>
@@ -147,6 +98,6 @@
     </table>
   </div>
   <div>
-    <button class="btn btn-success" (click)="createRest()">Create Rest</button>
+    <button mat-stroked-button (click)="createRest()">Create Rest</button>
   </div>
 </div>

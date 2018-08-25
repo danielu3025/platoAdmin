@@ -23,7 +23,8 @@ export class CreateWorkerComponent implements OnInit {
   @ViewChild('userId') userId: ElementRef;
   @ViewChild('passwordRef') passwordElement: ElementRef;
 
-  constructor(private authService: AuthService, private userInfoService: UserInfoService, private alertsService: AlertsService) {
+  constructor(private authService: AuthService, private userInfoService: UserInfoService, 
+    private alertsService: AlertsService) {
   }
 
   ngOnInit() {

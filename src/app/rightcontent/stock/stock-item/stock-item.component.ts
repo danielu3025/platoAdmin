@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {RawMaterial} from '../stock.model';
 import {RawMaterialUnitService} from '../../../services/raw-material-unit.service';
 import {RawMaterialService} from '../../../services/raw-material.service';
+import { AlertsService } from '../../../services/alerts.service';
 
 @Component({
   selector: '[appStockItem]',
@@ -16,7 +17,8 @@ export class StockItemComponent implements OnInit {
   inEditMode = false;
   units: string[] = [];
 
-  constructor(private unitService: RawMaterialUnitService, private rawMaterialService: RawMaterialService) {
+  constructor(private unitService: RawMaterialUnitService, private rawMaterialService: RawMaterialService,
+  private alertsService: AlertsService) {
   }
 
   ngOnInit() {
@@ -37,7 +39,7 @@ export class StockItemComponent implements OnInit {
         this.inEditMode = false;
       })
       .catch(x => {
-        alert('Error updating');
+        this.alertsService.alertError(`Error updating raw material ${this.rawMaterial.name}`);
         console.log(x);
       });
   }
@@ -55,16 +57,15 @@ export class StockItemComponent implements OnInit {
 
           this.rawMaterialService.deleteRawMaterial(this.restId, this.rawMaterial.name)
             .then(x => {
-              alert('Raw Material Deleted Successfully');
+              this.alertsService.alert(`Raw Material ${this.rawMaterial.name} Deleted Successfully`);
             })
             .catch(x => {
-              console.log(x);
-              alert('Error deleting raw material');
+              this.alertsService.alertError(`Error deleting raw material ${this.rawMaterial.name}`);
             });
         })
         .catch(x => {
           console.log(x);
-          alert('Error deleting raw material');
+          this.alertsService.alertError(`Error deleting raw material ${this.rawMaterial.name}`);
         });
     }
   }

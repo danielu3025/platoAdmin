@@ -15,6 +15,7 @@ export class RawMaterialForMealComponent implements OnInit, AfterViewInit {
   groceries: object = {};
   rawMaterials = {};
   objectKeys = Object.keys;
+  menu: boolean;
 
   constructor(private dishService: DishService, private groceryService: GroceryService) {
   }
@@ -32,7 +33,8 @@ export class RawMaterialForMealComponent implements OnInit, AfterViewInit {
           Object.keys(x.rawMaterial).forEach(rawMaterial => {
             this.rawMaterials[rawMaterial] = {
               isImportant: false,
-              redLine: 0
+              redLine: 0,
+              menu: true
             };
           });
         });

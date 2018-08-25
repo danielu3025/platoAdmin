@@ -45,10 +45,10 @@ export class MealItemComponent implements OnInit {
     }
 
     this.mealsService.delete(this.restId, this.meal.name)
-      .then(x => this.alertsService.alert('Meal deleted'))
+      .then(x => this.alertsService.alert(`Meal ${this.meal.name} deleted`))
       .catch(x => {
         console.log(x);
-        this.alertsService.alertError('Failed to delete meal');
+        this.alertsService.alertError(`Failed to delete meal ${this.meal.name}`);
       });
   }
 }
