@@ -14,21 +14,21 @@
   </select>
 </td>
 <td>
-  <span *ngIf="!inEditMode">{{meal.dairy}}</span>
+  <span *ngIf="!inEditMode">{{yesOrNo(meal.dairy)}}</span>
   <select *ngIf="inEditMode" [(ngModel)]="newMeal.dairy">
     <option [value]="true">Yes</option>
     <option [value]="false">No</option>
   </select>
 </td>
 <td>
-  <span *ngIf="!inEditMode">{{meal.vegan}}</span>
+  <span *ngIf="!inEditMode">{{yesOrNo(meal.vegan)}}</span>
   <select *ngIf="inEditMode" [(ngModel)]="newMeal.vegan">
     <option [value]="true">Yes</option>
     <option [value]="false">No</option>
   </select>
 </td>
 <td>
-  <span *ngIf="!inEditMode">{{meal.glotenFree}}</span>
+  <span *ngIf="!inEditMode">{{yesOrNo(meal.glotenFree)}}</span>
   <select *ngIf="inEditMode" [(ngModel)]="newMeal.glotenFree">
     <option [value]="true">Yes</option>
     <option [value]="false">No</option>
@@ -43,13 +43,13 @@
 <td>
   <span *ngIf="!inEditMode">{{meal.price}}</span>
   <mat-form-field *ngIf="inEditMode">
-    <input matInput [(ngModel)]="newMeal.price" />
+    <input matInput type="number" [(ngModel)]="newMeal.price" />
   </mat-form-field>
 </td>
 <td>
   <ul>
     <li *ngFor="let dish of dishes">
-      <img class="" *ngIf="inEditMode" (click)="deleteDish(dish)" src="assets/delete.png" />
+      <img class="" *ngIf="inEditMode" (click)="deleteDishFromMeal(dish)" src="assets/delete.png" />
       <span>{{dish}}</span>
     </li>
   </ul>

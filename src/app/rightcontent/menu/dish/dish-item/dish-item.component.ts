@@ -57,7 +57,7 @@ export class DishItemComponent implements OnInit {
         this.inEditMode = false;
       })
       .catch(x => {
-        this.alertsService.alertError(`Error when updating dish ${this.newdish.name}`);
+        this.alertsService.alertError(`Error when updating dish ${this.newDish.name}`);
         console.log(x);
       });
   }

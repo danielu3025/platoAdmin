@@ -55,10 +55,23 @@ export class CreateMealComponent implements OnInit {
     }
   }
 
+  validateNewMeal(): boolean {
+    if (!this.meal.name || !this.meal.description || !this.meal.price || !this.image) {
+      return false;
+    }
+
+    return true;
+  }
+
   createMeal() {
 
     if (this.rawMaterials.length === 0) {
       this.alertsService.alertError('You need to select at least one dish!');
+      return;
+    }
+
+    if (!this.validateNewMeal()) {
+      this.alertsService.alertError('You must fill all of the fields!');
       return;
     }
 

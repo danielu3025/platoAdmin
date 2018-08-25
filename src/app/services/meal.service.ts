@@ -9,10 +9,14 @@ export class MealService {
 
   private functions;
   private deleteMealFunction;
+  private updateMealFunction;
+  private deleteDishFromMealFunction;
 
   constructor(private afs: AngularFirestore) {
     this.functions = firebase.functions();
     this.deleteMealFunction = this.functions.httpsCallable('deleteMeal');
+    this.updateMealFunction = this.functions.httpsCallable('updateMeal');
+    this.deleteDishFromMealFunction = this.functions.httpsCallable('deleteDishFromMeal');
   }
 
   getAll(restId: string): Observable<Meal[]> {
@@ -30,5 +34,13 @@ export class MealService {
 
   delete(restId: string, mealName: string): Promise<void> {
     return this.deleteMealFunction({ restId, mealName });
+  }
+
+  update(restId: string, meal: Meal) {
+    return this.updateMealFunction({ restId, meal });
+  }
+
+  deleteDishFromMeal(restId: string, mealName: string, dishName: string) {
+    return this.deleteDishFromMealFunction({ restId, mealName, dishName });
   }
 }
