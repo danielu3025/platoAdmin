@@ -10,7 +10,6 @@ import { RightcontentComponent } from './rightcontent/rightcontent.component';
 import { TopbarComponent } from './rightcontent/topbar/topbar.component';
 import { StaffOptionsComponent } from './rightcontent/nav-options/staff-options/staff-options.component';
 import { LayoutComponent } from './rightcontent/layout/layout.component';
-import { KitchenComponent } from './rightcontent/kitchen/kitchen.component';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { LayoutOptionsComponent } from './rightcontent/nav-options/layout-options/layout-options.component';
 import { MenuOptionsComponent } from './rightcontent/nav-options/menu-options/menu-options.component';
@@ -24,7 +23,7 @@ import { DropZoneDirective } from './drop-zone.directive';
 import { LoginWindowComponent } from './side-menu/login-window/login-window.component';
 import { AuthService } from './services/auth.service';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { KitchenStoreService } from './services/kitchen-store.service';
+import { KitchenStationService } from './services/kitchen-station.service';
 import { CookingTypesService } from './services/cooking-types.service';
 import { RawMaterialService } from './services/raw-material.service';
 import { CreateGroceryService } from './services/create-grocery.service';
@@ -52,7 +51,6 @@ import { ManageRestsComponent } from './rightcontent/rest/manage-rests/manage-re
 import { ManageWorkersComponent } from './rightcontent/workers/manage-workers/manage-workers.component';
 import { CreateWorkerComponent } from './rightcontent/workers/create-worker/create-worker.component';
 import { NewGridObjectDetailsComponent } from './rightcontent/layout/new-grid-object-details/new-grid-object-details.component';
-import { NewStaticObjectDetailsComponent } from './rightcontent/layout/new-grid-object-details/new-static-object-details/new-static-object-details.component';
 import { CreateStockItemFormComponent } from './rightcontent/stock/create-stock-item-form/create-stock-item-form.component';
 import { StockItemComponent } from './rightcontent/stock/stock-item/stock-item.component';
 import { WorkerItemComponent } from './rightcontent/workers/worker-item/worker-item.component';
@@ -76,13 +74,17 @@ import { CreateMealComponent } from './rightcontent/menu/meal/create-meal/create
 import { RawMaterialForMealComponent } from './rightcontent/menu/meal/create-meal/raw-material-for-meal/raw-material-for-meal.component';
 import { ManageMealsComponent } from './rightcontent/menu/meal/manage-meals/manage-meals.component';
 import { MealItemComponent } from './rightcontent/menu/meal/meal-item/meal-item.component';
+import { CreateKitchenComponent } from './rightcontent/kitchen/create-kitchen/create-kitchen.component';
+import { ManageKitchenComponent } from './rightcontent/kitchen/manage-kitchen/manage-kitchen.component';
+import { KitchenItemComponent } from './rightcontent/kitchen/kitchen-item/kitchen-item.component';
+import { NewStaticObjectDetailsComponent } from './rightcontent/layout/new-grid-object-details/new-static-object-details/new-static-object-details.component';
 
 firebase.initializeApp(environment.config);
 
 const appRouts: Routes = [
   { path: 'login', component: LoginWindowComponent },
   { path: 'rests', component: RestsOptionsComponent },
-  { path: 'kitchen', component: KitchenComponent },
+  { path: 'kitchen', component: ManageKitchenComponent },
   { path: 'layout', component: LayoutComponent },
   { path: 'manageRests', component: ManageRestsComponent },
   { path: 'manageStock', component: ManageStockComponent },
@@ -99,7 +101,6 @@ const appRouts: Routes = [
     TopbarComponent,
     StaffOptionsComponent,
     LayoutComponent,
-    KitchenComponent,
     LayoutOptionsComponent,
     MenuOptionsComponent,
     StockOptionsComponent,
@@ -133,6 +134,9 @@ const appRouts: Routes = [
     DishItemComponent,
     ManageMealsComponent,
     MealItemComponent,
+    CreateKitchenComponent,
+    ManageKitchenComponent,
+    KitchenItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -156,7 +160,7 @@ const appRouts: Routes = [
     MatSnackBarModule,
     MatCheckboxModule
   ],
-  providers: [AuthService, KitchenStoreService, CookingTypesService, RawMaterialService,
+  providers: [AuthService, KitchenStationService, CookingTypesService, RawMaterialService,
     CreateGroceryService, HttpClientModule, DeleteGroceryService, UpdateGroceryService,
     GroceryService, CategoryService, CreateDishService, CreateMealService, DishService,
     SubMenuService, MealTypeService, RawMaterialUnitService],

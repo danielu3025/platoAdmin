@@ -1,0 +1,19 @@
+<td>
+  <img class="stock-item-action" *ngIf="!inEditMode" src="assets/edit.png" (click)="edit()" />
+</td>
+<td>
+  <span>{{item.id}}</span>
+</td>
+<td>
+  <span *ngIf="!inEditMode">{{item.name}}</span>
+  <mat-form-field *ngIf="inEditMode">
+    <input matInput [(ngModel)]="newKitchenStation.name" />
+  </mat-form-field>
+</td>
+<td>
+  <img class="stock-item-action" *ngIf="!inEditMode" (click)="delete()" src="assets/delete.png" />
+  <img class="stock-item-action" *ngIf="inEditMode" (click)="ok()" src="assets/ok.png" />
+</td>
+<td>
+  <img class="stock-item-action" *ngIf="inEditMode" (click)="cancel()" src="assets/cancel.png" />
+</td>
