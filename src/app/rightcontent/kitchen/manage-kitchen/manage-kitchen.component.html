@@ -12,7 +12,7 @@
         <th></th>
       </thead>
       <tbody>
-        <tr *ngFor="let kitchenStation of kitchenStations" appKitchenItem [item]="kitchenStation"></tr>
+        <tr *ngFor="let kitchenStation of kitchenStations" appKitchenItem [restId]="restId" [item]="kitchenStation"></tr>
       </tbody>
     </table>
   </mat-tab>

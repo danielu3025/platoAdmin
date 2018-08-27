@@ -14,10 +14,12 @@ export class KitchenStationService {
 
   private functions;
   private addKitchenStationFunction;
+  private deleteKitchenStationFunction;
 
   constructor(private afs: AngularFirestore, private db: AngularFireDatabase) {
     this.functions = firebase.functions();
     this.addKitchenStationFunction = this.functions.httpsCallable('addKitchenStation');
+    this.deleteKitchenStationFunction = this.functions.httpsCallable('deleteKitchenStation');
   }
 
   getAll(restId: string): Observable<KitchenStation[]> {
@@ -25,6 +27,10 @@ export class KitchenStationService {
   }
 
   create(restId: string, kitchenStation: KitchenStation) {
-    return this.addKitchenStationFunction({restId, kitchenStation});
+    return this.addKitchenStationFunction({ restId, kitchenStation });
+  }
+
+  delete(restId: string, kitchenStationId: string) {
+    return this.deleteKitchenStationFunction({ restId, kitchenStationId });
   }
 }
