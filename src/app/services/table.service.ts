@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {Table} from '../rightcontent/layout/table.model';
+import { Injectable } from '@angular/core';
+import { Table } from '../rightcontent/layout/table.model';
 import * as firebase from 'firebase';
-import {Observable} from 'rxjs/internal/Observable';
-import {AngularFirestore} from 'angularfire2/firestore';
+import { Observable } from 'rxjs/internal/Observable';
+import { AngularFirestore } from 'angularfire2/firestore';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class TableService {
 
   private functions;
@@ -16,6 +16,8 @@ export class TableService {
   private validateTablesAreConnectableFunction;
   private updateTableLocationFunction;
   private mergeMovedTablesFunction;
+  private deleteTableFunction;
+  private updateTableFunction;
 
   constructor(private afs: AngularFirestore) {
     this.functions = firebase.functions();
@@ -27,11 +29,13 @@ export class TableService {
     this.validateTablesAreConnectableFunction = this.functions.httpsCallable('validateTablesAreConnectable');
     this.updateTableLocationFunction = this.functions.httpsCallable('updateTableLocation');
     this.mergeMovedTablesFunction = this.functions.httpsCallable('mergeMovedTables');
+    this.deleteTableFunction = this.functions.httpsCallable('deleteTable');
+    this.updateTableFunction = this.functions.httpsCallable('updateTable');
   }
 
   createTable(restId: string, table: Table) {
     return new Promise((resolve, reject) => {
-      this.addTableFunction({restId, table})
+      this.addTableFunction({ restId, table })
         .then(resolve)
         .catch(reject);
     });
@@ -63,7 +67,7 @@ export class TableService {
 
   mergeTables(restId: string, movedTable: Table, connectedToTable: Table) {
     return new Promise((resolve, reject) => {
-      this.mergeTablesFunction({restId, movedTable, connectedToTable})
+      this.mergeTablesFunction({ restId, movedTable, connectedToTable })
         .then(resolve)
         .catch(reject);
     });
@@ -71,7 +75,7 @@ export class TableService {
 
   disconnectMergedTable(restId: string, mergedTable: Table) {
     return new Promise((resolve, reject) => {
-      this.disconnectMergedTablesFunction({restId, mergedTable})
+      this.disconnectMergedTablesFunction({ restId, mergedTable })
         .then(resolve)
         .catch(reject);
     });
@@ -79,7 +83,7 @@ export class TableService {
 
   validateTablesAreConnectable(restId: string, movedTable: Table, connectedToTable: Table) {
     return new Promise((resolve, reject) => {
-      this.validateTablesAreConnectableFunction({restId, movedTable, connectedToTable})
+      this.validateTablesAreConnectableFunction({ restId, movedTable, connectedToTable })
         .then(resolve)
         .catch(reject);
     });
@@ -87,7 +91,7 @@ export class TableService {
 
   updateTableLocation(restId: string, tableId: number, newX: number, newY: number) {
     return new Promise((resolve, reject) => {
-      this.updateTableLocationFunction({restId, tableId, newX, newY})
+      this.updateTableLocationFunction({ restId, tableId, newX, newY })
         .then(resolve)
         .catch(reject);
     });
@@ -95,9 +99,17 @@ export class TableService {
 
   mergeMovedTables(restId: string, movedTableId: string, connectedToTableId: string) {
     return new Promise((resolve, reject) => {
-      this.mergeMovedTablesFunction({restId, movedTableId, connectedToTableId})
+      this.mergeMovedTablesFunction({ restId, movedTableId, connectedToTableId })
         .then(resolve)
         .catch(reject);
     });
+  }
+
+  delete(restId: string, tableId: string) {
+    return this.deleteTableFunction({ restId, tableId });
+  }
+
+  update(restId: string, tableId: string, newTable) {
+    return this.updateTableFunction({ restId, tableId, newTable });
   }
 }

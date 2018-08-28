@@ -30,7 +30,7 @@ export class NewTableDetailsComponent implements OnInit {
     this.table.acceabilty = this.table.acceabilty.toString() === 'true';
     this.table.isConnectable = this.table.isConnectable.toString() === 'true';
     this.table.smoking = this.table.smoking.toString() === 'true';
-    this.table.size = parseInt(this.size, 10);
+    this.table.size = this.table.width * this.table.height * 2;
     this.newTableCreated.emit(this.table);
 
     this.size = '';

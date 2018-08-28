@@ -51,12 +51,6 @@ export class CreateTableComponent implements OnInit {
         this.tableService.getAllTable(restId).subscribe(x => {
           this.tables = x.filter(x => x.displayed);
           this.tableDetails = x.filter(x => x.displayed);
-          const allConnectedTables = x.filter(x => x.connectedNow);
-          allConnectedTables.forEach(connectedTable => {
-            const connectedToId = Object.keys(connectedTable.connectedTo).find(x => connectedTable.connectedTo[x]).split('table')[1];
-            const connectedToTable = x.find(t => t.id === connectedToId);
-            this.tables.push(connectedToTable);
-          });
 
           this.tablesRectangles = this.tables.map(x => new Rectangle(x.x, x.y, x.width, x.height, x.id, false));
           staticObjects.forEach(obj => this.tablesRectangles.push(new Rectangle(obj.x, obj.y, obj.width, obj.height, '', true)));

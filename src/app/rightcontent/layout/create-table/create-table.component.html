@@ -21,6 +21,7 @@
 <div>
   <table class="table">
     <thead class="thead-light">
+      <th></th>
       <th scope="col">Id</th>
       <th scope="col">Position</th>
       <th scope="col">Accessabillity</th>
@@ -28,6 +29,8 @@
       <th scope="col">Connectable</th>
       <th scope="col">Size</th>
       <th scope="col">Connectable Tables</th>
+      <th></th>
+      <th></th>
     </thead>
     <tbody>
       <tr appTableDetails *ngFor="let table of tableDetails" [restId]="restId" [table]="table" (connectTables)="connectTables($event)">

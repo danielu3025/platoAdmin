@@ -1,8 +1,29 @@
+<td>
+  <img class="stock-item-action" *ngIf="!inEditMode" src="assets/edit.png" (click)="edit()" />
+</td>
 <td scope="row">{{table.id}}</td>
 <td> X: {{table.x}} Y:{{table.y}}</td>
-<td>{{table.acceabilty}}</td>
-<td>{{table.smoking}}</td>
-<td>{{table.isConnectable}}</td>
+<td>
+  <span *ngIf="!inEditMode">{{newTable.acceabilty}}</span>
+  <select *ngIf="inEditMode" [(ngModel)]="newTable.acceabilty">
+    <option [value]="true">Yes</option>
+    <option [value]="false">No</option>
+  </select>
+</td>
+<td>
+  <span *ngIf="!inEditMode">{{newTable.smoking}}</span>
+  <select *ngIf="inEditMode" [(ngModel)]="newTable.smoking">
+    <option [value]="true">Yes</option>
+    <option [value]="false">No</option>
+  </select>
+</td>
+<td>
+  <span *ngIf="!connectedNow && !inEditMode">{{newTable.isConnectable}}</span>
+  <select *ngIf="!connectedNow && inEditMode" [(ngModel)]="newTable.isConnectable">
+    <option [value]="true">Yes</option>
+    <option [value]="false">No</option>
+  </select>
+</td>
 <td>{{table.size}}</td>
 <td>
   <div *ngIf="isMerged">
@@ -19,4 +40,11 @@
       No Connectable Tables
     </div>
   </div>
+</td>
+<td>
+  <img class="stock-item-action" *ngIf="!inEditMode" (click)="delete()" src="assets/delete.png" />
+  <img class="stock-item-action" *ngIf="inEditMode" (click)="ok()" src="assets/ok.png" />
+</td>
+<td>
+  <img class="stock-item-action" *ngIf="inEditMode" (click)="cancel()" src="assets/cancel.png" />
 </td>
