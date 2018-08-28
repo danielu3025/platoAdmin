@@ -6,6 +6,12 @@ export class Location {
   public longitude = telAvivLot;
 }
 
+export class RankingAlerts {
+  public rank1 = 0;
+  public rank2 = 0;
+  public rank3 = 0;
+}
+
 export class Rest {
   public id: string;
   public accesability = false;

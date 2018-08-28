@@ -18,3 +18,13 @@
 h6 {
   padding-left: 85%;
 }
+
+.edit-action {
+  cursor: pointer;
+  width: 25px;
+  height: 25px; 
+  position: absolute;
+  margin-left: 295px;
+  margin-top: -70px;
+}
+

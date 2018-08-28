@@ -47,7 +47,6 @@ import { GridComponent } from './rightcontent/layout/grid/grid.component';
 import { GridCellComponent } from './rightcontent/layout/grid-cell/grid-cell.component';
 import { NewTableDetailsComponent } from './rightcontent/layout/new-grid-object-details/new-table-details/new-table-details.component';
 import { TableDetailsComponent } from './rightcontent/layout/table-details/table-details.component';
-import { ManageRestsComponent } from './rightcontent/rest/manage-rests/manage-rests.component';
 import { ManageWorkersComponent } from './rightcontent/workers/manage-workers/manage-workers.component';
 import { CreateWorkerComponent } from './rightcontent/workers/create-worker/create-worker.component';
 import { NewGridObjectDetailsComponent } from './rightcontent/layout/new-grid-object-details/new-grid-object-details.component';
@@ -78,6 +77,7 @@ import { CreateKitchenComponent } from './rightcontent/kitchen/create-kitchen/cr
 import { ManageKitchenComponent } from './rightcontent/kitchen/manage-kitchen/manage-kitchen.component';
 import { KitchenItemComponent } from './rightcontent/kitchen/kitchen-item/kitchen-item.component';
 import { NewStaticObjectDetailsComponent } from './rightcontent/layout/new-grid-object-details/new-static-object-details/new-static-object-details.component';
+import { SelectRestComponent } from './rightcontent/rest/select-rest/select-rest.component';
 
 firebase.initializeApp(environment.config);
 
@@ -86,7 +86,7 @@ const appRouts: Routes = [
   { path: 'rests', component: RestsOptionsComponent },
   { path: 'kitchen', component: ManageKitchenComponent },
   { path: 'layout', component: LayoutComponent },
-  { path: 'manageRests', component: ManageRestsComponent },
+  { path: 'manageRests', component: SelectRestComponent },
   { path: 'manageStock', component: ManageStockComponent },
   { path: 'manageWorkers', component: ManageWorkersComponent },
   { path: 'createMeal', component: CreateMealPageComponent },
@@ -120,7 +120,7 @@ const appRouts: Routes = [
     GridCellComponent,
     NewTableDetailsComponent,
     TableDetailsComponent,
-    ManageRestsComponent,
+    SelectRestComponent,
     ManageWorkersComponent,
     CreateWorkerComponent,
     NewGridObjectDetailsComponent,
@@ -136,7 +136,7 @@ const appRouts: Routes = [
     MealItemComponent,
     CreateKitchenComponent,
     ManageKitchenComponent,
-    KitchenItemComponent,
+    KitchenItemComponent
   ],
   imports: [
     BrowserModule,

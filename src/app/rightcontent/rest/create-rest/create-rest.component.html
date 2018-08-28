@@ -1,29 +1,27 @@
-
 <div>
-  <div>
+  <div *ngIf="!inEditMode">
     <mat-form-field>
-    <input matInput placeholder="Id" type="text" [(ngModel)]="rest.id">
-  </mat-form-field>
+      <input matInput placeholder="Id" type="text" [(ngModel)]="rest.id" [disabled]="inEditMode">
+    </mat-form-field>
   </div>
   <div>
     <mat-form-field>
-    <input matInput placeholder="Name" type="text" [(ngModel)]="rest.name">
-  </mat-form-field>
+      <input matInput placeholder="Name" type="text" [(ngModel)]="rest.name" [disabled]="inEditMode">
+    </mat-form-field>
   </div>
   <div>
     <mat-form-field>
-    <input matInput placeholder="Address" type="text" [(ngModel)]="rest.address">
+      <input matInput placeholder="Address" type="text" [(ngModel)]="rest.address">
     </mat-form-field>
   </div>
   <div>
     <agm-map [latitude]="rest.location.latitude" [longitude]="rest.location.longitude">
-      <agm-marker [markerDraggable]="true" [latitude]="rest.location.latitude" [longitude]="rest.location.longitude"
-                  (dragEnd)="markerChanged($event)"></agm-marker>
+      <agm-marker [markerDraggable]="true" [latitude]="rest.location.latitude" [longitude]="rest.location.longitude" (dragEnd)="markerChanged($event)"></agm-marker>
     </agm-map>
   </div>
-    <div>
+  <div>
     <mat-form-field>
-    <input matInput placeholder="Phone" type="number" [(ngModel)]="rest.phone">
+      <input matInput placeholder="Phone" type="number" [(ngModel)]="rest.phone">
     </mat-form-field>
   </div>
   <div class="input-group mb-3 image-input">
@@ -35,69 +33,96 @@
       <label class="custom-file-label" for="inputGroupFile01">{{imageText}}</label>
     </div>
   </div>
-    <div>
+  <div>
     <mat-form-field>
-    <mat-select placeholder="Acessability" [(ngModel)]="rest.accesability" required>
-      <mat-option [value]="true">Yes</mat-option>
-      <mat-option [value]="false">No</mat-option>
-    </mat-select>
+      <mat-select placeholder="Acessability" [(ngModel)]="rest.accesability" required>
+        <mat-option [value]="true">Yes</mat-option>
+        <mat-option [value]="false">No</mat-option>
+      </mat-select>
     </mat-form-field>
   </div>
-    <div> 
+  <div>
     <mat-form-field>
-    <mat-select placeholder="Smoking" [(ngModel)]="rest.smoking" required>
-      <mat-option [value]="true">Yes</mat-option>
-      <mat-option [value]="false">No</mat-option>
-    </mat-select>
+      <mat-select placeholder="Smoking" [(ngModel)]="rest.smoking" required>
+        <mat-option [value]="true">Yes</mat-option>
+        <mat-option [value]="false">No</mat-option>
+      </mat-select>
     </mat-form-field>
   </div>
-    <div>
+  <div>
     <mat-form-field>
-    <mat-select placeholder="Rest Type" [(ngModel)]="rest.type" required>
-      <mat-option *ngFor="let item of types"[value]="item">{{item}}</mat-option>
-    </mat-select>
-  </mat-form-field>
+      <mat-select placeholder="Rest Type" [(ngModel)]="rest.type" required>
+        <mat-option *ngFor="let item of types" [value]="item">{{item}}</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
-  <div placeholder="subMenus" *ngFor="let item of subMenus;">
-        <mat-checkbox class="dark-checkbox" [(ngModel)]="item.isSelected">
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Notification For Good Meal Ranking" type="number" min=0 [(ngModel)]="ranking.rank3">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Notification For Average Meal Ranking" type="number" min=0 [(ngModel)]="ranking.rank2">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Notification For Bad Meal Ranking" type="number" min=0 [(ngModel)]="ranking.rank1">
+    </mat-form-field>
+  </div>
+  <div>
+    SubMenus:
+    <div placeholder="subMenus" *ngFor="let item of subMenus;">
+      <mat-checkbox class="dark-checkbox" [(ngModel)]="item.isSelected">
         <label>{{item.value}}</label>
       </mat-checkbox>
+    </div>
   </div>
-
-
   <div>
     <table>
       <thead>
-      <th>Day</th>
-      <th>Starting Time</th>
-      <th>End Time</th>
-      <th>Is Busy</th>
-      <th *ngIf="areThereBusyHours()">Busy Hours</th>
+        <th>Day</th>
+        <th>Starting Time</th>
+        <th>End Time</th>
+        <th>Is Busy</th>
+        <th *ngIf="areThereBusyHours()">Busy Hours</th>
       </thead>
-      <tbody>    
-      <tr *ngFor="let workingDay of rest.workingDays; let i = index">       
-        <td>{{days[i]}}</td> 
-        <td><mat-form-field><input matInput class="start-time" type="time" [(ngModel)]="rest.workingDays[i].startingHour"/></mat-form-field></td>      
-        <td><mat-form-field><input matInput class="end-time" type="time" [(ngModel)]="rest.workingDays[i].endHour"/></mat-form-field></td>
-        <td align="center">
-          <mat-checkbox type="checkbox" class="dark-checkbox" [(ngModel)]="rest.workingDays[i].isBusy"></mat-checkbox>
-        </td>
-        <td>
-          <span *ngIf="rest.workingDays[i].isBusy">
-            <span>All Day: <mat-checkbox type="checkbox" class="dark-checkbox" (change)="insertAllDayBusyHours(i)"></mat-checkbox></span>
-        <mat-form-field>
-            <input matInput placeholder="Starting Time" type="time" [(ngModel)]="rest.workingDays[i].busyHourStart"/>
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="End Time" type="time" [(ngModel)]="rest.workingDays[i].busyHourEnd"/>
-        </mat-form-field>
-          </span>
-        </td>
-      </tr>
+      <tbody>
+        <tr *ngFor="let workingDay of rest.workingDays; let i = index">
+          <td>{{days[i]}}</td>
+          <td>
+            <mat-form-field>
+              <input matInput class="start-time" type="time" [(ngModel)]="rest.workingDays[i].startingHour" />
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <input matInput class="end-time" type="time" [(ngModel)]="rest.workingDays[i].endHour" />
+            </mat-form-field>
+          </td>
+          <td align="center">
+            <mat-checkbox type="checkbox" class="dark-checkbox" [(ngModel)]="rest.workingDays[i].isBusy"></mat-checkbox>
+          </td>
+          <td>
+            <span *ngIf="rest.workingDays[i].isBusy">
+              <span>All Day:
+                <mat-checkbox type="checkbox" class="dark-checkbox" (change)="insertAllDayBusyHours(i)"></mat-checkbox>
+              </span>
+              <mat-form-field>
+                <input matInput placeholder="Starting Time" type="time" [(ngModel)]="rest.workingDays[i].busyHourStart" />
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="End Time" type="time" [(ngModel)]="rest.workingDays[i].busyHourEnd" />
+              </mat-form-field>
+            </span>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
   <div>
-    <button mat-stroked-button (click)="createRest()">Create Rest</button>
+    <button *ngIf="!inEditMode" mat-stroked-button (click)="createRest()">Create Rest</button>
+    <button *ngIf="inEditMode" mat-stroked-button (click)="updateRest()">Update Rest</button>
   </div>
 </div>

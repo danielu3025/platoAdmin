@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {Observer} from 'rxjs/internal/types';
-import {Observable} from 'rxjs/internal/Observable';
-import {AuthService} from './auth.service';
-import {AngularFirestore} from 'angularfire2/firestore';
-import {UserInfo} from './UserInfo.model';
+import { Injectable } from '@angular/core';
+import { Observer } from 'rxjs/internal/types';
+import { Observable } from 'rxjs/internal/Observable';
+import { AuthService } from './auth.service';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { UserInfo } from './UserInfo.model';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class UserInfoService {
 
   private userInfo: UserInfo;
@@ -34,10 +34,14 @@ export class UserInfoService {
   }
 
   setRestId(rest: string) {
-    this.afs.doc(`/GlobWorkers/${this.userInfo.fbId}`).update({lastSelectedRest: rest})
-      .catch(e => {
-        alert('failed setting last selected rest');
-        console.log(e);
-      });
+    return new Promise((resolve: any, reject) => {
+      this.afs.doc(`/GlobWorkers/${this.userInfo.fbId}`).update({ lastSelectedRest: rest })
+        .then(resolve)
+        .catch(e => {
+          alert('failed setting last selected rest');
+          console.log(e);
+          reject(e);
+        });
+    });
   }
 }
