@@ -9,6 +9,7 @@ export class MealTypeService {
   constructor(private afs: AngularFirestore, private db: AngularFireDatabase) {
   }
 
+  // get all meal type from Globals
   getAll(): Observable<string[]> {
     return Observable.create(observer => {
       this.afs.doc('/Globals/mealTypes').valueChanges()

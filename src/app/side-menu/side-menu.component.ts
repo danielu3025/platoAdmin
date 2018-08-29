@@ -19,15 +19,19 @@ export class SideMenuComponent implements OnInit {
   }
 
   ngOnInit() {
+    // check if the user id loggedin
     this.authService.isLoggedIn().subscribe(x => {
       this.isLoggedIn = x;
       if (this.isLoggedIn) {
+        // get the data of user is loggedin
         this.authService.getUserInfo().subscribe(x => {
           this.userInfo = x;
           this.isAdmin = false;
           this.isHost = false;
+          // check if the user that loggedin is admin or super admin and set isAdmin
           if (this.userInfo.role.toLowerCase() === 'admin' || this.userInfo.role.toLowerCase() === 'superAdmin') {
             this.isAdmin = true;
+            // check if the user that loggedin is host and set isHost
           } else if (this.userInfo.role.toLowerCase() === 'host') {
             this.isHost = true;
           }
@@ -36,6 +40,7 @@ export class SideMenuComponent implements OnInit {
     });
   }
 
+  // logout user from the system
   logout() {
     this.authService.logout()
       .then(x => {

@@ -9,6 +9,7 @@ export class RawMaterialUnitService {
   constructor(private afs: AngularFirestore, private db: AngularFireDatabase) {
   }
 
+  // get all units from Globals
   getAll(): Observable<string[]> {
     return Observable.create(observer => {
       this.afs.doc('/Globals/Units').valueChanges()

@@ -16,10 +16,12 @@ export class StaticObjectsService {
     this.createStaticObjectFunction = this.functions.httpsCallable('createStaticObject');
   }
 
+  // get all static object from rest
   getAll(restId: string): Observable<StaticObject[]> {
     return this.afs.collection<StaticObject>(`/${this.dbHelper.getDbRoot()}/${restId}/StaticObjects`).valueChanges();
   }
 
+  // send data to srever for create a new static object(bar, wc, wall...)
   create(restId: string, staticObject: StaticObject) {
     return this.createStaticObjectFunction({ restId, staticObject });
   }

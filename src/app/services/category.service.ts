@@ -8,6 +8,7 @@ export class CategoryService {
 
   constructor(private afs: AngularFirestore, private db: AngularFireDatabase) { }
 
+  // function get all category of rest from Globals
   getAll(): Observable<string[]> {
     return Observable.create(observer => {
       this.afs.doc('Globals/Category').valueChanges()

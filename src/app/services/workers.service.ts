@@ -19,18 +19,22 @@ export class WorkersService {
     this.deleteWorkerFunction = this.functions.httpsCallable('deleteWorker');
   }
 
+  // get all workers for rest
   getAll(restId: string): Observable<Worker[]> {
     return this.afs.collection<Worker>(`/${this.dbHelper.getDbRoot()}/${restId}/Workers`).valueChanges();
   }
 
+  // send data to server for update worker
   updateWorker(restId: string, oldEmail: string, name: string, role: string) {
     return this.updateWorkerFunction({ restId, worker: { name, role, oldEmail } });
   }
 
+  // send data to server for delete worker
   deleteWorker(restId: string, email: string) {
     return this.deleteWorkerFunction({ restId, email });
   }
 
+  // upload image for worker
   uploadWorkerImage(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
       const id = Math.random().toString(36).substring(2);
@@ -44,5 +48,4 @@ export class WorkersService {
         .catch(reject);
     });
   }
-}
 }

@@ -9,6 +9,7 @@ export class RestTypeService {
   constructor(private afs: AngularFirestore, private db: AngularFireDatabase) {
   }
 
+  // get all rest type from Globals
   getAll(): Observable<string[]> {
     return Observable.create(observer => {
       this.afs.doc('/Globals/restType').valueChanges()

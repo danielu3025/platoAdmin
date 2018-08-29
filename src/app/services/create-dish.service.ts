@@ -19,6 +19,7 @@ export class CreateDishService {
     this.addDishFunction = this.functions.httpsCallable('addDish');
   }
 
+  // upload image for dish
   UploadDishImage(restId: string, file: File): Promise<string> {
     return new Promise((resolve, reject) => {
       const id = Math.random().toString(36).substring(2);
@@ -33,6 +34,7 @@ export class CreateDishService {
     });
   }
 
+  // add a new dish to rest
   CreateDish(restId: string, dish: Dish, groceries: string[], update: boolean = false) {
 
     const data = {
@@ -56,6 +58,7 @@ export class CreateDishService {
           resolve();
         })
         .catch(x => {
+          // reject if the dish is already exsists
           reject({
             alreadyExists: x.code === 'already-exists',
             message: `${x.code}: ${x.message}`.toUpperCase()

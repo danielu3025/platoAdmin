@@ -20,10 +20,12 @@ export class MealService {
     this.deleteDishFromMealFunction = this.functions.httpsCallable('deleteDishFromMeal');
   }
 
+  // get all meals from rest
   getAll(restId: string): Observable<Meal[]> {
     return this.afs.collection<Meal>(`/${this.dbHelper.getDbRoot()}/${restId}/Meals`).valueChanges();
   }
 
+  // get all dish that contain in meal
   getDishesForMeal(restId: string, mealName: string): Observable<string[]> {
     return Observable.create((observer) => {
       this.afs.collection<{ id: string }>(`/${this.dbHelper.getDbRoot()}/${restId}/Meals/${mealName}/dishes`).valueChanges()
@@ -33,14 +35,17 @@ export class MealService {
     });
   }
 
+  // send data to server for delete meal
   delete(restId: string, mealName: string): Promise<void> {
     return this.deleteMealFunction({ restId, mealName });
   }
 
+  // send data to server for update meal
   update(restId: string, meal: Meal) {
     return this.updateMealFunction({ restId, meal });
   }
 
+  // send data to server for delete dish that contains in meal
   deleteDishFromMeal(restId: string, mealName: string, dishName: string) {
     return this.deleteDishFromMealFunction({ restId, mealName, dishName });
   }

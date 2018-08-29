@@ -6,6 +6,7 @@ export class UpdateGroceryService {
 
   constructor(private http: HttpClient) { }
 
+  // send data to erver for update grocery
   UpdateGrocery(restId: string, groName: string, cookingTime: number, cookingType: string, rawMaterial: object) {
     this.http.post('https://us-central1-plato-9a79e.cloudfunctions.net/updateGrocery',
       {

@@ -11,16 +11,18 @@ export class UserInfoService {
   private userInfo: UserInfo;
 
   constructor(private authService: AuthService, private afs: AngularFirestore) {
+    // check if user is loggedin
     this.authService.isLoggedIn().subscribe(x => {
       if (!x) {
         return;
       }
+      // get all data for user
       this.authService.getUserInfo().subscribe(x => this.userInfo = x);
     });
   }
 
+  // get the last selected rest by the user is loggedin
   getSelectedRestId(): Observable<string> {
-
     return Observable.create(observer => {
       this.authService.isLoggedIn().subscribe(x => {
         if (!x) {
@@ -33,6 +35,7 @@ export class UserInfoService {
     });
   }
 
+  // update the last selected rest by the user is loggedin
   setRestId(rest: string) {
     return new Promise((resolve: any, reject) => {
       this.afs.doc(`/GlobWorkers/${this.userInfo.fbId}`).update({ lastSelectedRest: rest })

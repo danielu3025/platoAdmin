@@ -1,3 +1,4 @@
+// class for user info
 export class UserInfo {
   fbId = '';
   email = '';

@@ -18,6 +18,7 @@ export class LoginWindowComponent implements OnInit {
   ngOnInit() {
   }
 
+  // login user to the system by email and password
   login() {
     this.auth.signInWithEmailAndPassword(this.username, this.password)
       .then(x => this.router.navigate(['manageRests']));

@@ -22,10 +22,12 @@ export class RestService {
     this.updateRestFunction = this.functions.httpsCallable('updateRest');
   }
 
+  // get all rest from db
   get(restId: string): Observable<Rest> {
     return this.afs.doc<Rest>(`/${this.dbHelper.getDbRoot()}/${restId}`).valueChanges();
   }
 
+  // get all sub menus from rest
   getRestSubMenus(restId: string): Observable<string[]> {
     return Observable.create(observer => {
       this.afs.doc(`/${this.dbHelper.getDbRoot()}/${restId}/restGlobals/subMenus`).valueChanges()
@@ -35,14 +37,17 @@ export class RestService {
     });
   }
 
+  // get all working hours and day for rest
   getRestWorkingHours(restId: string): Observable<WorkingDay[]> {
     return this.afs.collection<WorkingDay>(`/${this.dbHelper.getDbRoot()}/${restId}/WorkingDays`).valueChanges();
   }
 
+  // get ranking alrets/notification for rest
   getRestRankingAlerts(restId: string): Observable<RankingAlerts> {
     return this.afs.doc<RankingAlerts>(`/${this.dbHelper.getDbRoot()}/${restId}/restGlobals/rankingAlerts`).valueChanges();
   }
 
+  // send data to srever for create a new rest
   create(rest: Rest, subMenus: string[], fbId: string, ranking: RankingAlerts) {
     rest.subMenus = subMenus;
     const data = { rest, fbId, ranking };
@@ -51,10 +56,12 @@ export class RestService {
     });
   }
 
+  // send data to srever for update rest
   update(restId: string, subMenus: string[], rest: Rest, ranking: RankingAlerts) {
     return this.updateRestFunction({ restId, subMenus, rest, ranking });
   }
 
+  // upload imange for rest
   UploadRestImage(file: any) {
     return new Promise((resolve, reject) => {
       const id = Math.random().toString(36).substring(2);

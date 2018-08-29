@@ -9,6 +9,7 @@ export class SubMenuService {
   constructor(private afs: AngularFirestore, private db: AngularFireDatabase) {
   }
 
+  // get all sub menus from Globals
   getAll(): Observable<string[]> {
     return Observable.create(observer => {
       this.afs.doc('/Globals/SubMenus').valueChanges()

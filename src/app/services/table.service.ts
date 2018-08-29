@@ -34,6 +34,7 @@ export class TableService {
     this.updateTableFunction = this.functions.httpsCallable('updateTable');
   }
 
+  // send data to server for create a new table
   createTable(restId: string, table: Table) {
     return new Promise((resolve, reject) => {
       this.addTableFunction({ restId, table })
@@ -42,10 +43,12 @@ export class TableService {
     });
   }
 
+  // get all tables from rest
   getAllTable(restId: string): Observable<Table[]> {
     return this.afs.collection<Table>(`/${this.dbHelper.getDbRoot()}/${restId}/Tables`).valueChanges();
   }
 
+  // get all tables that can connect to other table
   getConnectableTables(restId: string, tableId: string): Observable<string[]> {
     return Observable.create(observer => {
       this.afs.collection(`/${this.dbHelper.getDbRoot()}/${restId}/Tables/${tableId}/connectableTables`).valueChanges()
@@ -55,6 +58,7 @@ export class TableService {
     });
   }
 
+  // send data to server for create possible connection for two tables
   setPossibleConnection(restId: string, connectableFromId: string, connectableToId: string) {
     return new Promise((resolve, reject) => {
       this.setPossibleConnectionForTables({
@@ -66,6 +70,7 @@ export class TableService {
     });
   }
 
+  // send data to server for merge two tables to one table
   mergeTables(restId: string, movedTable: Table, connectedToTable: Table) {
     return new Promise((resolve, reject) => {
       this.mergeTablesFunction({ restId, movedTable, connectedToTable })
@@ -74,6 +79,7 @@ export class TableService {
     });
   }
 
+  // send data to server for disconnect two tables to seprated tables
   disconnectMergedTable(restId: string, mergedTable: Table) {
     return new Promise((resolve, reject) => {
       this.disconnectMergedTablesFunction({ restId, mergedTable })
@@ -82,6 +88,7 @@ export class TableService {
     });
   }
 
+  // send data to server for cehck if tables can merge
   validateTablesAreConnectable(restId: string, movedTable: Table, connectedToTable: Table) {
     return new Promise((resolve, reject) => {
       this.validateTablesAreConnectableFunction({ restId, movedTable, connectedToTable })
@@ -90,6 +97,7 @@ export class TableService {
     });
   }
 
+  // send data to server for update location of after moved table
   updateTableLocation(restId: string, tableId: number, newX: number, newY: number) {
     return new Promise((resolve, reject) => {
       this.updateTableLocationFunction({ restId, tableId, newX, newY })
@@ -98,6 +106,7 @@ export class TableService {
     });
   }
 
+  // send data to server for merge two tables
   mergeMovedTables(restId: string, movedTableId: string, connectedToTableId: string) {
     return new Promise((resolve, reject) => {
       this.mergeMovedTablesFunction({ restId, movedTableId, connectedToTableId })
@@ -106,10 +115,12 @@ export class TableService {
     });
   }
 
+  // send data to server to delete table
   delete(restId: string, tableId: string) {
     return this.deleteTableFunction({ restId, tableId });
   }
 
+  // send data to server to update table
   update(restId: string, tableId: string, newTable) {
     return this.updateTableFunction({ restId, tableId, newTable });
   }

@@ -23,14 +23,17 @@ export class KitchenStationService {
     this.deleteKitchenStationFunction = this.functions.httpsCallable('deleteKitchenStation');
   }
 
+  // get all kitchen stsation from rest
   getAll(restId: string): Observable<KitchenStation[]> {
     return this.afs.collection<KitchenStation>(`/${this.dbHelper.getDbRoot()}/${restId}/KitchenStation`).valueChanges();
   }
 
+  // send data to server for create kitchen station
   create(restId: string, kitchenStation: KitchenStation) {
     return this.addKitchenStationFunction({ restId, kitchenStation });
   }
 
+  // send data to server for delete kitchen station
   delete(restId: string, kitchenStationId: string) {
     return this.deleteKitchenStationFunction({ restId, kitchenStationId });
   }
