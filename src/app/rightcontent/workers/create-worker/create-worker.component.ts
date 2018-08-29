@@ -5,6 +5,7 @@ import { UserInfoService } from '../../../services/user-info.service';
 import { ErrorStateMatcher, MatSnackBar } from '@angular/material';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { AlertsService } from '../../../services/alerts.service';
+import { WorkersService } from '../../../services/workers.service';
 
 @Component({
   selector: 'app-create-worker',
@@ -16,15 +17,16 @@ export class CreateWorkerComponent implements OnInit {
   worker: Worker = new Worker();
   password: string;
   restId: string;
-
+  pic: File;
+  picText = 'Choose File';
   idMatcher = new ValueLengthErrorStateMatcher(9);
   passwordMatcher = new PasswordErrorMatcher(6);
 
   @ViewChild('userId') userId: ElementRef;
   @ViewChild('passwordRef') passwordElement: ElementRef;
 
-  constructor(private authService: AuthService, private userInfoService: UserInfoService, 
-    private alertsService: AlertsService) {
+  constructor(private authService: AuthService, private workersService: WorkersService,
+    private userInfoService: UserInfoService, private alertsService: AlertsService) {
   }
 
   ngOnInit() {
@@ -38,17 +40,32 @@ export class CreateWorkerComponent implements OnInit {
       return;
     }
 
-    this.authService.createWorker(this.restId, this.worker.role,
-      this.worker.firstName, this.worker.lastName, this.worker.id, this.password)
-      .then(x => this.alertsService.alert('Worker Created'))
-      .catch(e => {
-        console.log(e);
-        this.alertsService.alertError('Error when creating worker');
+    this.workersService.uploadWorkerImage(this.pic)
+      .then(picUrl => {
+        this.authService.createWorker(this.restId, this.worker.role,
+          this.worker.firstName, this.worker.lastName, this.worker.id, this.password, picUrl)
+          .then(x => this.alertsService.alert('Worker Created'))
+          .catch(e => {
+            console.log(e);
+            this.alertsService.alertError('Error when creating worker');
+          });
+      }).catch(x => {
+        console.log(x);
+        this.alertsService.alertError('Failed uploading worker\'s pic');
       });
   }
 
+  uploadImage(e: any) {
+    this.pic = e.target.files[0];
+    const name = this.pic.name;
+    if (name.length >= 10) {
+      this.picText = `${name.substr(0, 10)}...`;
+    } else {
+      this.picText = name;
+    }
+  }
   private isNewWorkerValid(): boolean {
-    if (this.worker.firstName && this.worker.lastName && this.worker.role) {
+    if (this.worker.firstName && this.worker.lastName && this.worker.role && this.pic) {
       if (this.idMatcher.isErrorState(this.userId.nativeElement as any, null)) {
         return false;
       }

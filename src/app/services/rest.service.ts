@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/operators';
 import { AngularFireStorage } from 'angularfire2/storage';
 import * as firebase from 'firebase';
+import { DbHelperService } from './db-helper.service';
 
 @Injectable({ providedIn: 'root' })
 export class RestService {
@@ -15,19 +16,19 @@ export class RestService {
   private addRestFunction;
   private updateRestFunction;
 
-  constructor(private storage: AngularFireStorage, private afs: AngularFirestore) {
+  constructor(private storage: AngularFireStorage, private afs: AngularFirestore, private dbHelper: DbHelperService) {
     this.functions = firebase.functions();
     this.addRestFunction = this.functions.httpsCallable('addRest');
     this.updateRestFunction = this.functions.httpsCallable('updateRest');
   }
 
   get(restId: string): Observable<Rest> {
-    return this.afs.doc<Rest>(`/RestAlfa/${restId}`).valueChanges();
+    return this.afs.doc<Rest>(`/${this.dbHelper.getDbRoot()}/${restId}`).valueChanges();
   }
 
   getRestSubMenus(restId: string): Observable<string[]> {
     return Observable.create(observer => {
-      this.afs.doc(`/RestAlfa/${restId}/restGlobals/subMenus`).valueChanges()
+      this.afs.doc(`/${this.dbHelper.getDbRoot()}/${restId}/restGlobals/subMenus`).valueChanges()
         .subscribe((data: { list: string[] }) => {
           observer.next(data.list);
         });
@@ -35,11 +36,11 @@ export class RestService {
   }
 
   getRestWorkingHours(restId: string): Observable<WorkingDay[]> {
-    return this.afs.collection<WorkingDay>(`/RestAlfa/${restId}/WorkingDays`).valueChanges();
+    return this.afs.collection<WorkingDay>(`/${this.dbHelper.getDbRoot()}/${restId}/WorkingDays`).valueChanges();
   }
 
   getRestRankingAlerts(restId: string): Observable<RankingAlerts> {
-    return this.afs.doc<RankingAlerts>(`/RestAlfa/${restId}/restGlobals/rankingAlerts`).valueChanges();
+    return this.afs.doc<RankingAlerts>(`/${this.dbHelper.getDbRoot()}/${restId}/restGlobals/rankingAlerts`).valueChanges();
   }
 
   create(rest: Rest, subMenus: string[], fbId: string, ranking: RankingAlerts) {

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/operators';
 import { Grocery } from '../rightcontent/menu/meal.model';
 import * as firebase from 'firebase';
+import { DbHelperService } from './db-helper.service';
 
 
 @Injectable()
@@ -16,14 +17,14 @@ export class KitchenStationService {
   private addKitchenStationFunction;
   private deleteKitchenStationFunction;
 
-  constructor(private afs: AngularFirestore, private db: AngularFireDatabase) {
+  constructor(private afs: AngularFirestore, private db: AngularFireDatabase, private dbHelper: DbHelperService) {
     this.functions = firebase.functions();
     this.addKitchenStationFunction = this.functions.httpsCallable('addKitchenStation');
     this.deleteKitchenStationFunction = this.functions.httpsCallable('deleteKitchenStation');
   }
 
   getAll(restId: string): Observable<KitchenStation[]> {
-    return this.afs.collection<KitchenStation>(`/RestAlfa/${restId}/KitchenStation`).valueChanges();
+    return this.afs.collection<KitchenStation>(`/${this.dbHelper.getDbRoot()}/${restId}/KitchenStation`).valueChanges();
   }
 
   create(restId: string, kitchenStation: KitchenStation) {

@@ -38,7 +38,11 @@ export class SelectRestComponent implements OnInit {
   selectRest(rest) {
     this.userInfoService.setRestId(rest)
       .then(x => {
-        this.router.navigate(['createMeal']);
+        if (this.userInfo.role.toLowerCase() === 'host') {
+          this.router.navigate(['layout']);
+        } else {
+          this.router.navigate(['createMeal']);
+        }
       });
   }
 

@@ -4,21 +4,21 @@
 <td scope="row">{{table.id}}</td>
 <td> X: {{table.x}} Y:{{table.y}}</td>
 <td>
-  <span *ngIf="!inEditMode">{{newTable.acceabilty}}</span>
+  <span *ngIf="!inEditMode">{{yesOrNo(newTable.acceabilty)}}</span>
   <select *ngIf="inEditMode" [(ngModel)]="newTable.acceabilty">
     <option [value]="true">Yes</option>
     <option [value]="false">No</option>
   </select>
 </td>
 <td>
-  <span *ngIf="!inEditMode">{{newTable.smoking}}</span>
+  <span *ngIf="!inEditMode">{{yesOrNo(newTable.smoking)}}</span>
   <select *ngIf="inEditMode" [(ngModel)]="newTable.smoking">
     <option [value]="true">Yes</option>
     <option [value]="false">No</option>
   </select>
 </td>
 <td>
-  <span *ngIf="!connectedNow && !inEditMode">{{newTable.isConnectable}}</span>
+  <span *ngIf="!connectedNow && !inEditMode">{{yesOrNo(newTable.isConnectable)}}</span>
   <select *ngIf="!connectedNow && inEditMode" [(ngModel)]="newTable.isConnectable">
     <option [value]="true">Yes</option>
     <option [value]="false">No</option>

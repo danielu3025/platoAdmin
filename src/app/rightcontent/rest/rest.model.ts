@@ -21,10 +21,6 @@ export class Rest {
   public phone = '';
   public predict = false;
   public picture: string;
-  public rank: Object = {
-    rankSum: 0,
-    totalRanks: 0
-  };
   public smoking = false;
   public type = 'Caffe';
   public subMenus: string[];

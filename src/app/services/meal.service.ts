@@ -3,6 +3,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { Meal } from '../rightcontent/menu/meal.model';
 import * as firebase from 'firebase';
+import { DbHelperService } from './db-helper.service';
 
 @Injectable({ providedIn: 'root' })
 export class MealService {
@@ -12,7 +13,7 @@ export class MealService {
   private updateMealFunction;
   private deleteDishFromMealFunction;
 
-  constructor(private afs: AngularFirestore) {
+  constructor(private afs: AngularFirestore, private dbHelper: DbHelperService) {
     this.functions = firebase.functions();
     this.deleteMealFunction = this.functions.httpsCallable('deleteMeal');
     this.updateMealFunction = this.functions.httpsCallable('updateMeal');
@@ -20,12 +21,12 @@ export class MealService {
   }
 
   getAll(restId: string): Observable<Meal[]> {
-    return this.afs.collection<Meal>(`/RestAlfa/${restId}/Meals`).valueChanges();
+    return this.afs.collection<Meal>(`/${this.dbHelper.getDbRoot()}/${restId}/Meals`).valueChanges();
   }
 
   getDishesForMeal(restId: string, mealName: string): Observable<string[]> {
     return Observable.create((observer) => {
-      this.afs.collection<{ id: string }>(`/RestAlfa/${restId}/Meals/${mealName}/dishes`).valueChanges()
+      this.afs.collection<{ id: string }>(`/${this.dbHelper.getDbRoot()}/${restId}/Meals/${mealName}/dishes`).valueChanges()
         .subscribe(dishes => {
           observer.next(dishes.map(x => x.id));
         });

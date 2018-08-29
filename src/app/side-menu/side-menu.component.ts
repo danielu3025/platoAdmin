@@ -26,9 +26,9 @@ export class SideMenuComponent implements OnInit {
           this.userInfo = x;
           this.isAdmin = false;
           this.isHost = false;
-          if (this.userInfo.role === 'admin' || this.userInfo.role === 'superAdmin') {
+          if (this.userInfo.role.toLowerCase() === 'admin' || this.userInfo.role.toLowerCase() === 'superAdmin') {
             this.isAdmin = true;
-          } else if (this.userInfo.role === 'host') {
+          } else if (this.userInfo.role.toLowerCase() === 'host') {
             this.isHost = true;
           }
         });

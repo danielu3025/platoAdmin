@@ -4,6 +4,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/internal/Observable';
 import * as firebase from 'firebase';
+import { DbHelperService } from './db-helper.service';
 
 @Injectable()
 export class DishService {
@@ -13,7 +14,7 @@ export class DishService {
   private updateDishFunction;
   private deleteGroceryFromDishFunction;
 
-  constructor(private afs: AngularFirestore, private db: AngularFireDatabase) {
+  constructor(private afs: AngularFirestore, private db: AngularFireDatabase, private dbHelper: DbHelperService) {
     this.functions = firebase.functions();
     this.deleteDishFunction = this.functions.httpsCallable('deleteDish');
     this.updateDishFunction = this.functions.httpsCallable('updateDish');
@@ -21,16 +22,16 @@ export class DishService {
   }
 
   getAll(restId: string): Observable<Dish[]> {
-    return this.afs.collection('RestAlfa').doc(restId).collection<Dish>('Dishes').valueChanges();
+    return this.afs.collection(this.dbHelper.getDbRoot()).doc(restId).collection<Dish>('Dishes').valueChanges();
   }
 
   get(restId: string, dish: string): Observable<Dish> {
-    return this.afs.collection('RestAlfa').doc(restId).collection<Dish>('Dishes').doc<Dish>(dish).valueChanges();
+    return this.afs.collection(this.dbHelper.getDbRoot()).doc(restId).collection<Dish>('Dishes').doc<Dish>(dish).valueChanges();
   }
 
   getGroceryForDish(restId: string, dish: string): Observable<string[]> {
     return Observable.create(observer => {
-      this.afs.collection('RestAlfa').doc(restId).collection<Dish>('Dishes').doc(dish)
+      this.afs.collection(this.dbHelper.getDbRoot()).doc(restId).collection<Dish>('Dishes').doc(dish)
         .collection('grocery').valueChanges()
         .subscribe((data: [{ id: string }]) => {
           observer.next(data.map(x => x.id));

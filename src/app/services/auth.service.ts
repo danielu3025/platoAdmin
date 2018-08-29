@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {AngularFireAuth} from 'angularfire2/auth';
-import {Router} from '@angular/router';
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Router } from '@angular/router';
 import * as firebase from 'firebase';
-import {Observable} from 'rxjs/internal/Observable';
-import {User} from 'firebase';
-import {UserInfo} from './UserInfo.model';
-import {AngularFirestore} from 'angularfire2/firestore';
-import {Worker} from '../rightcontent/workers/worker.model';
+import { Observable } from 'rxjs/internal/Observable';
+import { User } from 'firebase';
+import { UserInfo } from './UserInfo.model';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { Worker } from '../rightcontent/workers/worker.model';
 
 @Injectable()
 export class AuthService {
@@ -31,10 +31,10 @@ export class AuthService {
     );
   }
 
-  createWorker(restId, role, firstName, lastName, id, password) {
+  createWorker(restId, role, firstName, lastName, id, password, picUrl) {
     return this.createWorkerFunction({
       restId,
-      worker: {role, firstName, lastName, id, password}
+      worker: { role, firstName, lastName, id, password, pic: picUrl }
     });
   }
 
@@ -77,7 +77,7 @@ export class AuthService {
         const data = x[0].payload.doc.data();
         this.afs.collection(`/GlobWorkers/${id}/Rest`).valueChanges().subscribe(rest => {
           const rests = rest.map(x => Object.keys(x)[0]);
-          const userInfo = new UserInfo(id, data.email, data.name, data.role, data.lastSelectedRest, rests);
+          const userInfo = new UserInfo(id, data.email, data.name, data.role, data.lastSelectedRest, data.pic, rests);
           observer.next(userInfo);
         });
       });

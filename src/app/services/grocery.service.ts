@@ -4,6 +4,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Grocery } from '../rightcontent/menu/meal.model';
 import { Observable } from 'rxjs/internal/Observable';
 import * as firebase from 'firebase';
+import { DbHelperService } from './db-helper.service';
 
 @Injectable()
 export class GroceryService {
@@ -12,18 +13,18 @@ export class GroceryService {
   private updateGrocery;
   private deleteGrocery;
 
-  constructor(private afs: AngularFirestore, private db: AngularFireDatabase) {
+  constructor(private afs: AngularFirestore, private db: AngularFireDatabase, private dbHelper: DbHelperService) {
     this.functions = firebase.functions();
     this.updateGrocery = this.functions.httpsCallable('updateGrocery');
     this.deleteGrocery = this.functions.httpsCallable('deleteGrocery');
   }
 
   getAll(restId: string): Observable<Grocery[]> {
-    return this.afs.collection('RestAlfa').doc(restId).collection<Grocery>('Grocery').valueChanges();
+    return this.afs.collection(this.dbHelper.getDbRoot()).doc(restId).collection<Grocery>('Grocery').valueChanges();
   }
 
   get(restId: string, grocery: string): Observable<Grocery> {
-    return this.afs.collection('RestAlfa').doc(restId).collection<Grocery>('Grocery')
+    return this.afs.collection(this.dbHelper.getDbRoot()).doc(restId).collection<Grocery>('Grocery')
       .doc<Grocery>(grocery).valueChanges();
   }
 

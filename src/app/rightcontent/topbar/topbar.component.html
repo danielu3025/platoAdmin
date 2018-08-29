@@ -1,6 +1,6 @@
 <div class="topBar" #topbar>
   <div class="user-details">
-    <div>Welcome {{userInfo.name}}</div>
+    <img  class="user-pic" [src]="userInfo.pic" />
     <div>{{userInfo.lastSelectedRest}}</div>
   </div>
   <ng-content></ng-content>

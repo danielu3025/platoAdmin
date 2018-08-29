@@ -74,4 +74,8 @@ export class TableDetailsComponent implements OnInit {
         this.alertsService.alertError('Failed updating table');
       });
   }
+
+  yesOrNo(value: boolean): string {
+    return value ? 'Yes' : 'No';
+  }
 }

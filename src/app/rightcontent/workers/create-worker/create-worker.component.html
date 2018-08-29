@@ -1,29 +1,26 @@
 <form>
   <div>
     <mat-form-field>
-      <input matInput placeholder="First Name" [(ngModel)]="worker.firstName" [ngModelOptions]="{standalone: true}"
-             required/>
+      <input matInput placeholder="First Name" [(ngModel)]="worker.firstName" [ngModelOptions]="{standalone: true}" required/>
     </mat-form-field>
   </div>
   <div>
     <mat-form-field>
-      <input matInput placeholder="Last Name" [(ngModel)]="worker.lastName" [ngModelOptions]="{standalone: true}"
-             required/>
+      <input matInput placeholder="Last Name" [(ngModel)]="worker.lastName" [ngModelOptions]="{standalone: true}" required/>
     </mat-form-field>
   </div>
   <div>
     <mat-form-field>
-      <input matInput #userId placeholder="Id" [(ngModel)]="worker.id" type="number" value="" maxlength="9"
-             [errorStateMatcher]="idMatcher"
-             [ngModelOptions]="{standalone: true}" required/>
+      <input matInput #userId placeholder="Id" [(ngModel)]="worker.id" type="number" value="" maxlength="9" [errorStateMatcher]="idMatcher"
+        [ngModelOptions]="{standalone: true}" required/>
       <mat-hint align="end">{{userId.value.length}} / 9</mat-hint>
       <mat-error align="end">{{userId.value.length}} / 9</mat-error>
     </mat-form-field>
   </div>
   <div>
     <mat-form-field>
-      <input matInput #passwordRef placeholder="Password" [(ngModel)]="password" type="password"
-             [ngModelOptions]="{standalone: true}" [errorStateMatcher]="passwordMatcher" required/>
+      <input matInput #passwordRef placeholder="Password" [(ngModel)]="password" type="password" [ngModelOptions]="{standalone: true}"
+        [errorStateMatcher]="passwordMatcher" required/>
       <mat-error align="start">Password must contain at least 6 characters with lower and capital letters and numbers</mat-error>
     </mat-form-field>
   </div>
@@ -35,6 +32,15 @@
         <mat-option value="asdas">asdasd</mat-option>
       </mat-select>
     </mat-form-field>
+  </div>
+  <div class="input-group mb-3 image-input">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Upload</span>
+    </div>
+    <div>
+      <input type="file" class="custom-file-input" id="inputGroupFile01" name="pic" accept="image/*" (change)="uploadImage($event)">
+      <label class="custom-file-label" for="inputGroupFile01">{{picText}}</label>
+    </div>
   </div>
   <button mat-stroked-button (click)="createWorker()">Create</button>
 </form>

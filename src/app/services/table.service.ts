@@ -3,6 +3,7 @@ import { Table } from '../rightcontent/layout/table.model';
 import * as firebase from 'firebase';
 import { Observable } from 'rxjs/internal/Observable';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { DbHelperService } from './db-helper.service';
 
 @Injectable({ providedIn: 'root' })
 export class TableService {
@@ -19,7 +20,7 @@ export class TableService {
   private deleteTableFunction;
   private updateTableFunction;
 
-  constructor(private afs: AngularFirestore) {
+  constructor(private afs: AngularFirestore, private dbHelper: DbHelperService) {
     this.functions = firebase.functions();
     this.addTableFunction = this.functions.httpsCallable('addTable');
     this.setPossibleConnectionForTables = this.functions.httpsCallable('setPossibleConnectionForTables');
@@ -42,12 +43,12 @@ export class TableService {
   }
 
   getAllTable(restId: string): Observable<Table[]> {
-    return this.afs.collection<Table>(`/RestAlfa/${restId}/Tables`).valueChanges();
+    return this.afs.collection<Table>(`/${this.dbHelper.getDbRoot()}/${restId}/Tables`).valueChanges();
   }
 
   getConnectableTables(restId: string, tableId: string): Observable<string[]> {
     return Observable.create(observer => {
-      this.afs.collection(`/RestAlfa/${restId}/Tables/${tableId}/connectableTables`).valueChanges()
+      this.afs.collection(`/${this.dbHelper.getDbRoot()}/${restId}/Tables/${tableId}/connectableTables`).valueChanges()
         .subscribe(x => {
           observer.next(x.map((y: { id: string }) => y.id));
         });
