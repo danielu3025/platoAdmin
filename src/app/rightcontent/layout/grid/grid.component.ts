@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {GridCell} from '../grid-cell/GridCell.model';
-import {ConnectRectanglesEvent, Rectangle} from './GridEvents.model';
-import {Observable} from 'rxjs/internal/Observable';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { GridCell } from '../grid-cell/GridCell.model';
+import { ConnectRectanglesEvent, Rectangle } from './GridEvents.model';
+import { Observable } from 'rxjs/internal/Observable';
 import { AlertsService } from '../../../services/alerts.service';
 
 @Component({
@@ -89,7 +89,7 @@ export class GridComponent implements OnInit {
 
     if (!this.rectMoveStarted
       && this.willRectangleWontOverrideOtherRectangles(this.grid, this.getRectangleInfoFromSelectionStartAndEnd())) {
-        this.alertsService.alertError('New Table Will Override Existing Tables!');
+      this.alertsService.alertError('New Table Will Override Existing Tables!');
       return;
     }
 
@@ -108,7 +108,7 @@ export class GridComponent implements OnInit {
     for (let row = movedRow; row < movedRow + movedRectangle.height; row++) {
       const col = movedCol - 1;
       if (this.grid[row] && this.grid[row][col] && this.grid[row][col].isSelected) {
-        this.movedRectangleConnected.emit({movedId: movedRectangle.id, connectedToId: this.grid[row][col].id});
+        this.movedRectangleConnected.emit({ movedId: movedRectangle.id, connectedToId: this.grid[row][col].id });
         return;
       }
     }
@@ -117,7 +117,7 @@ export class GridComponent implements OnInit {
     for (let row = movedRow; row < movedRow + movedRectangle.height; row++) {
       const col = movedCol + movedRectangle.width;
       if (this.grid[row] && this.grid[row][col] && this.grid[row][col].isSelected) {
-        this.movedRectangleConnected.emit({movedId: movedRectangle.id, connectedToId: this.grid[row][col].id});
+        this.movedRectangleConnected.emit({ movedId: movedRectangle.id, connectedToId: this.grid[row][col].id });
         return;
       }
     }
@@ -126,7 +126,7 @@ export class GridComponent implements OnInit {
     for (let col = movedCol; col < movedCol + movedRectangle.width; col++) {
       const row = movedRow - 1;
       if (this.grid[row] && this.grid[row][col] && this.grid[row][col].isSelected) {
-        this.movedRectangleConnected.emit({movedId: movedRectangle.id, connectedToId: this.grid[row][col].id});
+        this.movedRectangleConnected.emit({ movedId: movedRectangle.id, connectedToId: this.grid[row][col].id });
         return;
       }
     }
@@ -135,13 +135,14 @@ export class GridComponent implements OnInit {
     for (let col = movedCol; col < movedCol + movedRectangle.width; col++) {
       const row = movedRow + movedRectangle.height;
       if (this.grid[row] && this.grid[row][col] && this.grid[row][col].isSelected) {
-        this.movedRectangleConnected.emit({movedId: movedRectangle.id, connectedToId: this.grid[row][col].id});
+        this.movedRectangleConnected.emit({ movedId: movedRectangle.id, connectedToId: this.grid[row][col].id });
         return;
       }
     }
   }
 
-  private getRectangleInfoFromSelectionStartAndEnd() {
+  // Util function to calculate rectangle info
+  private getRectangleInfoFromSelectionStartAndEnd(): Rectangle {
     return {
       x: this.selectEnd.colIndex > this.selectStart.colIndex ? this.selectStart.colIndex : this.selectEnd.colIndex,
       y: this.selectEnd.rowIndex > this.selectStart.rowIndex ? this.selectStart.rowIndex : this.selectEnd.rowIndex,
@@ -153,6 +154,7 @@ export class GridComponent implements OnInit {
 
   }
 
+  // Emit event that cell were selected(identify whether delete or create)
   private selectGridCells() {
     const rectangleInfo = this.getRectangleInfoFromSelectionStartAndEnd();
 
@@ -169,12 +171,14 @@ export class GridComponent implements OnInit {
     }
   }
 
+  // Reset state
   private resetSelectionState() {
     this.isDeleteEvent = false;
     this.rectMoveStarted = false;
     this.selectStart = null;
     this.selectEnd = null;
   }
+
 
   private createEmptyGridObject() {
     const grid = {};
@@ -220,6 +224,7 @@ export class GridComponent implements OnInit {
     return false;
   }
 
+  // Event handler for mouse movement
   mouseMoved(colIndex: string, rowIndex: string) {
 
     if (!this.rectMoveStarted) {
