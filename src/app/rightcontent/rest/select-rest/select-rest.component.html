@@ -1,7 +1,4 @@
 <div class="container">
-  <div class="text-success">
-    <h6>Welcome {{userInfo.name}}</h6>
-  </div>
   <div class="row">
     <div class="col-4 card-container" *ngIf="userInfo.role === 'admin' || userInfo.role === 'superAdmin'">
       <div (click)="createNewRest()" class="card">

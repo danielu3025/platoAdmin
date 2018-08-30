@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Rest, WorkingDay, RankingAlerts } from '../rest.model';
@@ -11,6 +11,7 @@ import { UserInfo } from '../../../services/UserInfo.model';
 import { AuthService } from '../../../services/auth.service';
 import { AlertsService } from '../../../services/alerts.service';
 import { Router } from '@angular/router';
+import { SpinningLoaderComponent } from '../../../common/spinning-loader/spinning-loader.component';
 
 @Component({
   selector: 'app-create-rest',
@@ -20,6 +21,7 @@ import { Router } from '@angular/router';
 export class CreateRestComponent implements OnInit {
 
   @Input() restName: string;
+  @ViewChild(SpinningLoaderComponent) spinner: SpinningLoaderComponent;
 
   rest: Rest = new Rest();
   ranking = new RankingAlerts();
@@ -66,6 +68,14 @@ export class CreateRestComponent implements OnInit {
     });
   }
 
+  private resetFields() {
+    this.rest = new Rest();
+    for (let i = 0; i < 7; i++) {
+      this.rest.workingDays.push(new WorkingDay());
+    }
+    this.subMenus.forEach(x => x.isSelected = false);
+  }
+
   private setSelectedSubMenus(subMenus: string[]) {
     this.subMenus.filter(x => subMenus.find(a => a === x.value)).forEach(x => x.isSelected = true);
   }
@@ -108,46 +118,63 @@ export class CreateRestComponent implements OnInit {
     }
 
     console.log(this.rest);
+    this.spinner.show();
     this.restService.UploadRestImage(this.image)
       .then((imageUrl: string) => {
         this.rest.picture = imageUrl;
         this.restService.create(this.rest, this.subMenus.filter(x => x.isSelected).map(x => x.value), this.userInfo.fbId, this.ranking)
-          .then(x => this.alertsService.alert(`Restaurant ${this.rest.name} Created`))
+          .then(x => {
+            this.alertsService.alert(`Restaurant ${this.rest.name} Created`);
+            this.spinner.hide();
+            this.resetFields();
+          })
           .catch(x => {
             this.alertsService.alertError(`Error when creating restaurant ${this.rest.name}`);
             console.log(x);
+            this.spinner.hide();
           });
       })
       .catch(x => {
         this.alertsService.alertError('Error when uploading restaurant image');
+        this.spinner.hide();
       });
   }
 
   updateRest() {
+    this.spinner.show();
     if (this.image) {
       this.restService.UploadRestImage(this.image)
         .then((imageUrl: string) => {
           this.rest.picture = imageUrl;
           this.restService.update(this.restName, this.subMenus.filter(x => x.isSelected).map(x => x.value),
             this.rest, this.ranking)
-            .then(x => this.alertsService.alert('Rest Updated Successfully'))
+            .then(x => {
+              this.alertsService.alert('Rest Updated Successfully');
+              this.spinner.hide();
+            })
             .catch(x => {
               console.log(x);
               this.alertsService.alertError('Failed Updating Rest');
+              this.spinner.hide();
             });
         })
         .catch(x => {
           console.log(x);
           this.alertsService.alertError('Failed to update image');
+          this.spinner.hide();
         });
     } else {
       delete this.rest.picture;
       this.restService.update(this.restName, this.subMenus.filter(x => x.isSelected).map(x => x.value),
         this.rest, this.ranking)
-        .then(x => this.alertsService.alert('Rest Updated Successfully'))
+        .then(x => {
+          this.alertsService.alert('Rest Updated Successfully');
+          this.spinner.hide();
+        })
         .catch(x => {
           console.log(x);
           this.alertsService.alertError('Failed Updating Rest');
+          this.spinner.hide();
         });
     }
   }

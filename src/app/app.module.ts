@@ -78,6 +78,7 @@ import { ManageKitchenComponent } from './rightcontent/kitchen/manage-kitchen/ma
 import { KitchenItemComponent } from './rightcontent/kitchen/kitchen-item/kitchen-item.component';
 import { NewStaticObjectDetailsComponent } from './rightcontent/layout/new-grid-object-details/new-static-object-details/new-static-object-details.component';
 import { SelectRestComponent } from './rightcontent/rest/select-rest/select-rest.component';
+import { SpinningLoaderComponent } from './common/spinning-loader/spinning-loader.component';
 
 firebase.initializeApp(environment.config);
 
@@ -136,7 +137,8 @@ const appRouts: Routes = [
     MealItemComponent,
     CreateKitchenComponent,
     ManageKitchenComponent,
-    KitchenItemComponent
+    KitchenItemComponent,
+    SpinningLoaderComponent
   ],
   imports: [
     BrowserModule,

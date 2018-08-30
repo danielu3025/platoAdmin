@@ -19,6 +19,7 @@ export class ManageGroceriesComponent implements OnInit {
   constructor(private groceriesService: GroceryService, private userInfoService: UserInfoService,
     private cookingTypesService: CookingTypesService) { }
 
+  // get all dishes and cooking types for rest
   ngOnInit() {
     this.userInfoService.getSelectedRestId().subscribe(restId => {
       this.restId = restId;

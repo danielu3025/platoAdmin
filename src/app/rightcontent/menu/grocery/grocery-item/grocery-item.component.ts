@@ -32,10 +32,12 @@ export class GroceryItemComponent implements OnInit {
     this.inEditMode = true;
   }
 
+  // func cancel edit
   cancel() {
     this.inEditMode = false;
   }
 
+  // send data to service for updating grocery
   ok() {
     this.newGrocery.isEditable = Boolean(this.newGrocery.isEditable);
     this.groceriesService.update(this.restId, this.newGrocery)
@@ -49,6 +51,7 @@ export class GroceryItemComponent implements OnInit {
       });
   }
 
+  // send data to service for delete dish
   delete() {
     if (confirm('Are You Sure You Want To Delete ' + this.grocery.name + '?')) {
       this.groceriesService.delete(this.restId, this.grocery)
@@ -60,6 +63,7 @@ export class GroceryItemComponent implements OnInit {
     }
   }
 
+  // send data to service for delete raw material from grocery
   deleteRawMaterial(rawMaterial: string) {
     if (Object.keys(this.grocery.rawMaterial).length === 1) {
       this.alertsService.alertError('Grocery must have at least one raw material');

@@ -31,6 +31,7 @@ export class AuthService {
     );
   }
 
+  // create a new worker
   createWorker(restId, role, firstName, lastName, id, password, picUrl) {
     return this.createWorkerFunction({
       restId,
@@ -38,6 +39,7 @@ export class AuthService {
     });
   }
 
+  // sign in with password and email
   signInWithEmailAndPassword(email: string, password: string) {
     return new Promise((resolve, reject) => {
       this._firebaseAuth.auth.signInWithEmailAndPassword(email, password)
@@ -46,6 +48,7 @@ export class AuthService {
     });
   }
 
+  // check if user is loggedin the system
   isLoggedIn(): Observable<boolean> {
     return Observable.create(observer => {
       this.user.subscribe(
@@ -60,6 +63,7 @@ export class AuthService {
     });
   }
 
+  // logout user
   logout() {
     return new Promise((resolve, reject) => {
       this._firebaseAuth.auth.signOut()
@@ -68,6 +72,7 @@ export class AuthService {
     });
   }
 
+  // function get all detail of user by email
   getUserInfo(userEmail?: string): Observable<UserInfo> {
     return Observable.create((observer) => {
       const email = userEmail || this.userDetails.email;

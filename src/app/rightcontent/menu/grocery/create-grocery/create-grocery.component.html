@@ -18,13 +18,13 @@
     </mat-form-field>
   </div>
   <div>
-      <mat-form-field>
-        <mat-select placeholder="Is Editable" [(ngModel)]="grocery.isEditable" [ngModelOptions]="{standalone: true}">
-          <mat-option [value]="true">Yes</mat-option>
-          <mat-option [value]="false">No</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
+    <mat-form-field>
+      <mat-select placeholder="Is Editable" [(ngModel)]="grocery.isEditable" [ngModelOptions]="{standalone: true}">
+        <mat-option [value]="true">Yes</mat-option>
+        <mat-option [value]="false">No</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
   <div>
     <div class="" *ngFor="let item of rawMaterial; let i = index">
       <div class="">
@@ -41,5 +41,6 @@
       </div>
     </div>
   </div>
+  <app-spinning-loader></app-spinning-loader>
   <button mat-stroked-button (click)="createGrocery()">Create Grocery</button>
 </div>

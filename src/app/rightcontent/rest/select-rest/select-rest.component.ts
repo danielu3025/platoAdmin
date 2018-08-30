@@ -13,7 +13,7 @@ export class SelectRestComponent implements OnInit {
 
   selectedRest = '';
   restToEdit = '';
-  userInfo: UserInfo = new UserInfo('', '', '', '', '', []);
+  userInfo: UserInfo = new UserInfo('', '', '', '', '', '', []);
 
   constructor(private authService: AuthService, private userInfoService: UserInfoService, private router: Router) {
   }

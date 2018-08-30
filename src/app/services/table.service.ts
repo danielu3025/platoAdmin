@@ -88,7 +88,7 @@ export class TableService {
     });
   }
 
-  // send data to server for cehck if tables can merge
+  // send data to server for cehck if two tables can connect
   validateTablesAreConnectable(restId: string, movedTable: Table, connectedToTable: Table) {
     return new Promise((resolve, reject) => {
       this.validateTablesAreConnectableFunction({ restId, movedTable, connectedToTable })

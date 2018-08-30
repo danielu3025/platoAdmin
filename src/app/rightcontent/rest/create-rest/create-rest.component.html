@@ -122,6 +122,7 @@
     </table>
   </div>
   <div>
+    <app-spinning-loader></app-spinning-loader>
     <button *ngIf="!inEditMode" mat-stroked-button (click)="createRest()">Create Rest</button>
     <button *ngIf="inEditMode" mat-stroked-button (click)="updateRest()">Update Rest</button>
   </div>

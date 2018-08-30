@@ -1,5 +1,5 @@
 export class Rectangle {
-  id: string = '';
+  id: '';
   x: number;
   y: number;
   width: number;

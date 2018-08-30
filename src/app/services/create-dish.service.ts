@@ -34,7 +34,7 @@ export class CreateDishService {
     });
   }
 
-  // add a new dish to rest
+  // send data to server for a new meal
   CreateDish(restId: string, dish: Dish, groceries: string[], update: boolean = false) {
 
     const data = {

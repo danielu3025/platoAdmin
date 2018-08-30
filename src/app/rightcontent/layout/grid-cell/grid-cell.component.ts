@@ -22,6 +22,7 @@ export class GridCellComponent implements OnInit, OnChanges {
   ngOnInit() {
   }
 
+  // Event Handler
   onMouseDownEvent(e) {
     e.preventDefault();
     if (this.cellInfo.isStatic) {
@@ -30,6 +31,7 @@ export class GridCellComponent implements OnInit, OnChanges {
     this.onMouseDown.emit({event: e, cell: this.cellInfo});
   }
 
+  // Event Handler
   onMouseUpEvent() {
     if (this.cellInfo.isStatic) {
       return;
@@ -37,14 +39,17 @@ export class GridCellComponent implements OnInit, OnChanges {
     this.onMouseUp.emit();
   }
 
+  // Event Handler
   onMouseEnterEvent() {
     this.onMouseEnter.emit();
   }
 
+  // Right mouse click event handler
   contextMenuEvent() {
     return false;
   }
 
+  // Angular framework event when data binded is changed
   ngOnChanges(changes: any): void {
     if (this.cellInfo.isStatic) {
       this.cellColor = '#000000';

@@ -21,6 +21,7 @@ export class RawMaterialService {
     this.preCheckForDeletingRawMaterialFunction = this.functions.httpsCallable('preCheckForDeletingRawMaterial');
   }
 
+  // get all raw material from rest
   get(restId: string): Observable<RawMaterial[]> {
     return Observable.create(observer => {
       this.afs.collection<{ value: RawMaterial }>(`/${this.dbHelper.getDbRoot()}/${restId}/WarehouseStock`).valueChanges()
@@ -30,14 +31,18 @@ export class RawMaterialService {
     });
   }
 
+  // send data to server for create a new raw material
   createRawMaterial(restId: string, rawMaterial: RawMaterial) {
     return this.addRawMaterialFunction({ restId, rawMaterial });
   }
 
+  // send data to server for cheack if it's ok to delete raw material
+  // if it's important to meal it's neccesary to delete meal also
   preCheckBeforeDeletingRawMaterial(restId: string, name: string) {
     return this.preCheckForDeletingRawMaterialFunction({ restId, name });
   }
 
+  // send data to srever for delete raw material
   deleteRawMaterial(restId: string, name: string) {
     return this.deleteRawMaterialFunction({ restId, name });
   }

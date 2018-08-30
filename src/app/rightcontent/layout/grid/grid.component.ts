@@ -39,6 +39,7 @@ export class GridComponent implements OnInit {
   constructor(private alertsService: AlertsService) {
   }
 
+  // show tables on the grid map
   ngOnInit() {
     this.grid = this.createEmptyGridObject();
     this.rectanglesObservable.subscribe(x => {
@@ -49,6 +50,7 @@ export class GridComponent implements OnInit {
     });
   }
 
+  // check if user mark a table
   selectionStarted(x, y, e) {
 
     this.resetSelectionState();
@@ -63,18 +65,21 @@ export class GridComponent implements OnInit {
       this.movedRectId = e.cell.id;
     }
 
+    // take a point when user start marking
     this.selectStart = {
       rowIndex: parseInt(y, 10),
       colIndex: parseInt(x, 10)
     };
   }
 
+  // take a point when user end marking
   selectionEnded(x, y) {
     this.selectEnd = {
       rowIndex: parseInt(y, 10),
       colIndex: parseInt(x, 10)
     };
 
+    // if table moved, reset map 
     if (this.rectMoveStarted) {
       this.resetSelectionState();
       this.rectangleFinishedMoving.emit(this.rectangles.find(x => x.id === this.movedRectId));
@@ -93,6 +98,7 @@ export class GridComponent implements OnInit {
     }
   }
 
+  // check if moved table are connect to another table
   private checkIfMovedRectangleConnectedToOtherRectangle() {
     const movedRectangle = this.rectangles.find(x => x.id === this.movedRectId);
     const movedRow = movedRectangle.y;

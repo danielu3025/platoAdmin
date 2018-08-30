@@ -1,8 +1,8 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {NavigationEnd, Router, RouterEvent} from '@angular/router';
-import {UserInfoService} from '../../services/user-info.service';
-import {AuthService} from '../../services/auth.service';
-import {UserInfo} from '../../services/UserInfo.model';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { NavigationEnd, Router, RouterEvent } from '@angular/router';
+import { UserInfoService } from '../../services/user-info.service';
+import { AuthService } from '../../services/auth.service';
+import { UserInfo } from '../../services/UserInfo.model';
 
 @Component({
   selector: 'app-topbar',
@@ -11,7 +11,7 @@ import {UserInfo} from '../../services/UserInfo.model';
 })
 export class TopbarComponent implements OnInit {
   component: '';
-  userInfo: UserInfo = new UserInfo('', '', '', '', '', []);
+  userInfo: UserInfo = new UserInfo('', '', '', '', '', '', []);
 
   constructor(private authService: AuthService) {
   }

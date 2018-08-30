@@ -15,6 +15,7 @@ export class ManageKitchenComponent implements OnInit {
 
   constructor(private kitchenStationService: KitchenStationService, private userInfoService: UserInfoService) { }
 
+  // get all kitchen station for rest
   ngOnInit() {
     this.userInfoService.getSelectedRestId().subscribe(x => {
       this.restId = x;

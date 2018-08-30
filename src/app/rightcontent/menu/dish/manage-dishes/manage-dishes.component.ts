@@ -19,6 +19,7 @@ export class ManageDishesComponent implements OnInit {
   constructor(private userInfoService: UserInfoService, private dishesService: DishService,
     private categoryService: CategoryService) { }
 
+  // get all dishes and category for rest
   ngOnInit() {
     this.userInfoService.getSelectedRestId().subscribe(restId => {
       this.restId = restId;

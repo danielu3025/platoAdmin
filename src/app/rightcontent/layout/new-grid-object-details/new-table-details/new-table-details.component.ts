@@ -1,7 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Table} from '../../table.model';
-import {TableService} from '../../../../services/table.service';
-import {Observable} from 'rxjs/internal/Observable';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Table } from '../../table.model';
+import { TableService } from '../../../../services/table.service';
+import { Observable } from 'rxjs/internal/Observable';
+import { AlertsService } from '../../../../services/alerts.service';
 
 @Component({
   selector: 'app-new-table-details',
@@ -17,7 +18,7 @@ export class NewTableDetailsComponent implements OnInit {
 
   size = '';
 
-  constructor() {
+  constructor(private alertsService: AlertsService) {
   }
 
   ngOnInit() {
@@ -27,6 +28,12 @@ export class NewTableDetailsComponent implements OnInit {
   }
 
   createTable() {
+
+    if (!this.table.id) {
+      this.alertsService.alertError('Please Enter An Id');
+      return;
+    }
+
     this.table.acceabilty = this.table.acceabilty.toString() === 'true';
     this.table.isConnectable = this.table.isConnectable.toString() === 'true';
     this.table.smoking = this.table.smoking.toString() === 'true';

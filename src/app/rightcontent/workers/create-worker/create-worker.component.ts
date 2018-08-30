@@ -6,6 +6,7 @@ import { ErrorStateMatcher, MatSnackBar } from '@angular/material';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { AlertsService } from '../../../services/alerts.service';
 import { WorkersService } from '../../../services/workers.service';
+import { SpinningLoaderComponent } from '../../../common/spinning-loader/spinning-loader.component';
 
 @Component({
   selector: 'app-create-worker',
@@ -24,6 +25,7 @@ export class CreateWorkerComponent implements OnInit {
 
   @ViewChild('userId') userId: ElementRef;
   @ViewChild('passwordRef') passwordElement: ElementRef;
+  @ViewChild(SpinningLoaderComponent) spinner: SpinningLoaderComponent;
 
   constructor(private authService: AuthService, private workersService: WorkersService,
     private userInfoService: UserInfoService, private alertsService: AlertsService) {
@@ -33,10 +35,18 @@ export class CreateWorkerComponent implements OnInit {
     this.userInfoService.getSelectedRestId().subscribe(x => this.restId = x);
   }
 
+  private resetFields() {
+    this.worker = new Worker();
+    this.pic = null;
+    this.picText = 'Choose File';
+  }
+
   createWorker() {
 
+    this.spinner.show();
     if (!this.isNewWorkerValid()) {
       this.alertsService.alertError('Make sure all fields are correct!');
+      this.spinner.hide();
       return;
     }
 
@@ -44,14 +54,20 @@ export class CreateWorkerComponent implements OnInit {
       .then(picUrl => {
         this.authService.createWorker(this.restId, this.worker.role,
           this.worker.firstName, this.worker.lastName, this.worker.id, this.password, picUrl)
-          .then(x => this.alertsService.alert('Worker Created'))
+          .then(x => {
+            this.alertsService.alert('Worker Created');
+            this.spinner.hide();
+            this.resetFields();
+          })
           .catch(e => {
             console.log(e);
             this.alertsService.alertError('Error when creating worker');
+            this.spinner.hide();
           });
       }).catch(x => {
         console.log(x);
         this.alertsService.alertError('Failed uploading worker\'s pic');
+        this.spinner.hide();
       });
   }
 

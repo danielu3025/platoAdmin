@@ -15,6 +15,7 @@ export class CreateMealService {
     this.addMealFunction = this.functions.httpsCallable('addMeal');
   }
 
+  // send data to server for a new meal
   CreateMeal(restId: string, meal: Meal, dishes: string[], rawMaterials) {
     const data = {
       restId,
@@ -29,6 +30,7 @@ export class CreateMealService {
     });
   }
 
+  // upload image for meal
   UploadMealImage(restId: string, file: File) {
     return new Promise((resolve, reject) => {
       const id = Math.random().toString(36).substring(2);

@@ -21,14 +21,17 @@ export class DishService {
     this.deleteGroceryFromDishFunction = this.functions.httpsCallable('deleteGroceryFromDish');
   }
 
+  // get all dish from rest
   getAll(restId: string): Observable<Dish[]> {
     return this.afs.collection(this.dbHelper.getDbRoot()).doc(restId).collection<Dish>('Dishes').valueChanges();
   }
 
+  // get specific dish from rest
   get(restId: string, dish: string): Observable<Dish> {
     return this.afs.collection(this.dbHelper.getDbRoot()).doc(restId).collection<Dish>('Dishes').doc<Dish>(dish).valueChanges();
   }
 
+  // get all grocery that contain in dish
   getGroceryForDish(restId: string, dish: string): Observable<string[]> {
     return Observable.create(observer => {
       this.afs.collection(this.dbHelper.getDbRoot()).doc(restId).collection<Dish>('Dishes').doc(dish)
@@ -39,14 +42,17 @@ export class DishService {
     });
   }
 
+  // send data to server for delete dish
   delete(restId: string, dish: Dish) {
     return this.deleteDishFunction({ restId, dish });
   }
 
+  // send data to server for update dish
   update(restId: string, dish: Dish) {
     return this.updateDishFunction({ restId, dish });
   }
 
+  // send data to server delete grocery that contains in dish
   deleteGroceryFromDish(restId: string, dishName: string, groceryName: string) {
     return this.deleteGroceryFromDishFunction({ restId, dishName, groceryName });
   }

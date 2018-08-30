@@ -19,19 +19,23 @@ export class GroceryService {
     this.deleteGrocery = this.functions.httpsCallable('deleteGrocery');
   }
 
+  // get all grocery from rest
   getAll(restId: string): Observable<Grocery[]> {
     return this.afs.collection(this.dbHelper.getDbRoot()).doc(restId).collection<Grocery>('Grocery').valueChanges();
   }
 
+  // get specific grocery from rest
   get(restId: string, grocery: string): Observable<Grocery> {
     return this.afs.collection(this.dbHelper.getDbRoot()).doc(restId).collection<Grocery>('Grocery')
       .doc<Grocery>(grocery).valueChanges();
   }
 
+  // send data to server for update grocery
   update(restId: string, grocery: Grocery) {
     return this.updateGrocery({ restId, grocery });
   }
 
+  // send data to server for delete grocery
   delete(restId: string, grocery: Grocery) {
     return this.deleteGrocery({ restId, grocery });
   }

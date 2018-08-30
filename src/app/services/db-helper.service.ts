@@ -5,6 +5,7 @@ export class DbHelperService {
 
   constructor() { }
 
+  // get root of db
   getDbRoot(): string {
     return 'RestAlfa';
   }

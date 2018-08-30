@@ -24,6 +24,7 @@ export class DishItemComponent implements OnInit {
       .subscribe(x => this.groceries = x);
   }
 
+  // func edit dish
   edit() {
     this.newDish.name = this.dish.name;
     this.newDish.category = this.dish.category;
@@ -32,10 +33,12 @@ export class DishItemComponent implements OnInit {
     this.inEditMode = true;
   }
 
+  // func cancel edit
   cancel() {
     this.inEditMode = false;
   }
 
+  // send data to service for delete dish
   delete() {
     if (!confirm(`Are you sure you want to delete ${this.dish.name}?`)) {
       return;
@@ -49,6 +52,7 @@ export class DishItemComponent implements OnInit {
       });
   }
 
+  // send data to service for updating dish
   ok() {
     this.newDish.isEditable = this.newDish.isEditable === 'true' ? true : false;
     this.dishService.update(this.restId, this.newDish)
@@ -62,7 +66,9 @@ export class DishItemComponent implements OnInit {
       });
   }
 
+  // send data to service for delete grocery from dish
   deleteGrocery(groceryName: string) {
+    // check if dish contain more than one grocery, if not, cant delete grocery
     if (this.groceries.length === 1) {
       this.alertsService.alertError('Dish must contain at least 1 grocery');
       return;
