@@ -25,6 +25,7 @@ export class SelectRestComponent implements OnInit {
         return;
       }
       this.authService.getUserInfo().subscribe(x => {
+        this.userInfo.role = this.userInfo.role.toLowerCase();
         this.userInfo = x;
       });
     });
@@ -58,6 +59,6 @@ export class SelectRestComponent implements OnInit {
 
   editRest(e: Event, restName: string) {
     e.stopPropagation();
-    this.router.navigate(['createNewRest'], { queryParams: { rest: restName } });
+      this.router.navigate(['createNewRest'], { queryParams: { rest: restName } });
   }
 }

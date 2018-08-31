@@ -31,11 +31,12 @@ export class TableDetailsComponent implements OnInit {
     this.newTable.isConnectable = this.table.isConnectable;
   }
 
-  // 
+  // event emmiter for connect tables
   onConnectTables(tableId: string) {
     this.connectTables.emit({ movedId: tableId, connectedToId: this.table.id });
   }
 
+  // send data to service for disconnect tables
   disconnectMergedTable() {
     this.tablesService.disconnectMergedTable(this.restId, this.table)
       .then(x => this.alertsService.alert('disconnected'))
@@ -45,14 +46,17 @@ export class TableDetailsComponent implements OnInit {
       });
   }
 
+  // func edit table
   edit() {
     this.inEditMode = true;
   }
 
+  // func cancel edit table
   cancel() {
     this.inEditMode = false;
   }
 
+  // send data to service for delete tables
   delete() {
     this.tablesService.delete(this.restId, this.table.id)
       .then(x => this.alertsService.alert('Table Deleted'))
@@ -66,6 +70,7 @@ export class TableDetailsComponent implements OnInit {
       });
   }
 
+  // send data to service for update table
   ok() {
     this.tablesService.update(this.restId, this.table.id, this.newTable)
       .then(x => this.alertsService.alert('Table Updated'))

@@ -16,6 +16,7 @@ export class ManageWorkersComponent implements OnInit {
   constructor(private workersService: WorkersService, private userInfoService: UserInfoService) {
   }
 
+  // get all worker for rest
   ngOnInit() {
     this.userInfoService.getSelectedRestId().subscribe(x => {
       this.restId = x;
