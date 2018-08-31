@@ -24,14 +24,17 @@ export class WorkerItemComponent implements OnInit {
     });
   }
 
+  // func edit worker
   edit() {
     this.inEditMode = true;
   }
 
+  // func cancel edit worker
   cancel() {
     this.inEditMode = false;
   }
 
+  // send data to service for update worker
   ok() {
     this.workersService.updateWorker(this.restId, this.worker.email, this.worker.name, this.worker.role)
       .then(x => alert('updated'))
@@ -41,6 +44,7 @@ export class WorkerItemComponent implements OnInit {
       });
   }
 
+  // send data to service for delete worker
   delete() {
     if (!confirm(`Are you sure you want to delete ${this.worker.name}?`)) {
       return;

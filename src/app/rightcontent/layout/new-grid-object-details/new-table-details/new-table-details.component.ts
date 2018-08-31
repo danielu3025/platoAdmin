@@ -27,6 +27,7 @@ export class NewTableDetailsComponent implements OnInit {
     });
   }
 
+  // send datat to service for create a new table
   createTable() {
 
     if (!this.table.id) {

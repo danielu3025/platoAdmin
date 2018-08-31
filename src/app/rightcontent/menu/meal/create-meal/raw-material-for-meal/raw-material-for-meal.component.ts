@@ -22,6 +22,7 @@ export class RawMaterialForMealComponent implements OnInit, AfterViewInit {
     private alertsService: AlertsService) {
   }
 
+  // get all dishes with their raw mterial
   ngOnInit() {
     this.dishService.get(this.restId, this.dishName).subscribe(x => {
       this.dish = x;

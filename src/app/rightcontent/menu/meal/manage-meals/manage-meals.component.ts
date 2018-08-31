@@ -21,6 +21,7 @@ export class ManageMealsComponent implements OnInit {
     private subMenusService: SubMenuService, private mealTypesService: MealTypeService) {
   }
 
+  // get all meals, sub menus and meal types from rest
   ngOnInit() {
     this.userInfoService.getSelectedRestId().subscribe(x => {
       this.restId = x;

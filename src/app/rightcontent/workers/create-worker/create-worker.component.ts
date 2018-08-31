@@ -41,6 +41,7 @@ export class CreateWorkerComponent implements OnInit {
     this.picText = 'Choose File';
   }
 
+  // send data to service for create new worker
   createWorker() {
 
     this.spinner.show();
@@ -71,6 +72,7 @@ export class CreateWorkerComponent implements OnInit {
       });
   }
 
+  // uploade worker image
   uploadImage(e: any) {
     this.pic = e.target.files[0];
     const name = this.pic.name;
@@ -80,6 +82,8 @@ export class CreateWorkerComponent implements OnInit {
       this.picText = name;
     }
   }
+
+  // check form befor create a new worker
   private isNewWorkerValid(): boolean {
     if (this.worker.firstName && this.worker.lastName && this.worker.role && this.pic) {
       if (this.idMatcher.isErrorState(this.userId.nativeElement as any, null)) {
@@ -138,7 +142,6 @@ export class ValueMinLengthErrorMatcher implements ErrorStateMatcher {
     return control.value.toString().length < this._length;
   }
 }
-
 
 export class PasswordErrorMatcher implements ErrorStateMatcher {
 

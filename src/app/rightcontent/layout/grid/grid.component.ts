@@ -79,7 +79,7 @@ export class GridComponent implements OnInit {
       colIndex: parseInt(x, 10)
     };
 
-    // if table moved, reset map 
+    // if table moved, reset map
     if (this.rectMoveStarted) {
       this.resetSelectionState();
       this.rectangleFinishedMoving.emit(this.rectangles.find(x => x.id === this.movedRectId));

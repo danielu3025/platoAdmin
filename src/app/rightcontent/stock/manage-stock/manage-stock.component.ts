@@ -24,6 +24,7 @@ export class ManageStockComponent implements OnInit {
               private userInfoService: UserInfoService) {
   }
 
+  // get all raw material for rest
   ngOnInit() {
     this.userInfoService.getSelectedRestId().subscribe(x => {
       this.resturantID = x;

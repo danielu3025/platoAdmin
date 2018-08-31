@@ -22,6 +22,7 @@ export class CreateStockItemFormComponent implements OnInit {
     private userInfoService: UserInfoService, private alertsService: AlertsService) {
   }
 
+  // get all unit
   ngOnInit() {
     this.unitService.getAll().subscribe(x => this.units = x);
     this.userInfoService.getSelectedRestId().subscribe(x => this.resturantID = x);
@@ -31,6 +32,7 @@ export class CreateStockItemFormComponent implements OnInit {
     this.rawMaterial = new RawMaterial();
   }
 
+  // send data to service for create new raw material
   create() {
     this.spinner.show();
     this.rawMaterialService.createRawMaterial(this.resturantID, this.rawMaterial)

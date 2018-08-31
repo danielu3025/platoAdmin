@@ -31,8 +31,8 @@ export class TableDetailsComponent implements OnInit {
     this.newTable.isConnectable = this.table.isConnectable;
   }
 
+  // 
   onConnectTables(tableId: string) {
-    console.log('isMerged', this.isMerged);
     this.connectTables.emit({ movedId: tableId, connectedToId: this.table.id });
   }
 

@@ -32,14 +32,17 @@ export class MealItemComponent implements OnInit {
     this.newMeal.price = this.meal.price;
   }
 
+  // func edit meal
   edit() {
     this.inEditMode = true;
   }
 
+  // func cancel edit meal
   cancel() {
     this.inEditMode = false;
   }
 
+  // send data to service for delete meal
   delete() {
     if (!confirm(`Are you sure you want to delete ${this.meal.name}?`)) {
       return;
@@ -53,6 +56,7 @@ export class MealItemComponent implements OnInit {
       });
   }
 
+  // send data to service for update meal
   ok() {
     this.newMeal.dairy = this.getBoolean(this.newMeal.dairy);
     this.newMeal.vegan = this.getBoolean(this.newMeal.vegan);
@@ -66,6 +70,7 @@ export class MealItemComponent implements OnInit {
       });
   }
 
+  // send data to service for delete dish from meal
   deleteDishFromMeal(dish: string) {
     if (this.dishes.length <= 1) {
       this.alertsService.alertError(`Meal must have at least 1 dish`);

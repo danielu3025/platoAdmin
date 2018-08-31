@@ -25,14 +25,17 @@ export class StockItemComponent implements OnInit {
     this.unitService.getAll().subscribe(x => this.units = x);
   }
 
+  // func edit raw material
   edit() {
     this.inEditMode = true;
   }
 
+  // func cancel edit raw material
   cancel() {
     this.inEditMode = false;
   }
 
+  // send data to service for update raw material
   ok() {
     this.rawMaterialService.createRawMaterial(this.restId, this.rawMaterial)
       .then(x => {
@@ -44,8 +47,10 @@ export class StockItemComponent implements OnInit {
       });
   }
 
+  // send data to service for delete raw material
   delete() {
     if (confirm(`Are You Sure You Want To Delete '${this.rawMaterial.name}'?`)) {
+      // check if raw material is important to meal
       this.rawMaterialService.preCheckBeforeDeletingRawMaterial(this.restId, this.rawMaterial.name)
         .then((x: { data: { mealsAboutToDelete: string[] } }) => {
           if (x.data.mealsAboutToDelete.length > 0) {

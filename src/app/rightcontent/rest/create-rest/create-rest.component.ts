@@ -37,6 +37,7 @@ export class CreateRestComponent implements OnInit {
     private restType: RestTypeService, private subMenuService: SubMenuService, private alertsService: AlertsService) {
   }
 
+  // get all rest, working days, rest ranking alerts, sub menus and rest type
   ngOnInit() {
     for (let i = 0; i < 7; i++) {
       this.rest.workingDays.push(new WorkingDay());
@@ -80,6 +81,7 @@ export class CreateRestComponent implements OnInit {
     this.subMenus.filter(x => subMenus.find(a => a === x.value)).forEach(x => x.isSelected = true);
   }
 
+  // uploade image for rest
   uploadImage(e) {
     this.image = e.target.files[0];
     const name = this.image.name;
@@ -90,6 +92,7 @@ export class CreateRestComponent implements OnInit {
     }
   }
 
+  // return all days that are busy
   areThereBusyHours() {
     return this.rest.workingDays.find(x => x.isBusy);
   }
@@ -99,6 +102,7 @@ export class CreateRestComponent implements OnInit {
     this.rest.workingDays[i].busyHourEnd = this.rest.workingDays[i].endHour;
   }
 
+  // check form before create new rest
   validateNewRest(): boolean {
     if (this.subMenus.filter(x => x.isSelected).length === 0) {
       return false;
@@ -110,6 +114,7 @@ export class CreateRestComponent implements OnInit {
     return true;
   }
 
+  // send data to service for create new rest
   createRest() {
 
     if (!this.validateNewRest()) {
@@ -140,6 +145,7 @@ export class CreateRestComponent implements OnInit {
       });
   }
 
+  // send data to service for update rest
   updateRest() {
     this.spinner.show();
     if (this.image) {
@@ -179,6 +185,7 @@ export class CreateRestComponent implements OnInit {
     }
   }
 
+  // set the location in the map
   markerChanged(e) {
     this.rest.location.longitude = e.coords.lng;
     this.rest.location.latitude = e.coords.lat;

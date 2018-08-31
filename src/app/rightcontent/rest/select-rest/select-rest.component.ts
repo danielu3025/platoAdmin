@@ -18,6 +18,7 @@ export class SelectRestComponent implements OnInit {
   constructor(private authService: AuthService, private userInfoService: UserInfoService, private router: Router) {
   }
 
+  // get all rest for user
   ngOnInit() {
     this.authService.isLoggedIn().subscribe(x => {
       if (!x) {
@@ -35,6 +36,7 @@ export class SelectRestComponent implements OnInit {
     this.router.navigate(['createNewRest']);
   }
 
+  // select rest
   selectRest(rest) {
     this.userInfoService.setRestId(rest)
       .then(x => {
